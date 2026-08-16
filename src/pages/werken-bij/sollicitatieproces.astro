@@ -1,0 +1,52 @@
+---
+// src/pages/werken-bij/sollicitatieproces.astro — (Fase 3) — PAGE_SPECS §recruitment
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import WerkwijzeSection from '@components/sections/WerkwijzeSection.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const stappen = [
+  { nummer: 1, titel: 'Solliciteer of bel', beschrijving: `Stuur je cv of een korte motivatie via het formulier. Of bel gewoon: ${bedrijf.telefoonDisplay}. Wij houden het laagdrempelig.` },
+  { nummer: 2, titel: 'Eerste contact (binnen 2 werkdagen)', beschrijving: 'Je hoort snel van ons — altijd binnen 2 werkdagen. We bespreken telefonisch kort je achtergrond en wat je verwachtingen zijn.' },
+  { nummer: 3, titel: 'Kennismakingsgesprek', beschrijving: 'We nodigen je uit voor een gesprek. Informeel en eerlijk. Wij vertellen wat wij zoeken, jij vertelt wie je bent.' },
+  { nummer: 4, titel: 'Meelopen (optioneel)', beschrijving: 'Wil je eerst een dag meekijken hoe het er bij ons aan toe gaat? Dat kan. Beter goed kennismaken dan teleurstellingen achteraf.' },
+  { nummer: 5, titel: 'Aanbod', beschrijving: 'Als het klikt, doen we je een eerlijk aanbod. Gewoon een gesprek, geen druk.' },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Werken bij', href: '/werken-bij' },
+  { label: 'Sollicitatieproces' },
+];
+---
+
+<BaseLayout
+  title="Zo werkt solliciteren bij Van Bijsteren | Harderwijk"
+  description="Hoe verloopt solliciteren bij Van Bijsteren Stukadoorsbedrijf? In vijf laagdrempelige stappen van eerste contact tot aanbod. Altijd reactie binnen 2 werkdagen."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="simple"
+    heading="Zo werkt solliciteren bij Van Bijsteren"
+    subheading="Wij houden het persoonlijk en laagdrempelig. Hieronder lees je precies wat je kunt verwachten."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: 'Open sollicitatie', href: '/werken-bij/open-sollicitatie' }}
+  />
+
+  <section class="container py-12 lg:py-16">
+    <WerkwijzeSection steps={stappen} />
+  </section>
+
+  <CTASection
+    heading="Klaar voor de eerste stap?"
+    subheading="Bekijk onze vacatures of stuur een open sollicitatie."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

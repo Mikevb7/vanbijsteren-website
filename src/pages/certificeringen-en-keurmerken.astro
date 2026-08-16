@@ -1,0 +1,45 @@
+---
+// src/pages/certificeringen-en-keurmerken.astro — (Fase 3) — PAGE_SPECS §vertrouwen
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const body = `
+  <h2>NOA-erkend stukadoorsbedrijf</h2>
+  <p>Van Bijsteren is lid van de NOA, de Nederlandse Ondernemersvereniging voor
+  Afbouwbedrijven. Dit keurmerk geeft u de zekerheid van erkend vakmanschap, duidelijke
+  afspraken en een bedrijf dat zich houdt aan de kwaliteitsnormen van de branche.</p>
+
+  <h2>Wat betekent dit voor u?</h2>
+  <ul>
+    <li>Erkend vakmanschap volgens de normen van de afbouwbranche</li>
+    <li>Heldere, schriftelijke afspraken vooraf</li>
+    <li>Een betrouwbare partner die zijn werk serieus neemt</li>
+  </ul>
+  <p>Heeft u vragen over onze erkenning of werkwijze? Neem gerust contact met ons op.</p>
+`;
+---
+
+<BaseLayout
+  title="NOA erkend stukadoorsbedrijf | Keurmerken Van Bijsteren Harderwijk"
+  description="Van Bijsteren is NOA-erkend stukadoorsbedrijf. Kwaliteit, vakmanschap en betrouwbaarheid geborgd door erkenning van de afbouwbranche."
+>
+  <HeroSection
+    variant="simple"
+    heading="Keurmerken en certificeringen"
+    subheading="Erkend vakmanschap, geborgd door de afbouwbranche. Lees waar onze erkenning voor staat."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Over ons', href: '/over-ons' }}
+  />
+
+  <ContentBlok body={body} />
+
+  <CTASection
+    heading="Vakwerk van een erkend bedrijf?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

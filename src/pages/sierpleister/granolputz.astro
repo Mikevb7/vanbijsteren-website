@@ -1,0 +1,68 @@
+---
+// src/pages/sierpleister/granolputz.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import spachtelputzDetail from '@assets/images/resultaten/spachtelputz-detail.png';
+
+const intro = 'Granolputz is een sierpleister met een grovere korrel en een robuuste, levendige uitstraling. Van Bijsteren verzorgt granolputz in Harderwijk en omgeving — een duurzame en onderhoudsvriendelijke afwerking voor binnen en buiten.';
+
+const body = `
+  <p>Granolputz dankt zijn karakter aan een grovere korrelstructuur, die wanden en
+  gevels een stevige, robuuste uitstraling geeft. De afwerking is duurzaam,
+  onderhoudsvriendelijk en in diverse kleuren leverbaar.</p>
+  <p>Welke sierpleister het beste bij uw project past, hangt af van de locatie en het
+  gewenste effect. Twijfelt u over kleur of structuur? Bezoek onze showroom op
+  ${bedrijf.showroom.omschrijving} voor een live demonstratie. Voor een exacte prijs
+  maken wij vrijblijvend een offerte op maat.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Sierpleister', href: '/sierpleister' },
+  { label: 'Granolputz' },
+];
+---
+
+<BaseLayout
+  title="Granolputz Harderwijk — robuuste sierpleister | Van Bijsteren"
+  description="Granolputz in Harderwijk en omgeving: een grovere, robuuste sierpleister voor binnen en buiten. Duurzaam en onderhoudsvriendelijk. Vraag een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Granolputz" serviceType="Sierpleisterwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Granolputz — robuuste decoratieve wandafwerking"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: spachtelputzDetail, alt: 'Detail van sierpleister-afwerking', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <InterneLinkBlok
+    heading="Meer over sierpleister"
+    links={[
+      { label: 'Sierpleister', href: '/sierpleister', omschrijving: 'Alle sierpleister-afwerkingen.' },
+      { label: 'Spachtelputz', href: '/sierpleister/spachtelputz', omschrijving: 'Populair voor binnen en buiten.' },
+      { label: 'Buitengevelstucwerk', href: '/buitengevelstucwerk', omschrijving: 'Duurzame gevelafwerking.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Granolputz laten aanbrengen?"
+    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

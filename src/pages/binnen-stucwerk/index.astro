@@ -1,0 +1,69 @@
+---
+// src/pages/binnen-stucwerk/index.astro — pillar (Fase 3) — PAGE_SPECS §/binnen-stucwerk
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import DienstGrid from '@components/sections/DienstGrid.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { spokesVoor } from '@data/diensten';
+import { bedrijf } from '@data/bedrijf';
+import stucwerkInUitvoering from '@assets/images/werkfoto/stucwerk-in-uitvoering.jpg';
+
+const intro = 'Strakke wanden en plafonds zijn de basis van een mooi interieur. Van Bijsteren verzorgt binnenstucwerk in alle vormen: van glad pleisterwerk tot spackspuitwerk, van behangklaar tot decoratief. Vakkundig, netjes en op tijd.';
+
+const seoBody = `
+  <p>Goed binnenstucwerk begint bij een goede ondergrond en de juiste afwerking voor
+  uw wensen. Wilt u wanden die klaar zijn voor schilderwerk? Dan is gladpleisterwerk
+  of schuurwerk de aangewezen keuze. Wilt u een decoratief effect? Dan zijn onze
+  sierpleister-afwerkingen een mooie optie.</p>
+  <p>Wij adviseren u graag over de beste keuze voor uw situatie.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Binnen stucwerk' },
+];
+---
+
+<BaseLayout
+  title="Binnenstucwerk Harderwijk | Gladpleister, plafond, schuurwerk | Van Bijsteren"
+  description="Vakkundig binnenstucwerk in Harderwijk en omgeving. Gladpleisterwerk, plafond stucen, schuurwerk en meer. Vraag vrijblijvend een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Binnen stucwerk" serviceType="Binnenstucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Binnen stucwerk — strakke wanden en plafonds"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: stucwerkInUitvoering, alt: 'Stucwerk in uitvoering — Van Bijsteren stukadoor aan het werk', width: 1600, height: 1200 }}
+  />
+
+  <DienstGrid heading="Onze binnenstucwerk-diensten" diensten={spokesVoor('binnen-stucwerk')} columns={2} />
+
+  <SEOContentSection heading="De juiste afwerking voor uw interieur" body={seoBody} />
+
+  <InterneLinkBlok
+    heading="Meer over stucwerk"
+    links={[
+      { label: 'Stucwerk (overzicht)', href: '/stucwerk', omschrijving: 'Alle vormen van stucwerk voor binnen en buiten.' },
+      { label: 'Sierpleister', href: '/sierpleister', omschrijving: 'Decoratieve wandafwerkingen.' },
+      { label: 'Reparatie & renovatie', href: '/stucwerk-reparatie-renovatie', omschrijving: 'Herstel van beschadigd stucwerk.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Strakke wanden laten zetten?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

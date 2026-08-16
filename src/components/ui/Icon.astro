@@ -1,0 +1,23 @@
+---
+// src/components/ui/Icon.astro
+// Dynamische Lucide-icon op naam (bv. "Paintbrush"). Namen komen uit de data-
+// bestanden (diensten.ts, arbeidsvoorwaarden.ts). Decoratief tenzij een label
+// wordt meegegeven via aria.
+import * as lucide from 'lucide-astro';
+
+interface Props {
+  name:    string;
+  size?:   number;
+  class?:  string;
+  label?:  string;   // indien gezet: toegankelijke naam i.p.v. aria-hidden
+}
+
+const { name, size = 24, class: cls, label } = Astro.props;
+const Cmp = (lucide as Record<string, any>)[name];
+
+const a11y = label
+  ? { 'aria-label': label, role: 'img' }
+  : { 'aria-hidden': 'true' };
+---
+
+{Cmp && <Cmp size={size} class={cls} {...a11y} />}

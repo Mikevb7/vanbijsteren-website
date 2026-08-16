@@ -1,0 +1,81 @@
+---
+// src/pages/binnen-stucwerk/behangklaar-sausklaar.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import gladpleisterwanden from '@assets/images/resultaten/gladpleisterwanden.png';
+
+const intro = 'Behangklaar en sausklaar zijn afwerkingen die uw wanden perfect voorbereiden op behang of verf. Van Bijsteren verzorgt beide in Harderwijk en omgeving — zodat de schilder of behanger zonder extra werk aan de slag kan.';
+
+const body = `
+  <p>Sausklaar betekent dat de wand egaal genoeg is om direct te schilderen.
+  Behangklaar is een iets ruwere afwerking die de ondergrond optimaal voorbereidt
+  op behang. Welke afwerking u nodig heeft, hangt af van uw vervolgstap.</p>
+  <p>Twijfelt u tussen sausklaar en behangklaar? Wij adviseren u graag op basis van
+  uw wensen. Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
+`;
+
+const faqItems = [
+  {
+    vraag: 'Wat is het verschil tussen sausklaar en behangklaar?',
+    antwoord: 'Sausklaar betekent dat de wand egaal genoeg is voor schilderwerk. Behangklaar is een iets ruwere afwerking die de ondergrond voor behang voorbereidt. Zie ook ons artikel "Sausklaar of behangklaar?"',
+  },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
+  { label: 'Behang- en sausklaar' },
+];
+---
+
+<BaseLayout
+  title="Behangklaar & sausklaar stucwerk Harderwijk | Van Bijsteren"
+  description="Wanden behangklaar of sausklaar laten maken in Harderwijk en omgeving. Perfect voorbereid voor verf of behang. Vraag een vrijblijvende offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Behangklaar en sausklaar stucwerk" serviceType="Stucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Behang- en sausklaar — wanden perfect voorbereid"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: gladpleisterwanden, alt: 'Wanden strak voorbereid voor behang of verf', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <section class="border-t border-border-light bg-surface-soft">
+    <div class="container max-w-prose py-12 lg:py-16">
+      <h2 class="mb-5 text-ink">Veelgestelde vragen</h2>
+      <FAQAccordion items={faqItems} />
+    </div>
+  </section>
+
+  <InterneLinkBlok
+    heading="Meer over binnenstucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Sausklaar of behangklaar?', href: '/kennis/sausklaar-of-behangklaar', omschrijving: 'Welke afwerking past bij u?' },
+      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Wanden laten voorbereiden?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

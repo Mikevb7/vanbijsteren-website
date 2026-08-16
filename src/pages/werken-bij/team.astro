@@ -1,0 +1,56 @@
+---
+// src/pages/werken-bij/team.astro — (Fase 3, redesign v2) — PAGE_SPECS §recruitment
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import TeamSection from '@components/sections/TeamSection.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const teamLeden = (await getCollection('team'))
+  .sort((a, b) => a.data.volgorde - b.data.volgorde)
+  .map((lid) => ({
+    naam: lid.data.naam,
+    rol: lid.data.rol,
+    foto: lid.data.foto ? { src: lid.data.foto, alt: lid.data.fotoAlt ?? lid.data.naam } : undefined,
+    quote: lid.data.quote,
+  }));
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Werken bij', href: '/werken-bij' },
+  { label: 'Ons team' },
+];
+---
+
+<BaseLayout
+  title="Ons team | Werken bij Van Bijsteren Stukadoorsbedrijf Harderwijk"
+  description="Maak kennis met het team van Van Bijsteren Stukadoorsbedrijf in Harderwijk. Een klein, hecht familieteam van vakmensen."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="simple"
+    heading="Maak kennis met ons team"
+    subheading="Bij Van Bijsteren werk je samen met een klein, hecht team van vakmensen. Je krijgt altijd met dezelfde gezichten te maken."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: 'Zo werken wij', href: '/werken-bij/zo-werken-wij' }}
+  />
+
+  <TeamSection
+    heading="Het team"
+    body="Een klein, hecht familieteam van vakmensen — persoonlijk en betrokken bij ieder project."
+    members={teamLeden}
+  />
+
+  <CTASection
+    heading="Word jij onze nieuwe collega?"
+    subheading="Bekijk onze vacatures of stuur een open sollicitatie."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

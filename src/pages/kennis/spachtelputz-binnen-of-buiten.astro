@@ -1,0 +1,128 @@
+---
+// src/pages/kennis/spachtelputz-binnen-of-buiten.astro — kennisartikel (Fase 3) — PAGE_SPECS §kennis
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ArticleSchema from '@components/schema/ArticleSchema.astro';
+import FAQPageSchema from '@components/schema/FAQPageSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import ArticleMeta from '@components/ui/ArticleMeta.astro';
+import { Lightbulb } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+
+const gepubliceerd = '2026-06-01';
+
+const intro = 'Spachtelputz is geschikt voor zowel binnen als buiten, maar de toepassing verschilt. Voor buiten gebruiken we een speciaal geformuleerde, weersbestendige variant; voor binnen ligt de nadruk op kleur en uitstraling. Hieronder leest u waar u op moet letten.';
+
+const body = `
+  <h2>Spachtelputz binnen</h2>
+  <p>Binnen wordt spachtelputz vooral gekozen om de warme, levende uitstraling.
+  De fijne structuur geeft wanden karakter en is in veel kleuren leverbaar. De
+  afwerking is duurzaam en onderhoudsvriendelijk.</p>
+
+  <h2>Spachtelputz buiten</h2>
+  <p>Voor de gevel gebruiken we een variant die is geformuleerd om weer en wind te
+  weerstaan. Buitenspachtelputz beschermt uw gevel en geeft hem een verzorgde,
+  onderhoudsvriendelijke afwerking die jarenlang meegaat.</p>
+
+  <h2>Waar moet u op letten?</h2>
+  <ul>
+    <li><strong>Toepassing:</strong> gebruik altijd de juiste variant voor binnen of
+    buiten — een binnenproduct hoort niet op de gevel.</li>
+    <li><strong>Kleur en structuur:</strong> deze komen het beste tot hun recht in het
+    echt. Bezoek onze showroom op ${bedrijf.showroom.omschrijving} voor een live
+    demonstratie.</li>
+    <li><strong>Ondergrond:</strong> wij beoordelen de ondergrond en adviseren over de
+    juiste voorbereiding.</li>
+  </ul>
+`;
+
+const faqItems = [
+  {
+    vraag: 'Kan spachtelputz zowel binnen als buiten?',
+    antwoord: 'Ja. Spachtelputz is geschikt voor binnen en buiten, maar we gebruiken per toepassing een andere, daarop afgestemde variant. Voor buiten is dat een weersbestendig product.',
+  },
+  {
+    vraag: 'Wat kost spachtelputz?',
+    antwoord: 'De prijs van spachtelputz verschilt per locatie (binnen of buiten), de oppervlakte en de gekozen kleur. Als richtprijs kunt u denken aan €12 tot €22 per m² voor binnenstucwerk. Vraag een offerte voor een exacte prijs.',
+  },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Kennis' },
+  { label: 'Spachtelputz binnen of buiten?' },
+];
+---
+
+<BaseLayout
+  title="Spachtelputz binnen of buiten? De verschillen | Van Bijsteren"
+  description="Spachtelputz binnen of buiten: wat is het verschil en waar moet u op letten? Van Bijsteren legt de toepassingen helder uit."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ArticleSchema headline="Spachtelputz binnen of buiten? De verschillen" datePublished={gepubliceerd} url="/kennis/spachtelputz-binnen-of-buiten" aboutNaam="Sierpleister" />
+  <FAQPageSchema items={faqItems} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="simple"
+    badge="Kennisartikel"
+    heading="Spachtelputz binnen of buiten? De verschillen"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Sierpleister', href: '/sierpleister' }}
+  />
+
+  <div class="container max-w-prose pt-6">
+    <ArticleMeta datum={gepubliceerd} leestijd={3} auteur={bedrijf.naamKort} />
+  </div>
+
+  <div class="container max-w-prose pt-10">
+    <aside class="flex gap-4 rounded-2xl border-l-4 border-primary bg-primary-10 p-6 ring-1 ring-primary/10">
+      <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white">
+        <Lightbulb size={20} aria-hidden="true" strokeWidth={2.25} />
+      </span>
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wide text-primary-dark">Kern</p>
+        <p class="mt-1 text-base leading-relaxed text-ink">
+          Spachtelputz kan binnen én buiten — maar altijd met de daarvoor geformuleerde
+          variant. Wij adviseren u welke voor uw project past.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <ContentBlok body={body} />
+
+  <section class="border-y border-border-light bg-surface-soft">
+    <div class="container max-w-prose py-16 lg:py-20">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+        <span class="h-px w-8 bg-primary-dark"></span>
+        FAQ
+      </span>
+      <h2 class="mt-3 mb-8 text-ink tracking-tight">Veelgestelde vragen</h2>
+      <FAQAccordion items={faqItems} />
+    </div>
+  </section>
+
+  <InterneLinkBlok
+    heading="Lees ook"
+    links={[
+      { label: 'Spachtelputz', href: '/sierpleister/spachtelputz', omschrijving: 'Voor binnen en buiten.' },
+      { label: 'Spachtelputz buiten', href: '/buitengevelstucwerk/spachtelputz-buiten', omschrijving: 'Weersbestendige gevelafwerking.' },
+      { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Spachtelputz laten aanbrengen?"
+    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+// src/components/schema/ArticleSchema.astro
+// Article JSON-LD voor kennisartikelen (SEO_STRATEGY.md §6.6).
+import { bedrijf } from '@data/bedrijf';
+
+interface Props {
+  headline:       string;
+  datePublished:  string;        // ISO 8601
+  dateModified?:  string;        // ISO 8601
+  url:            string;        // pad of absolute URL van het artikel
+  aboutNaam?:     string;        // gerelateerde dienst, bv. "Stucwerk"
+}
+
+const { headline, datePublished, dateModified, url, aboutNaam } = Astro.props;
+
+const pageURL = new URL(url, bedrijf.website).toString();
+const logoURL = new URL('/logo.svg', bedrijf.website).toString();
+
+const organisatie = {
+  '@type': 'Organization',
+  name: bedrijf.naam,
+};
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline,
+  author: organisatie,
+  publisher: {
+    ...organisatie,
+    logo: { '@type': 'ImageObject', url: logoURL },
+  },
+  datePublished,
+  dateModified: dateModified ?? datePublished,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageURL },
+};
+
+if (aboutNaam) {
+  schema.about = { '@type': 'Service', name: aboutNaam };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

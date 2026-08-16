@@ -1,0 +1,142 @@
+# public/admin/config.yml
+# Decap CMS v3 — git-based headless CMS voor Netlify (DATA_MODELS.md §8).
+# identifier_field per collectie: de velden zijn Nederlands, dus de standaard
+# "title" bestaat niet. slug-templates verwijzen naar bestaande frontmatter-velden.
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: nl
+
+collections:
+  - name: "projecten"
+    label: "Projecten"
+    label_singular: "Project"
+    folder: "src/content/projecten"
+    create: true
+    identifier_field: "titel"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel",        name: "titel",       widget: "string" }
+      - { label: "Dienst (slug)",name: "dienst",      widget: "string" }
+      - { label: "Dienst (naam)",name: "dienstLabel", widget: "string" }
+      - { label: "Dienst (link)",name: "dienstHref",  widget: "string" }
+      - { label: "Plaats",       name: "plaats",      widget: "string" }
+      - { label: "Plaatslink",   name: "plaatsHref",  widget: "string", required: false }
+      - { label: "Datum",        name: "datum",       widget: "datetime" }
+      - { label: "Uitgelicht",   name: "uitgelicht",  widget: "boolean", default: false }
+      - { label: "Afbeelding",   name: "afbeelding",  widget: "image" }
+      - { label: "Afbeelding alt", name: "afbeeldingAlt", widget: "string" }
+      - { label: "Voor-foto",    name: "voor",        widget: "image",  required: false }
+      - { label: "Voor-foto alt",name: "voorAlt",     widget: "string", required: false }
+      - { label: "Na-foto",      name: "na",          widget: "image",  required: false }
+      - { label: "Na-foto alt",  name: "naAlt",       widget: "string", required: false }
+      - { label: "Samenvatting (max 160 tekens)", name: "samenvatting", widget: "string" }
+      - { label: "Beschrijving", name: "body",        widget: "markdown" }
+
+  - name: "vacatures"
+    label: "Vacatures"
+    label_singular: "Vacature"
+    folder: "src/content/vacatures"
+    create: true
+    identifier_field: "titel"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Functietitel",    name: "titel",          widget: "string" }
+      - { label: "URL-slug",        name: "slug",           widget: "string" }
+      - { label: "Samenvatting",    name: "samenvatting",   widget: "string" }
+      - { label: "Actief",          name: "isActief",       widget: "boolean", default: true }
+      - { label: "Gepubliceerd op", name: "datePosted",     widget: "datetime" }
+      - { label: "Geldig tot",      name: "validThrough",   widget: "datetime" }
+      - label: "Dienstverband"
+        name: "employmentType"
+        widget: "select"
+        default: "FULL_TIME"
+        options: ["FULL_TIME","PART_TIME","CONTRACTOR","TEMPORARY","INTERN","VOLUNTEER","PER_DIEM","OTHER"]
+      - { label: "Stad",            name: "stad",           widget: "string", default: "Harderwijk" }
+      - { label: "Postcode",        name: "postcode",       widget: "string", required: false }
+      - { label: "Salarismin",      name: "salarisMin",     widget: "number",  required: false }
+      - { label: "Salarismax",      name: "salarisMax",     widget: "number",  required: false }
+      - label: "Salariseenheid"
+        name: "salarisEenheid"
+        widget: "select"
+        default: "MONTH"
+        options: ["HOUR","DAY","WEEK","MONTH","YEAR"]
+      - { label: "Vereisten",       name: "vereisten",      widget: "list" }
+      - { label: "Wat wij bieden",  name: "aanbod",         widget: "list" }
+      - { label: "Highlights (3)",  name: "highlights",     widget: "list" }
+      - { label: "Vacaturetekst",   name: "body",           widget: "markdown" }
+
+  - name: "faq"
+    label: "Veelgestelde vragen"
+    label_singular: "FAQ-item"
+    folder: "src/content/faq"
+    create: true
+    identifier_field: "vraag"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Vraag",    name: "vraag",     widget: "string" }
+      - label: "Categorie"
+        name: "categorie"
+        widget: "select"
+        options: ["klant","kandidaat","werkgebied","diensten","algemeen"]
+      - { label: "Volgorde", name: "volgorde",  widget: "number", default: 99 }
+      - { label: "Antwoord", name: "body",      widget: "markdown" }
+
+  - name: "reviews"
+    label: "Reviews"
+    label_singular: "Review"
+    folder: "src/content/reviews"
+    create: true
+    identifier_field: "auteur"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Auteur (voornaam + initiaal)", name: "auteur",       widget: "string" }
+      - { label: "Plaats",                       name: "plaats",       widget: "string", required: false }
+      - { label: "Beoordeling (1-5)",            name: "rating",       widget: "number" }
+      - label: "Bron"
+        name: "bron"
+        widget: "select"
+        options: ["google","eigen","mondeling"]
+      - { label: "Datum",                        name: "datum",        widget: "datetime" }
+      - { label: "Uitgelicht op homepage",       name: "uitgelicht",   widget: "boolean", default: false }
+      - { label: "Geverifieerd",                 name: "geverifieerd", widget: "boolean", default: false }
+      - { label: "Review-tekst",                 name: "body",         widget: "markdown" }
+
+  - name: "team"
+    label: "Team"
+    label_singular: "Teamlid"
+    folder: "src/content/team"
+    create: true
+    identifier_field: "naam"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Naam",     name: "naam",     widget: "string" }
+      - { label: "Rol",      name: "rol",      widget: "string" }
+      - { label: "Foto",     name: "foto",     widget: "image",  required: false }
+      - { label: "Foto alt", name: "fotoAlt",  widget: "string", required: false }
+      - { label: "Quote",    name: "quote",    widget: "string", required: false }
+      - { label: "Volgorde", name: "volgorde", widget: "number", default: 99 }
+      - { label: "Bio",      name: "body",     widget: "markdown", required: false }
+
+  - name: "kennis"
+    label: "Kennisartikelen"
+    label_singular: "Kennisartikel"
+    folder: "src/content/kennis"
+    create: true
+    identifier_field: "titel"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel",       name: "titel",        widget: "string" }
+      - { label: "Samenvatting",name: "samenvatting",  widget: "string" }
+      - { label: "Gepubliceerd",name: "gepubliceerd",  widget: "datetime" }
+      - { label: "Bijgewerkt",  name: "bijgewerkt",   widget: "datetime", required: false }
+      - label: "Categorie"
+        name: "categorie"
+        widget: "select"
+        options: ["kosten","keuze","proces","onderhoud","materiaal"]
+      - { label: "Inhoud",      name: "body",          widget: "markdown" }

@@ -1,0 +1,48 @@
+---
+// src/components/sections/StatistiekenBlok.astro — COMPONENT_SPEC §13 (redesigned v2)
+// Noot: vermijd verouderende getallen ("45 jaar"); gebruik oprichtingsjaar.
+import Icon from '@components/ui/Icon.astro';
+import type { Statistiek } from '@/types';
+
+type Props = {
+  stats: Statistiek[];
+  class?: string;
+};
+
+const { stats, class: extra = '' } = Astro.props;
+const kolommen = stats.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
+---
+
+<section class:list={['relative isolate overflow-hidden bg-surface-soft py-16 lg:py-20', extra]}>
+  {/* Subtiele decoratieve blob */}
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" aria-hidden="true"></div>
+
+  <div class="container">
+    {/* <ul> ipv <dl>: axe-core wilt dt/dd direct als children (geen <div> wrapper).
+        Lijst-semantics is voor stats even geschikt en werkt in screenreaders. */}
+    <ul class:list={['grid grid-cols-2 gap-4 sm:gap-6', kolommen]}>
+      {stats.map((stat) => (
+        <li
+          class="group relative flex flex-col items-center gap-3 rounded-2xl border border-border-light bg-surface p-6 text-center
+                 shadow-sm transition-[transform,box-shadow,border-color] duration-300
+                 hover:-translate-y-1 hover:shadow-md hover:border-primary/25"
+        >
+          {stat.icon && (
+            <span
+              class="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
+                     transition-[background-color,color,transform] duration-300
+                     group-hover:bg-primary group-hover:text-white group-hover:scale-105"
+            >
+              <Icon name={stat.icon} size={30} />
+            </span>
+          )}
+          <span class="text-3xl font-extrabold tracking-tight text-primary-dark lg:text-[2.5rem] lg:leading-none">
+            {stat.waarde}
+          </span>
+          <span class="text-sm font-medium leading-snug text-ink-light">{stat.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+---
+// src/pages/stucwerk.astro — pillar (Fase 3) — PAGE_SPECS §/stucwerk
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import DienstGrid from '@components/sections/DienstGrid.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { pillarDiensten } from '@data/diensten';
+import { bedrijf } from '@data/bedrijf';
+import totaaloverzichtKamer from '@assets/images/resultaten/totaaloverzicht-kamer.png';
+
+const intro = 'Stucwerk laten doen? Van Bijsteren Stukadoorsbedrijf verzorgt alle vormen van stucwerk in Harderwijk en omgeving: van strak gladpleisterwerk tot decoratief Italiaans stucwerk. Al drie generaties lang, NOA-erkend en altijd netjes afgewerkt.';
+
+const seoBody = `
+  <p>Of het nu gaat om nieuwe wanden in uw woning, een gerenoveerde gevel of een
+  bijzondere decoratieve afwerking — stucwerk vereist vakmanschap en aandacht voor
+  detail. Bij Van Bijsteren combineren wij generaties ervaring met moderne technieken
+  en materialen.</p>
+  <p>Wij werken voor particulieren en aannemers in Harderwijk, Ermelo, Putten,
+  Nunspeet en de omliggende regio.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk' },
+];
+---
+
+<BaseLayout
+  title="Stucwerk laten doen in Harderwijk? | Van Bijsteren Stukadoorsbedrijf"
+  description="Van Bijsteren Stukadoorsbedrijf verzorgt alle vormen van stucwerk in Harderwijk en omgeving. Binnen, buiten, decoratief en reparatie."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Stucwerk" serviceType="Stukadoorswerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Stucwerk — erkend vakmanschap in de Noord-Veluwe"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: totaaloverzichtKamer, alt: 'Volledig gestuct en afgewerkte kamer', width: 1200, height: 900 }}
+  />
+
+  <DienstGrid heading="Wat wij doen" diensten={pillarDiensten} columns={3} />
+
+  <SEOContentSection heading="Vakwerk voor particulier en aannemer" body={seoBody} />
+
+  <CTASection
+    heading="Stucwerk laten uitvoeren?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

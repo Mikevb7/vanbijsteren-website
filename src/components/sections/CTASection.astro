@@ -1,0 +1,54 @@
+---
+// src/components/sections/CTASection.astro — afsluitende CTA-band (redesigned v2)
+import Button from '@components/ui/Button.astro';
+import type { CTA } from '@/types';
+
+type Props = {
+  heading: string;
+  subheading?: string;
+  primaryCta: CTA;
+  secondaryCta?: CTA;
+  class?: string;
+};
+
+const { heading, subheading, primaryCta, secondaryCta, class: extra = '' } = Astro.props;
+---
+
+<section
+  class:list={[
+    'relative isolate overflow-hidden bg-primary py-20 text-white lg:py-24',
+    extra,
+  ]}
+  aria-label={heading}
+>
+  {/* Subtiele decoratieve blobs voor diepte */}
+  <div class="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary-light/25 blur-3xl" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-primary-dark/40 blur-3xl" aria-hidden="true"></div>
+  {/* Zeer subtiel dot-patroon */}
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.08]"
+    style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container relative max-w-content text-center">
+    <h2 class="text-white tracking-tight">{heading}</h2>
+    {subheading && (
+      <p class="mx-auto mt-5 max-w-prose text-lg leading-relaxed text-white/90 lg:text-xl">
+        {subheading}
+      </p>
+    )}
+    <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+      <Button href={primaryCta.href} size="lg" variant="dark"
+              external={primaryCta.external} ariaLabel={primaryCta.ariaLabel}>
+        {primaryCta.label}
+      </Button>
+      {secondaryCta && (
+        <Button href={secondaryCta.href} size="lg" variant="dark"
+                external={secondaryCta.external} ariaLabel={secondaryCta.ariaLabel}>
+          {secondaryCta.label}
+        </Button>
+      )}
+    </div>
+  </div>
+</section>

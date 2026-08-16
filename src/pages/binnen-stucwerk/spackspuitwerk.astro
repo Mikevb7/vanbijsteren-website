@@ -1,0 +1,66 @@
+---
+// src/pages/binnen-stucwerk/spackspuitwerk.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import gereedschap from '@assets/images/werkfoto/gereedschap.png';
+
+const intro = 'Spackspuitwerk is een snelle en kostenefficiënte manier om grote oppervlakten af te werken. Van Bijsteren brengt spackspuitwerk aan op wanden en plafonds in Harderwijk en omgeving — strak gespoten en gelijkmatig van structuur.';
+
+const body = `
+  <p>Bij spackspuitwerk wordt de afwerking machinaal opgespoten, waardoor grote
+  wanden en plafonds snel en gelijkmatig van een structuur worden voorzien. Het is
+  daardoor een aantrekkelijke keuze voor grotere oppervlakten en projecten.</p>
+  <p>Wij adviseren u graag of spackspuitwerk past bij uw ruimte en gewenste
+  uitstraling. Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
+  { label: 'Spackspuitwerk' },
+];
+---
+
+<BaseLayout
+  title="Spackspuitwerk Harderwijk — snel en efficiënt | Van Bijsteren"
+  description="Spackspuitwerk in Harderwijk en omgeving: snel en kostenefficiënt afwerken van wanden en plafonds. Vraag een vrijblijvende offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Spackspuitwerk" serviceType="Stucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Spackspuitwerk — snel en kostenefficiënt afwerken"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: gereedschap, alt: 'Gereedschap voor spackspuitwerk', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <InterneLinkBlok
+    heading="Meer over binnenstucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Spackspuitwerk laten aanbrengen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

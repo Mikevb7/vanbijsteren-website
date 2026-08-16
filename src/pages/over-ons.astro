@@ -1,0 +1,127 @@
+---
+// src/pages/over-ons.astro — familieverhaal (Fase 3, redesign v2) — PAGE_SPECS §/over-ons
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import FamiliebedrijfSection from '@components/sections/FamiliebedrijfSection.astro';
+import StatistiekenBlok from '@components/sections/StatistiekenBlok.astro';
+import TeamSection from '@components/sections/TeamSection.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { Award, Store, Sparkles } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+import familieFoto from '@assets/images/over-ons/drie-generaties-van-bijsteren.jpg';
+
+const teamLeden = (await getCollection('team'))
+  .sort((a, b) => a.data.volgorde - b.data.volgorde)
+  .map((lid) => ({
+    naam: lid.data.naam,
+    rol: lid.data.rol,
+    foto: lid.data.foto ? { src: lid.data.foto, alt: lid.data.fotoAlt ?? lid.data.naam } : undefined,
+    quote: lid.data.quote,
+  }));
+
+const stats = [
+  { waarde: String(bedrijf.generaties), label: 'Generaties vakmanschap', icon: 'Users' },
+  { waarde: `${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
+  { waarde: 'NOA', label: 'Erkend keurmerk', icon: 'Award' },
+  { waarde: String(bedrijf.oprichtingsjaar), label: 'Opgericht', icon: 'Calendar' },
+];
+
+const verhaalBody = `
+  <p>Van Bijsteren Stukadoorsbedrijf heeft zijn wortels in Harderwijk. Wat
+  Herman van Bijsteren in ${bedrijf.oprichtingsjaar} begon, is uitgegroeid tot een
+  erkend stukadoorsbedrijf met een hecht team van vakmensen.</p>
+  <p>Drie generaties lang is er één ding niet veranderd: de aandacht voor kwaliteit
+  en de trots op goed vakwerk. Of het nu gaat om een eenvoudige reparatie of een
+  complete gevel — wij doen ons best voor ieder project.</p>
+  <p>Wij zijn lid van de NOA (Nederlandse Ondernemersvereniging voor Afbouwbedrijven)
+  en werken vanuit onze showroom op industrieterrein Lorentz in Harderwijk.</p>
+`;
+
+const verhaalHighlights = [
+  { icon: 'Award', titel: 'NOA erkend' },
+  { icon: 'Calendar', titel: `Sinds ${bedrijf.oprichtingsjaar}` },
+  { icon: 'Store', titel: 'Eigen showroom' },
+];
+---
+
+<BaseLayout
+  title="Over Van Bijsteren Stukadoorsbedrijf | Al generaties vakmanschap in Harderwijk"
+  description="Van Bijsteren Stukadoorsbedrijf is een familiebedrijf in Harderwijk met drie generaties vakmanschap. Leer ons kennen."
+>
+  <HeroSection
+    variant="simple"
+    badge={`Familiebedrijf sinds ${bedrijf.oprichtingsjaar}`}
+    heading="Over Van Bijsteren — drie generaties stukadoors"
+    subheading={`In ${bedrijf.oprichtingsjaar} begon Herman van Bijsteren een stukadoorsbedrijf in Harderwijk. Vandaag staat de derde generatie Van Bijsteren voor hetzelfde vakmanschap.`}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+  />
+
+  <FamiliebedrijfSection
+    heading="Ons verhaal"
+    body={verhaalBody}
+    image={{ src: familieFoto, alt: 'Drie generaties Van Bijsteren: Mike, Gert en Marcel', width: 1600, height: 1200 }}
+    highlights={verhaalHighlights}
+    imageLeft={true}
+  />
+
+  <StatistiekenBlok stats={stats} />
+
+  <TeamSection
+    heading="De mensen achter het bedrijf"
+    body="Een klein, hecht team van vakmensen — u krijgt altijd met dezelfde gezichten te maken."
+    members={teamLeden}
+  />
+
+  <!-- Keurmerk & showroom -->
+  <section class="container pb-20 lg:pb-24" aria-label="Keurmerk en showroom">
+    <div class="grid gap-6 md:grid-cols-2 lg:gap-8">
+      <article class="group relative flex items-start gap-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary-10 to-primary/10 p-8 ring-1 ring-primary/15 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg">
+        <span aria-hidden="true"
+              class="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-primary/10 blur-2xl"></span>
+        <span class="relative inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-md ring-4 ring-white/60">
+          <Award size={28} aria-hidden="true" />
+        </span>
+        <div class="relative">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-dark ring-1 ring-primary/15">
+            <Sparkles size={12} aria-hidden="true" />
+            Keurmerk
+          </span>
+          <h2 class="mt-2.5 text-xl font-semibold text-ink tracking-tight">NOA-erkend stukadoorsbedrijf</h2>
+          <p class="mt-2 text-base leading-relaxed text-ink-light">
+            Ons NOA-lidmaatschap staat voor erkend vakmanschap, kwaliteit en heldere
+            afspraken. U weet waar u aan toe bent.
+          </p>
+        </div>
+      </article>
+
+      <article class="group relative flex items-start gap-5 overflow-hidden rounded-2xl border border-border-light bg-surface p-8 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/25">
+        <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+          <Store size={28} aria-hidden="true" />
+        </span>
+        <div>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-primary-10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-dark ring-1 ring-primary/15">
+            Bezoek ons
+          </span>
+          <h2 class="mt-2.5 text-xl font-semibold text-ink tracking-tight">{bedrijf.showroom.naam}</h2>
+          <p class="mt-2 text-base leading-relaxed text-ink-light">
+            Bekijk verschillende stucafwerkingen live in onze showroom op
+            {' '}{bedrijf.showroom.omschrijving}.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Benieuwd wat wij voor u kunnen doen?"
+    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{
+      label: `Bel ${bedrijf.telefoonDisplay}`,
+      href: `tel:${bedrijf.telefoon}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+    }}
+  />
+</BaseLayout>

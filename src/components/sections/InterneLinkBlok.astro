@@ -1,0 +1,54 @@
+---
+// src/components/sections/InterneLinkBlok.astro — interne links (redesigned v2)
+import { ArrowRight } from 'lucide-astro';
+
+interface Link {
+  label: string;
+  href: string;
+  omschrijving?: string;
+}
+
+type Props = {
+  heading?: string;
+  links: Link[];
+  class?: string;
+};
+
+const { heading = 'Lees ook', links, class: extra = '' } = Astro.props;
+---
+
+<section class:list={['container py-16 lg:py-20', extra]} aria-label={heading}>
+  <div class="max-w-content">
+    <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+      <span class="h-px w-8 bg-primary-dark"></span>
+      Verder lezen
+    </span>
+    <h2 class="mt-3 text-ink tracking-tight">{heading}</h2>
+  </div>
+  <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-6
+                 transition-[transform,box-shadow,border-color] duration-300
+                 hover:-translate-y-1 hover:shadow-lg hover:border-primary/30"
+        >
+          <span aria-hidden="true"
+                class="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary-10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+          <span class="relative flex items-start justify-between gap-3 text-lg font-semibold text-ink tracking-tight">
+            <span>{link.label}</span>
+            <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-10 text-primary-dark ring-1 ring-primary/10
+                         transition-[transform,background-color,color] duration-300
+                         group-hover:bg-primary group-hover:text-white group-hover:translate-x-0.5">
+              <ArrowRight size={16} aria-hidden="true" strokeWidth={2.25} />
+            </span>
+          </span>
+          {link.omschrijving && (
+            <span class="relative mt-2 text-sm leading-relaxed text-ink-light">{link.omschrijving}</span>
+          )}
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

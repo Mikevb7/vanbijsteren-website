@@ -1,0 +1,108 @@
+---
+// src/pages/binnen-stucwerk/gladpleisterwerk.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import gladpleisterwanden from '@assets/images/resultaten/gladpleisterwanden.png';
+
+const intro = 'Gladpleisterwerk is de meest toegepaste wandafwerking voor een strak, egaal resultaat. Hiermee krijgt u gladde wanden die klaar zijn voor schilderwerk of behang — en die door hun vlakke oppervlak eenvoudig schoon te houden zijn. Van Bijsteren verzorgt gladpleisterwerk in Harderwijk en omgeving.';
+
+const body = `
+  <h2>Wanneer kiezen voor gladpleisterwerk?</h2>
+  <p>Gladpleisterwerk is geschikt voor bijna alle binnenwanden en plafonds. U kiest
+  hiervoor als u:</p>
+  <ul>
+    <li>een strak, modern interieur wilt</li>
+    <li>wanden heeft die niet egaal zijn en egalisatie nodig hebben</li>
+    <li>wanden wilt die direct schilderklaar of behangklaar zijn</li>
+    <li>renovatie uitvoert en de oude afwerking wilt vervangen</li>
+  </ul>
+
+  <h2>Hoe gaat het in zijn werk?</h2>
+  <p>Onze stukadoors beginnen altijd met een grondige inspectie van de ondergrond.
+  Afhankelijk van de staat van de muur bepalen wij welke voorbereiding nodig is.
+  Daarna brengen wij een hechtpleister aan, gevolgd door de gladpleisterlaag die
+  met zorg tot een strak, egaal oppervlak wordt afgewerkt.</p>
+  <p>Het droogproces duurt afhankelijk van de omstandigheden enkele dagen. Daarna
+  zijn uw wanden klaar voor de schilder of behanger.</p>
+
+  <h2>Prijs en doorlooptijd</h2>
+  <p>De kosten voor gladpleisterwerk zijn afhankelijk van de oppervlakte, de staat
+  van de ondergrond en de gewenste afwerking. Als globale indicatie: gladpleisterwerk
+  kost gemiddeld €15 tot €25 per m², exclusief btw. Voor een exacte prijs maakt
+  een vrijblijvende offerte het meeste duidelijk.</p>
+
+  <h2>Onderhoud</h2>
+  <p>Gladgepleisterde wanden zijn eenvoudig te onderhouden. Reinigen met een vochtige
+  doek is meestal voldoende. Bij een normale schilderbeurt of herbehang is geen
+  speciale voorbereiding nodig.</p>
+`;
+
+const faqItems = [
+  {
+    vraag: 'Wat kost gladpleisterwerk per m²?',
+    antwoord: 'Gladpleisterwerk kost gemiddeld €15 tot €25 per m², exclusief btw. De prijs is afhankelijk van de staat van de ondergrond, de gewenste afwerking en de toegankelijkheid van de ruimte. Vraag een vrijblijvende offerte voor een exacte prijs.',
+  },
+  {
+    vraag: 'Wat is het verschil tussen sausklaar en behangklaar?',
+    antwoord: 'Sausklaar betekent dat de wand egaal genoeg is voor schilderwerk. Behangklaar is een iets ruwere afwerking die de ondergrond voor behang voorbereidt.',
+  },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
+  { label: 'Gladpleisterwerk' },
+];
+---
+
+<BaseLayout
+  title="Gladpleisterwerk Harderwijk — strakke wanden | Van Bijsteren"
+  description="Professioneel gladpleisterwerk in Harderwijk en omgeving. Perfect afgewerkte wanden voor schilderwerk of behang. Vraag een vrijblijvende offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Gladpleisterwerk" serviceType="Gladpleisterwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Gladpleisterwerk — strakke, gladde wanden"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: gladpleisterwanden, alt: 'Strak gladgepleisterde wanden in een woning', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <section class="border-t border-border-light bg-surface-soft">
+    <div class="container max-w-prose py-12 lg:py-16">
+      <h2 class="mb-5 text-ink">Veelgestelde vragen</h2>
+      <FAQAccordion items={faqItems} />
+    </div>
+  </section>
+
+  <InterneLinkBlok
+    heading="Meer over binnenstucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Sausklaar of behangklaar?', href: '/kennis/sausklaar-of-behangklaar', omschrijving: 'Welke afwerking past bij u?' },
+      { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Strakke wanden laten stucen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+// src/pages/garanties-en-zekerheid.astro — (Fase 3) — PAGE_SPECS §vertrouwen
+// Garantietermijn (TV-19) niet bevestigd → geen specifieke termijn genoemd.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const body = `
+  <p>Stucwerk laten doen is een investering. U wilt zekerheid over de kwaliteit en
+  weten wat er gebeurt als er iets niet goed gaat. Wij zijn daar open over.</p>
+
+  <h2>Garantie op ons werk</h2>
+  <p>Op onze werkzaamheden geven wij garantie op uitvoeringsgebreken. Klopt er iets niet
+  aan ons werk? Dan lossen wij dat op — snel en zonder gedoe. De exacte garantietermijn
+  en voorwaarden leggen wij vooraf schriftelijk vast in de offerte.</p>
+
+  <h2>Heldere afspraken</h2>
+  <ul>
+    <li>Wij werken altijd met een schriftelijke offerte vooraf</li>
+    <li>Geen meerwerk zonder uw akkoord</li>
+    <li>Een vaste prijs, tenzij de situatie wezenlijk anders is dan afgesproken</li>
+  </ul>
+
+  <h2>Erkend vakmanschap</h2>
+  <p>Van Bijsteren is een NOA-erkend stukadoorsbedrijf. Dat keurmerk staat voor
+  erkend vakmanschap en duidelijke afspraken. Lees meer op onze pagina over
+  <a href="/certificeringen-en-keurmerken">keurmerken en certificeringen</a>.</p>
+`;
+---
+
+<BaseLayout
+  title="Garanties & zekerheid | Van Bijsteren Stukadoorsbedrijf"
+  description="Wat kunt u verwachten na het stucwerk van Van Bijsteren? Garantie op uitvoeringsgebreken, heldere afspraken en erkend vakmanschap."
+>
+  <HeroSection
+    variant="simple"
+    heading="Garanties & zekerheid bij Van Bijsteren"
+    subheading="Zekerheid over de kwaliteit en heldere afspraken vooraf. Wij zijn daar open over."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Onze werkwijze', href: '/onze-werkwijze' }}
+  />
+
+  <ContentBlok body={body} />
+
+  <CTASection
+    heading="Zekerheid over uw stucwerk?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

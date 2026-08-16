@@ -1,0 +1,71 @@
+---
+// src/pages/privacy.astro — privacyverklaring (Fase 3) — PAGE_SPECS §JURIDISCH
+// Indexeerbaar (noindex: false). Beschrijft daadwerkelijke gegevensverwerking:
+// Netlify Forms (contact/offerte/sollicitatie) + cookieloze Plausible analytics.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const bijgewerkt = '30 juni 2026';
+
+const body = `
+  <p><em>Laatst bijgewerkt: ${bijgewerkt}</em></p>
+
+  <p>${bedrijf.naam}, gevestigd aan ${bedrijf.adres.straat},
+  ${bedrijf.adres.postcode} ${bedrijf.adres.stad} (KvK ${bedrijf.kvk}), is
+  verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in
+  deze privacyverklaring.</p>
+
+  <h2>Welke gegevens wij verwerken</h2>
+  <p>Wij verwerken uw persoonsgegevens alleen wanneer u die zelf aan ons verstrekt,
+  bijvoorbeeld via ons contact-, offerte- of sollicitatieformulier. Het gaat dan om:</p>
+  <ul>
+    <li>Uw naam</li>
+    <li>Uw telefoonnummer en e-mailadres</li>
+    <li>Gegevens over uw aanvraag (bijvoorbeeld adres van het werk, omschrijving van de klus)</li>
+    <li>Bij een sollicitatie: de gegevens en motivatie die u zelf meestuurt</li>
+  </ul>
+
+  <h2>Waarvoor wij uw gegevens gebruiken</h2>
+  <p>Wij gebruiken deze gegevens uitsluitend om contact met u op te nemen, uw
+  aanvraag of sollicitatie te behandelen en een offerte op te stellen. Wij verkopen
+  uw gegevens niet aan derden.</p>
+
+  <h2>Hoe lang wij gegevens bewaren</h2>
+  <p>Wij bewaren uw gegevens niet langer dan nodig is voor het doel waarvoor ze zijn
+  verzameld. Gegevens van een afgeronde aanvraag of een afgewezen sollicitatie
+  verwijderen wij wanneer ze niet meer nodig zijn.</p>
+
+  <h2>Website-statistieken</h2>
+  <p>Wij gebruiken Plausible Analytics om geanonimiseerd bij te houden hoe onze
+  website wordt gebruikt. Plausible is privacyvriendelijk: het plaatst geen cookies
+  en verzamelt geen persoonsgegevens. Daarom vragen wij geen cookietoestemming.
+  Lees meer op onze <a href="/cookies">cookieverklaring</a>.</p>
+
+  <h2>Uw rechten</h2>
+  <p>U heeft het recht om uw persoonsgegevens in te zien, te corrigeren of te laten
+  verwijderen. Ook kunt u bezwaar maken tegen de verwerking. Wilt u hiervan gebruik
+  maken? Neem dan contact met ons op.</p>
+
+  <h2>Contact over privacy</h2>
+  <p>Heeft u vragen over deze privacyverklaring of over uw gegevens? Bel ons op
+  <a href="tel:${bedrijf.telefoon}">${bedrijf.telefoonDisplay}</a>, mail naar
+  <a href="mailto:${bedrijf.email}">${bedrijf.email}</a> of neem contact
+  op via onze <a href="/contact">contactpagina</a>.</p>
+`;
+---
+
+<BaseLayout
+  title="Privacyverklaring | Van Bijsteren Stukadoorsbedrijf"
+  description="Hoe Van Bijsteren Stukadoorsbedrijf omgaat met uw persoonsgegevens. Lees onze privacyverklaring."
+>
+  <HeroSection
+    variant="simple"
+    heading="Privacyverklaring"
+    subheading="Hoe wij omgaan met uw persoonsgegevens. Helder en eerlijk."
+    primaryCta={{ label: 'Neem contact op', href: '/contact' }}
+  />
+
+  <ContentBlok body={body} />
+</BaseLayout>

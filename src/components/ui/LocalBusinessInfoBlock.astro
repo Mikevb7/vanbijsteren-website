@@ -1,0 +1,76 @@
+---
+// src/components/ui/LocalBusinessInfoBlock.astro — COMPONENT_SPEC §20 (redesigned v2)
+import { bedrijf } from '@data/bedrijf';
+import { MapPin, Phone, Mail, Clock, Building2 } from 'lucide-astro';
+
+type Props = {
+  heading?: string;
+  toonOpeningstijden?: boolean;
+  class?: string;
+};
+
+const { heading, toonOpeningstijden = true, class: extra = '' } = Astro.props;
+
+const heeftEmail   = Boolean(bedrijf.email);
+const ma = bedrijf.openingstijden.maVr;
+const heeftTijden  = Boolean(ma.open && ma.sluit);
+const heeftKvk     = Boolean(bedrijf.kvk);
+const heeftBtw     = Boolean(bedrijf.btw);
+---
+
+<div class:list={['rounded-2xl border border-border-light bg-surface p-7 shadow-sm', extra]}>
+  {heading && <h2 class="mb-5 text-xl font-semibold text-ink tracking-tight">{heading}</h2>}
+
+  <address class="flex flex-col gap-4 not-italic text-ink-light">
+    <div class="flex items-start gap-4">
+      <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10">
+        <MapPin size={18} aria-hidden="true" />
+      </span>
+      <span class="pt-1.5 leading-relaxed">
+        {bedrijf.adres.straat}<br />
+        {bedrijf.adres.postcode} {bedrijf.adres.stad}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10">
+        <Phone size={18} aria-hidden="true" />
+      </span>
+      <a href={`tel:${bedrijf.telefoon}`} class="font-semibold text-ink transition-colors hover:text-primary-dark">
+        {bedrijf.telefoonDisplay}
+      </a>
+    </div>
+
+    {heeftEmail && (
+      <div class="flex items-center gap-4">
+        <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10">
+          <Mail size={18} aria-hidden="true" />
+        </span>
+        <a href={`mailto:${bedrijf.email}`} class="font-semibold text-ink transition-colors hover:text-primary-dark break-all">
+          {bedrijf.email}
+        </a>
+      </div>
+    )}
+
+    {toonOpeningstijden && heeftTijden && (
+      <div class="flex items-center gap-4">
+        <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10">
+          <Clock size={18} aria-hidden="true" />
+        </span>
+        <span class="text-ink">Ma–vr: <span class="font-semibold">{ma.open}–{ma.sluit}</span></span>
+      </div>
+    )}
+
+    {(heeftKvk || heeftBtw) && (
+      <div class="flex items-start gap-4 border-t border-border-light pt-5 text-sm">
+        <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-soft text-ink-muted ring-1 ring-border-light">
+          <Building2 size={18} aria-hidden="true" />
+        </span>
+        <span class="pt-1.5 leading-relaxed">
+          {heeftKvk && <>KvK: <span class="font-medium text-ink">{bedrijf.kvk}</span><br /></>}
+          {heeftBtw && <>BTW: <span class="font-medium text-ink">{bedrijf.btw}</span></>}
+        </span>
+      </div>
+    )}
+  </address>
+</div>

@@ -1,0 +1,58 @@
+---
+// src/pages/werken-bij/groeien-en-leren.astro — (Fase 3) — PAGE_SPECS §recruitment
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const body = `
+  <p>Bij Van Bijsteren leer je van ervaren stukadoors die het vak van de grond af
+  kennen. Of je nu net begint of al jaren werkzaam bent — er is altijd ruimte om je
+  te verbeteren.</p>
+
+  <h2>Van basis naar bijzonder</h2>
+  <p>Wij werken aan uiteenlopende projecten: van standaard binnenstucwerk tot
+  hoogwaardige decoratieve afwerkingen zoals Italiaans stucwerk en Frescolori. Zo
+  leer je het hele spectrum van het vak kennen.</p>
+
+  <h2>Voor leerlingen en zij-instromers</h2>
+  <p>Wij staan open voor BBL-leerlingen en gemotiveerde zij-instromers. Geen ervaring
+  maar wel de ambitie om het vak te leren? Neem contact op — we kijken graag wat de
+  mogelijkheden zijn.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Werken bij', href: '/werken-bij' },
+  { label: 'Groeien en leren' },
+];
+---
+
+<BaseLayout
+  title="Groeien en leren bij Van Bijsteren | Stukadoor worden in Harderwijk"
+  description="Leer het stukadoorsvak bij Van Bijsteren in Harderwijk. Van basis tot decoratieve afwerkingen, met begeleiding door ervaren vakmensen. Ook voor zij-instromers."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="simple"
+    heading="Groeien en leren bij Van Bijsteren"
+    subheading="Of je nu net begint of al jaren ervaring hebt — bij ons is er altijd ruimte om je vakmanschap te ontwikkelen."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: 'Open sollicitatie', href: '/werken-bij/open-sollicitatie' }}
+  />
+
+  <ContentBlok body={body} />
+
+  <CTASection
+    heading="Klaar om het vak te leren?"
+    subheading="Bekijk onze vacatures of neem vrijblijvend contact op."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

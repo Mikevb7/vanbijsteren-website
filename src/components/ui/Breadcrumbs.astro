@@ -1,0 +1,47 @@
+---
+// src/components/ui/Breadcrumbs.astro — COMPONENT_SPEC §19 (redesigned v2)
+import { ChevronRight, Home } from 'lucide-astro';
+
+interface Kruimel {
+  label: string;
+  href?: string;
+}
+
+type Props = {
+  items: Kruimel[];
+  class?: string;
+};
+
+const { items, class: extra = '' } = Astro.props;
+---
+
+<nav aria-label="Kruimelpad" class:list={['text-sm text-ink-muted', extra]}>
+  <ol class="flex flex-wrap items-center gap-1 overflow-x-auto">
+    {items.map((item, i) => {
+      const laatste = i === items.length - 1;
+      const eerste = i === 0;
+      return (
+        <li class="flex items-center gap-1 whitespace-nowrap">
+          {item.href && !laatste ? (
+            <a
+              href={item.href}
+              class="inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 transition-colors hover:bg-primary-10 hover:text-primary-dark"
+            >
+              {eerste && <Home size={13} aria-hidden="true" strokeWidth={2.25} />}
+              {item.label}
+            </a>
+          ) : (
+            <span
+              class:list={['inline-flex items-center gap-1.5 px-1.5 py-0.5', laatste && 'font-semibold text-ink']}
+              aria-current={laatste ? 'page' : undefined}
+            >
+              {eerste && <Home size={13} aria-hidden="true" strokeWidth={2.25} />}
+              {item.label}
+            </span>
+          )}
+          {!laatste && <ChevronRight size={13} aria-hidden="true" class="text-border" strokeWidth={2.25} />}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

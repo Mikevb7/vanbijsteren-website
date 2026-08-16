@@ -1,0 +1,60 @@
+---
+// src/components/schema/LocalBusinessSchema.astro
+// Sitebreed LocalBusiness + HomeAndConstructionBusiness JSON-LD (SEO_STRATEGY.md §6.1).
+// Single source of truth = bedrijf.ts. Onbevestigde velden (email, geo 0,0,
+// openingstijden, lege sameAs, numberOfEmployees) worden weggelaten — nooit gokken.
+import { bedrijf } from '@data/bedrijf';
+import { regio } from '@data/regio';
+
+const hasGeo  = bedrijf.geo.lat !== 0 && bedrijf.geo.lng !== 0;
+const hasUren = Boolean(bedrijf.openingstijden.maVr.open && bedrijf.openingstijden.maVr.sluit);
+
+const adresEnc = encodeURIComponent(
+  `${bedrijf.adres.straat}, ${bedrijf.adres.postcode} ${bedrijf.adres.stad}`
+);
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+  '@id': `${bedrijf.website}/#localbusiness`,
+  name: bedrijf.naam,
+  url: bedrijf.website,
+  logo: new URL('/logo.svg', bedrijf.website).toString(),
+  image: new URL('/og-image.jpg', bedrijf.website).toString(),
+  telephone: bedrijf.telefoon,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: bedrijf.adres.straat,
+    addressLocality: bedrijf.adres.stad,
+    postalCode: bedrijf.adres.postcode,
+    addressCountry: bedrijf.adres.land,
+  },
+  areaServed: regio.map((r) => ({ '@type': 'City', name: r.naam })),
+  foundingDate: String(bedrijf.oprichtingsjaar),
+  hasMap: `https://maps.google.com/?q=${adresEnc}`,
+  priceRange: '€€',
+};
+
+if (bedrijf.kvk) {
+  schema.identifier = { '@type': 'PropertyValue', name: 'KvK', value: bedrijf.kvk };
+}
+if (bedrijf.email) schema.email = bedrijf.email;
+if (bedrijf.sameAs.length) schema.sameAs = bedrijf.sameAs;
+if (hasGeo) {
+  schema.geo = {
+    '@type': 'GeoCoordinates',
+    latitude: bedrijf.geo.lat,
+    longitude: bedrijf.geo.lng,
+  };
+}
+if (hasUren) {
+  schema.openingHoursSpecification = [{
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: bedrijf.openingstijden.maVr.open,
+    closes: bedrijf.openingstijden.maVr.sluit,
+  }];
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

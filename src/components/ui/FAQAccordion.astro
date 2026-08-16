@@ -1,0 +1,46 @@
+---
+// src/components/ui/FAQAccordion.astro — COMPONENT_SPEC §9 (redesigned v2)
+// Native <details>/<summary> — toetsenbordbedienbaar zonder JS.
+// FAQPage-schema wordt op paginaniveau gegenereerd uit dezelfde data, niet hier.
+import { Plus } from 'lucide-astro';
+import type { FAQItem } from '@/types';
+
+type Props = {
+  items: FAQItem[];
+  defaultOpen?: boolean;
+  class?: string;
+};
+
+const { items, defaultOpen = false, class: extra = '' } = Astro.props;
+---
+
+<div class:list={['flex flex-col gap-3', extra]}>
+  {items.map((item, i) => (
+    <details
+      name="faq"
+      open={defaultOpen && i === 0}
+      class="group rounded-xl border border-border-light bg-surface px-6
+             transition-[box-shadow,border-color] duration-200
+             hover:border-primary/25
+             [&[open]]:border-primary/30 [&[open]]:shadow-md"
+    >
+      <summary
+        class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-base font-semibold text-ink marker:hidden
+               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
+        <span class="pr-2">{item.vraag}</span>
+        <span
+          class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-10 text-primary-dark ring-1 ring-primary/15
+                 transition-transform duration-300 group-open:rotate-45 group-open:bg-primary group-open:text-white group-open:ring-primary"
+        >
+          <Plus size={18} aria-hidden="true" strokeWidth={2.5} />
+        </span>
+      </summary>
+      <div class="prose-body pb-6 pr-11 text-base leading-relaxed text-ink-light" set:html={item.antwoord} />
+    </details>
+  ))}
+</div>
+
+<style>
+  details > summary::-webkit-details-marker { display: none; }
+</style>

@@ -1,17 +1,337 @@
 ---
+// src/pages/index.astro — homepage (Fase 3, redesign v3) — PAGE_SPECS §HOME
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import StatistiekenBlok from '@components/sections/StatistiekenBlok.astro';
+import FamiliebedrijfSection from '@components/sections/FamiliebedrijfSection.astro';
+import RecruitmentCTA from '@components/sections/RecruitmentCTA.astro';
+import RegioLinkBlok from '@components/sections/RegioLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import DienstCard from '@components/cards/DienstCard.astro';
+import TestimonialCard from '@components/cards/TestimonialCard.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import { Star, Quote } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+import { pillarDiensten } from '@data/diensten';
+import { regioMetPagina } from '@data/regio';
+import familieFoto from '@assets/images/over-ons/drie-generaties-van-bijsteren.jpg';
+import pandExterieur from '@assets/images/showroom/pand-exterieur.jpg';
+import busOpStraat from '@assets/images/bus/bus-op-straat.jpg';
+import googlePayload from '@data/google-reviews.json';
+import type { GoogleReviewsPayload } from '@/types';
 
+// ─── Reviews: Google Places + lokale samenvoegen ────────────────────────────
+// Voorkeur: Google-reviews boven lokale — dit zijn geverifieerde 3rd party.
+// Google-reviews van 4+ sterren, tekst niet leeg, meest recente eerst.
+const google = googlePayload as GoogleReviewsPayload;
+
+// Homepage toont substantieve reviews (>60 chars); korte "prima service" reviews
+// zijn wel op /reviews te vinden maar niet als spotlight geschikt.
+const googleReviewCards = (google.reviews ?? [])
+  .filter((r) => r.rating >= 4 && r.tekst.length >= 60)
+  .sort((a, b) => b.tijd - a.tijd)
+  .slice(0, 3)
+  .map((r) => ({
+    quote:        r.tekst,
+    auteur:       r.auteur,
+    plaats:       undefined,
+    rating:       r.rating,
+    bron:         'google',
+    datum:        undefined,
+    tijdRelatief: r.tijdRelatief,
+    auteurUrl:    r.auteurUrl,
+    profielFoto:  r.profielFoto,
+  }));
+
+const lokaleReviewCards = (await getCollection('reviews'))
+  .filter((r) => r.data.uitgelicht && r.data.geverifieerd)
+  .sort((a, b) => b.data.datum.getTime() - a.data.datum.getTime())
+  .map((r) => ({
+    quote:  (r.body ?? '').trim(),
+    auteur: r.data.auteur,
+    plaats: r.data.plaats,
+    rating: r.data.rating,
+    bron:   r.data.bron,
+    datum:  String(r.data.datum.getFullYear()),
+  }));
+
+const uitgelichteReviews = (googleReviewCards.length > 0 ? googleReviewCards : lokaleReviewCards).slice(0, 3);
+
+// ─── Schema: WebSite ────────────────────────────────────────────────────────
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: bedrijf.naam,
+  url: bedrijf.website,
+};
+
+// ─── Statistieken ─────────────────────────────────────────────────────────────
+const stats = [
+  { waarde: String(bedrijf.generaties), label: 'Generaties vakmanschap', icon: 'Users' },
+  { waarde: `${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
+  { waarde: 'NOA', label: 'Erkend keurmerk', icon: 'Award' },
+  { waarde: String(bedrijf.oprichtingsjaar), label: 'Opgericht', icon: 'Calendar' },
+];
+
+// ─── Familiebedrijf-tekst ─────────────────────────────────────────────────────
+const familieBody = `
+  <p>Van Bijsteren Stukadoorsbedrijf is opgericht in ${bedrijf.oprichtingsjaar} door
+  Herman van Bijsteren en staat inmiddels voor drie generaties vakmanschap in Harderwijk.</p>
+  <p>Wij zijn geen groot anoniem bedrijf. U krijgt altijd te maken met dezelfde mensen
+  — vakmensen die trots zijn op hun werk en het op prijs stellen om dat te laten zien.
+  Dat is wat een familiebedrijf anders maakt.</p>
+  <p>Ons NOA-keurmerk geeft u de zekerheid van erkend vakmanschap en duidelijke afspraken.</p>
+`;
+
+const familieHighlights = [
+  { icon: 'Award', titel: 'NOA erkend' },
+  { icon: 'Calendar', titel: `Sinds ${bedrijf.oprichtingsjaar}` },
+  { icon: 'Store', titel: 'Eigen showroom' },
+];
+
+const recruitmentHighlights = [
+  { icon: 'MapPin', tekst: 'Werk dichtbij huis' },
+  { icon: 'FileText', tekst: 'Vast contract, cao Afbouw' },
+  { icon: 'Users', tekst: 'Hecht familiebedrijf' },
+];
+
+const regioPlaatsen = regioMetPagina.map((r) => ({
+  naam: r.naam,
+  href: r.href,
+  actief: r.isHoofdlocatie,
+}));
+
+// Adaptive review-grid: 1 review = groot getoond, 2 = 2-col, 3+ = 3-col
+const reviewGridClass =
+  uitgelichteReviews.length === 1 ? 'mx-auto max-w-2xl'
+  : uitgelichteReviews.length === 2 ? 'grid gap-6 sm:grid-cols-2'
+  : 'grid gap-6 sm:grid-cols-2 lg:grid-cols-3';
+
+// Bij Google-reviews gebruiken we de officiële aggregate uit de Places API (over ALLE reviews,
+// niet alleen degene die we hier tonen). Zonder Google-payload → gemiddelde over lokale set.
+const gemiddeldeRating = google.rating ?? (uitgelichteReviews.length > 0
+  ? uitgelichteReviews.reduce((s, r) => s + (r.rating ?? 0), 0) / uitgelichteReviews.length
+  : 0);
+const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Stukadoorsbedrijf Harderwijk | Van Bijsteren — 3 generaties vakmanschap"
+  description="Van Bijsteren Stukadoorsbedrijf verzorgt stucwerk in Harderwijk en omgeving. Erkend NOA-lid. Ook op zoek naar stukadoors? Bekijk onze vacatures."
+  schema={websiteSchema}
+>
+  <!-- 1. Hero — pand + bus als sterk lokaal identity-signaal -->
+  <HeroSection
+    variant="home"
+    badge="NOA erkend stukadoorsbedrijf"
+    heading="Erkend stukadoorsbedrijf in de Noord-Veluwe"
+    subheading="Stucwerk laten doen of werken als stukadoor? Van Bijsteren is een hecht familiebedrijf in Harderwijk — en wij zijn op zoek naar goede vakmensen."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    image={{ src: pandExterieur, alt: 'Van Bijsteren Stukadoorsbedrijf — showroom en bus in Harderwijk', width: 1600, height: 1067 }}
+    overlayDark={true}
+  />
+
+  <!-- 2. Split-audience: klant vs. vakman -->
+  <section class="container py-20 lg:py-24" aria-label="Voor klanten en voor vakmensen">
+    <div class="grid gap-6 md:grid-cols-2 md:gap-8">
+      <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-8 lg:p-10
+                      transition-[transform,box-shadow,border-color] duration-300
+                      hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
+        <span aria-hidden="true"
+              class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <span class="relative inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
+                     transition-[transform,background-color,color] duration-300
+                     group-hover:bg-primary group-hover:text-white group-hover:scale-105">
+          <Icon name="Home" size={30} />
+        </span>
+        <h2 class="relative mt-5 text-2xl font-semibold text-ink tracking-tight">Stucwerk laten uitvoeren?</h2>
+        <p class="relative mt-3 grow text-base leading-relaxed text-ink-light">
+          Wij verzorgen binnen- en buitenstucwerk in Harderwijk en omgeving. Ervaren,
+          erkend en netjes. Vraag een vrijblijvende offerte aan.
+        </p>
+        <div class="relative mt-7">
+          <Button href="/offerte" size="lg" variant="primary">Vraag offerte aan</Button>
+        </div>
+      </article>
+
+      <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-8 lg:p-10
+                      transition-[transform,box-shadow,border-color] duration-300
+                      hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
+        <span aria-hidden="true"
+              class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <span class="relative inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
+                     transition-[transform,background-color,color] duration-300
+                     group-hover:bg-primary group-hover:text-white group-hover:scale-105">
+          <Icon name="UserPlus" size={30} />
+        </span>
+        <h2 class="relative mt-5 text-2xl font-semibold text-ink tracking-tight">Op zoek naar werk als stukadoor?</h2>
+        <p class="relative mt-3 grow text-base leading-relaxed text-ink-light">
+          Bij Van Bijsteren werk je in een hecht team, dicht bij huis, aan mooi en
+          afwisselend werk. Met nette voorwaarden en ruimte om je te ontwikkelen.
+        </p>
+        <div class="relative mt-7">
+          <Button href="/werken-bij" size="lg" variant="secondary">Bekijk vacatures</Button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. Diensten -->
+  <section class="border-t border-border-light bg-surface-soft py-20 lg:py-24" aria-label="Onze diensten">
+    <div class="container">
+      <div class="max-w-content">
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+          <span class="h-px w-8 bg-primary-dark"></span>
+          Onze diensten
+        </span>
+        <h2 class="mt-3 text-ink tracking-tight">Wat wij doen</h2>
+        <p class="mt-4 text-lg leading-relaxed text-ink-light">
+          Van gladpleisterwerk tot decoratief stucwerk — wij doen het allemaal.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {pillarDiensten.map((dienst) => (
+          <DienstCard
+            icon={dienst.icon}
+            titel={dienst.naam}
+            omschrijving={dienst.korteOmschrijving}
+            href={dienst.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Lokale sfeer-band met bus foto — visueel breekpunt in de tekst-heavy sectie flow -->
+  <section class="relative isolate overflow-hidden" aria-label="Herkenbaar in Harderwijk">
+    <Image
+      src={busOpStraat}
+      alt="Van Bijsteren bus op straat in Harderwijk"
+      widths={[640, 960, 1280, 1600, 1920]}
+      sizes="100vw"
+      formats={['webp']}
+      quality={72}
+      loading="lazy"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    {/* WCAG AA overlay-stack: uniforme donkere laag + linker gradient waar tekst zit */}
+    <div class="absolute inset-0 -z-10 bg-ink/65" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink/70 via-ink/25 to-transparent" aria-hidden="true"></div>
+    <div class="container relative py-20 lg:py-28">
+      <div class="max-w-xl text-white">
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/90">
+          <span class="h-px w-8 bg-white/70"></span>
+          Herkenbaar in de regio
+        </span>
+        <h2 class="mt-3 text-white tracking-tight">Onze bussen zie je door heel de Noord-Veluwe</h2>
+        <p class="mt-5 text-lg leading-relaxed text-white/95">
+          Van Harderwijk tot Zeewolde — al drie generaties dagelijks in de buurt aan
+          het werk. Een lokaal familiebedrijf dat u bij naam kent.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Statistieken -->
+  <StatistiekenBlok stats={stats} />
+
+  <!-- 6. Familiebedrijf -->
+  <FamiliebedrijfSection
+    heading="Drie generaties stukadoors"
+    body={familieBody}
+    image={{ src: familieFoto, alt: 'Drie generaties Van Bijsteren: Mike, Gert en Marcel', width: 1600, height: 1200 }}
+    highlights={familieHighlights}
+  />
+  <div class="container -mt-8 pb-4">
+    <Button href="/over-ons" size="lg" variant="ghost">Lees ons verhaal</Button>
+  </div>
+
+  <!-- 7. Recruitment-CTA -->
+  <div class="container py-16 lg:py-20">
+    <RecruitmentCTA
+      heading="Op zoek naar een vaste baan als stukadoor?"
+      body="In de Noord-Veluwe, bij een familiebedrijf dat u bij naam kent. Afwisselend werk, van strakke binnenwanden tot bijzondere decoratieve afwerkingen. Met de zekerheid van een vast contract en een goed team om u heen."
+      backgroundVariant="dark"
+      primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+      secondaryCta={{ label: `Bel direct: ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}` }}
+      highlights={recruitmentHighlights}
+    />
+  </div>
+
+  <!-- 8. Reviews — adaptief: 1 review = spotlight layout, meer = grid -->
+  {uitgelichteReviews.length > 0 && (
+    <section class="border-t border-border-light bg-surface-soft py-20 lg:py-24" aria-label="Klantbeoordelingen">
+      <div class="container">
+        <div class="max-w-content">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+            <span class="h-px w-8 bg-primary-dark"></span>
+            Klantervaringen
+          </span>
+          <h2 class="mt-3 text-ink tracking-tight">Wat onze klanten zeggen</h2>
+        </div>
+
+        {uitgelichteReviews.length === 1 ? (
+          <div class="mt-12 grid items-stretch gap-8 lg:grid-cols-[1.4fr_1fr]">
+            <TestimonialCard {...uitgelichteReviews[0]} class="min-h-full text-lg" />
+            <aside class="flex flex-col justify-between rounded-2xl bg-gradient-to-br from-primary via-primary to-primary-dark p-8 text-white shadow-lg">
+              <div>
+                <div class="flex items-center gap-1 text-warning" role="img" aria-label={`Gemiddelde beoordeling ${gemiddeldeRating.toFixed(1)}`}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star size={22} aria-hidden="true" fill={i < Math.round(gemiddeldeRating) ? 'currentColor' : 'rgba(255,255,255,0.35)'} strokeWidth={1.5} />
+                  ))}
+                </div>
+                <p class="mt-4 text-4xl font-extrabold tracking-tight">{gemiddeldeRating.toFixed(1).replace('.', ',')} / 5</p>
+                <p class="mt-2 text-white/95">
+                  {google.rating ? `Op basis van ${totaalRatingCount} Google-reviews.` : 'Op basis van geverifieerde klantreviews.'}
+                </p>
+              </div>
+              <div class="mt-8 space-y-3">
+                <Button href="/reviews" size="lg" variant="dark" class="w-full justify-center">Lees alle reviews</Button>
+                <p class="text-sm text-white/85">Tevreden over ons werk? Laat een <a href={google.url ?? '/reviews'} rel="noopener" target={google.url ? '_blank' : undefined} class="font-semibold underline">review achter op Google</a>.</p>
+              </div>
+            </aside>
+          </div>
+        ) : (
+          <>
+            <div class:list={['mt-12', reviewGridClass]}>
+              {uitgelichteReviews.map((review) => (
+                <TestimonialCard {...review} />
+              ))}
+            </div>
+            <div class="mt-12 flex flex-wrap items-center gap-4">
+              <Button href="/reviews" size="lg" variant="secondary">Lees alle reviews</Button>
+              {google.rating && (
+                <span class="text-sm text-ink-light">
+                  <strong class="text-ink">{gemiddeldeRating.toFixed(1).replace('.', ',')}/5</strong> gemiddeld · {totaalRatingCount} Google-reviews
+                </span>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- 9. Werkgebied -->
+  <RegioLinkBlok
+    heading="Wij werken in de Noord-Veluwe"
+    intro="Van Bijsteren Stukadoorsbedrijf is gevestigd op industrieterrein Lorentz in Harderwijk en werkt in de hele regio: Ermelo, Putten, Nunspeet, Hierden, Zeewolde en omliggende plaatsen. Binnen een straal van circa 50 kilometer."
+    places={regioPlaatsen}
+  />
+
+  <!-- 10. Afsluitende CTA -->
+  <CTASection
+    heading="Stucwerk laten doen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{
+      label: `Bel ${bedrijf.telefoonDisplay}`,
+      href: `tel:${bedrijf.telefoon}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+    }}
+  />
+</BaseLayout>

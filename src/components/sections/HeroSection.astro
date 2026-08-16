@@ -1,0 +1,147 @@
+---
+// src/components/sections/HeroSection.astro — COMPONENT_SPEC §3 (redesigned v2 + perf)
+// Gebruikt astro:assets <Image> voor automatische WebP-conversie, srcset, resize.
+import { Image } from 'astro:assets';
+import Button from '@components/ui/Button.astro';
+import { BadgeCheck } from 'lucide-astro';
+import type { HeroProps } from '@/types';
+
+type Props = HeroProps & { class?: string };
+
+const {
+  heading, subheading, primaryCta, secondaryCta, image, badge,
+  variant = 'simple', overlayDark = false, class: extra = '',
+} = Astro.props;
+
+const heeftFoto    = Boolean(image);
+const opDonker     = heeftFoto && overlayDark;
+const tekstKleur   = opDonker ? 'text-white' : 'text-ink';
+const leadKleur    = opDonker ? 'text-white/95' : 'text-ink-light';
+const splitLayout  = heeftFoto && !overlayDark;
+
+const isHome = variant === 'home';
+
+// Detecteer ImageMetadata vs string src — astro:assets Image accepteert alleen ImageMetadata
+const heeftMetadata = image && typeof image.src !== 'string';
+const stringSrc     = image && typeof image.src === 'string' ? image.src : '';
+
+// Widths voor srcset — hero is fullbleed (overlayDark) of half-width (splitLayout)
+const heroWidths     = [640, 960, 1280, 1600, 1920];
+const splitWidths    = [400, 600, 800, 1000, 1200];
+---
+
+<section
+  class:list={[
+    'relative isolate overflow-hidden',
+    opDonker ? 'min-h-[68vh] flex items-center text-white' : '',
+    !heeftFoto ? 'bg-gradient-to-b from-surface-soft via-surface to-surface' : 'bg-surface',
+    extra,
+  ]}
+>
+  {!opDonker && (
+    <>
+      <div class="pointer-events-none absolute -top-32 -right-32 -z-10 h-96 w-96 rounded-full bg-primary-10 blur-3xl opacity-60" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-96 w-96 rounded-full bg-primary-10 blur-3xl opacity-40" aria-hidden="true"></div>
+    </>
+  )}
+
+  {opDonker && image && (
+    <>
+      {heeftMetadata ? (
+        <Image
+          src={image.src as ImageMetadata}
+          alt={image.alt}
+          widths={heroWidths}
+          sizes="100vw"
+          formats={['webp']}
+          quality={72}
+          loading="eager"
+          fetchpriority="high"
+          class="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+      ) : (
+        <img src={stringSrc} alt={image.alt} width={image.width} height={image.height}
+             loading="eager" fetchpriority="high"
+             class="absolute inset-0 -z-10 h-full w-full object-cover" />
+      )}
+      <div class="absolute inset-0 -z-10 bg-ink/60" aria-hidden="true"></div>
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink/70 via-ink/30 to-transparent" aria-hidden="true"></div>
+      <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink/40 to-transparent" aria-hidden="true"></div>
+    </>
+  )}
+
+  <div
+    class:list={[
+      'container relative',
+      opDonker ? 'py-20 lg:py-28' : 'py-16 lg:py-24',
+      splitLayout ? 'grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14' : '',
+    ]}
+  >
+    <div class={splitLayout ? 'max-w-xl' : 'max-w-content'}>
+      {badge && (
+        <p
+          class:list={[
+            'mb-5 inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold ring-1 backdrop-blur-sm',
+            opDonker ? 'bg-white/10 text-white ring-white/20' : 'bg-primary-10 text-primary-dark ring-primary/15',
+          ]}
+        >
+          <BadgeCheck size={16} aria-hidden="true" strokeWidth={2.25} />{badge}
+        </p>
+      )}
+
+      <h1
+        class:list={[
+          tekstKleur, 'font-extrabold tracking-tight',
+          isHome ? 'text-4xl leading-[1.05] sm:text-5xl lg:text-6xl' : 'text-3xl leading-[1.1] sm:text-4xl lg:text-5xl',
+        ]}
+      >{heading}</h1>
+
+      {subheading && (
+        <p class:list={['mt-6 text-lg leading-relaxed lg:text-xl', leadKleur, 'max-w-prose']}>
+          {subheading}
+        </p>
+      )}
+
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button href={primaryCta.href} size="lg" variant="primary"
+                external={primaryCta.external} ariaLabel={primaryCta.ariaLabel}>
+          {primaryCta.label}
+        </Button>
+        {secondaryCta && (
+          <Button href={secondaryCta.href} size="lg" variant={opDonker ? 'dark' : 'secondary'}
+                  external={secondaryCta.external} ariaLabel={secondaryCta.ariaLabel}>
+            {secondaryCta.label}
+          </Button>
+        )}
+      </div>
+    </div>
+
+    {splitLayout && image && (
+      <div class="relative">
+        <div class="pointer-events-none absolute -bottom-4 -right-4 h-full w-full rounded-2xl bg-primary/15 lg:-bottom-6 lg:-right-6" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -top-3 -left-3 h-24 w-24 rounded-2xl border-2 border-primary/25" aria-hidden="true"></div>
+        {heeftMetadata ? (
+          <Image
+            src={image.src as ImageMetadata}
+            alt={image.alt}
+            widths={splitWidths}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            formats={['webp']}
+            quality={78}
+            loading="eager"
+            fetchpriority="high"
+            class="relative aspect-[4/3] w-full rounded-2xl object-cover shadow-xl ring-1 ring-black/5"
+          />
+        ) : (
+          <img src={stringSrc} alt={image.alt} width={image.width} height={image.height}
+               loading="eager" fetchpriority="high"
+               class="relative aspect-[4/3] w-full rounded-2xl object-cover shadow-xl ring-1 ring-black/5" />
+        )}
+      </div>
+    )}
+  </div>
+
+  {!opDonker && (
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-surface-soft/30" aria-hidden="true"></div>
+  )}
+</section>

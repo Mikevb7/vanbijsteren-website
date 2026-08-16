@@ -1,0 +1,76 @@
+---
+// src/pages/decoratief-stucwerk/italiaans-stucwerk-frescolori.astro — premium spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import frescoloriItaliaans from '@assets/images/resultaten/frescolori-italiaans.png';
+
+const intro = 'Italiaans stucwerk en Frescolori zijn de meest luxe wandafwerkingen die Van Bijsteren verzorgt. Kalk- en mineraalgebaseerde technieken die een uniek, diep en elegant resultaat geven — met de hand aangebracht door ervaren vakmensen.';
+
+const body = `
+  <p>Frescolori is een kalkpleister op basis van traditionele Italiaanse technieken.
+  Het materiaal wordt in meerdere dunne lagen aangebracht en gepolijst, wat een
+  zijdeachtig, diep reliëf oplevert dat in iedere lichtval anders overkomt.</p>
+  <p>Italiaans stucwerk is een kunst op zich. Onze stukadoors zijn gespecialiseerd
+  in deze technieken en kunnen u adviseren over de mogelijkheden voor uw project.</p>
+  <h2>Waarvoor is het geschikt?</h2>
+  <p>Frescolori en Italiaans stucwerk zijn bij uitstek geschikt voor:</p>
+  <ul>
+    <li>representatieve woonkamers en eetkamers</li>
+    <li>badkamers en wellness-ruimtes</li>
+    <li>hotels, kantoren en winkels</li>
+    <li>restauratie van historische interieurs</li>
+  </ul>
+  <p>Bezoek onze showroom op ${bedrijf.showroom.omschrijving} om de effecten live te
+  ervaren — op foto's komen deze afwerkingen niet volledig tot hun recht.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Decoratief stucwerk', href: '/decoratief-stucwerk' },
+  { label: 'Italiaans stucwerk & Frescolori' },
+];
+---
+
+<BaseLayout
+  title="Italiaans stucwerk & Frescolori Harderwijk | Van Bijsteren"
+  description="Hoogwaardige decoratieve wandafwerking in Harderwijk. Italiaans stucwerk en Frescolori kalkpleister door ervaren vakmensen. Uniek en luxe. Vraag een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Italiaans stucwerk en Frescolori" serviceType="Decoratief stucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Italiaans stucwerk en Frescolori — premium wandafwerking"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: frescoloriItaliaans, alt: 'Italiaans stucwerk en Frescolori kalkpleister — luxe wandafwerking', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <InterneLinkBlok
+    heading="Meer over decoratief stucwerk"
+    links={[
+      { label: 'Decoratief stucwerk', href: '/decoratief-stucwerk', omschrijving: 'Alle premium afwerkingen.' },
+      { label: 'Sierpleister', href: '/sierpleister', omschrijving: 'Decoratieve wandafwerkingen met structuur.' },
+      { label: 'Neem contact op', href: '/contact', omschrijving: 'Kom langs in onze showroom.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Een luxe wandafwerking laten maken?"
+    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

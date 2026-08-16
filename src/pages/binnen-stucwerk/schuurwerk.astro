@@ -1,0 +1,67 @@
+---
+// src/pages/binnen-stucwerk/schuurwerk.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import handenSpatel from '@assets/images/werkfoto/handen-spatel.png';
+
+const intro = 'Schuurwerk geeft uw wanden een egale, licht gestructureerde ondergrond die klaar is voor schilderwerk of behang. Van Bijsteren verzorgt schuurwerk in Harderwijk en omgeving — een degelijke, veelgekozen binnenafwerking.';
+
+const body = `
+  <p>Schuurwerk is een beproefde afwerking waarbij de pleisterlaag met een
+  schuurspaan wordt nagewerkt tot een fijne, egale structuur. Het resultaat is een
+  strakke ondergrond die zich uitstekend leent voor verf of behang.</p>
+  <p>Wij beoordelen de staat van uw wanden en adviseren of schuurwerk of een gladde
+  afwerking het beste bij uw wensen past. Voor een exacte prijs maken wij vrijblijvend
+  een offerte op maat.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
+  { label: 'Schuurwerk' },
+];
+---
+
+<BaseLayout
+  title="Schuurwerk Harderwijk — egale wandafwerking | Van Bijsteren"
+  description="Schuurwerk in Harderwijk en omgeving: een egale ondergrond voor schilderwerk of behang. Vakkundig aangebracht. Vraag een vrijblijvende offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Schuurwerk" serviceType="Stucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Schuurwerk — egale ondergrond voor schilderwerk of behang"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: handenSpatel, alt: 'Stukadoor werkt met spatel aan wand', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <InterneLinkBlok
+    heading="Meer over binnenstucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Sausklaar of behangklaar?', href: '/kennis/sausklaar-of-behangklaar', omschrijving: 'Welke afwerking past bij u?' },
+    ]}
+  />
+
+  <CTASection
+    heading="Schuurwerk laten aanbrengen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

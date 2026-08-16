@@ -1,0 +1,106 @@
+---
+// src/pages/veelgestelde-vragen.astro — FAQ-hub (Fase 3, redesign v2) — PAGE_SPECS §/veelgestelde-vragen
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import FAQPageSchema from '@components/schema/FAQPageSchema.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import Icon from '@components/ui/Icon.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const categorieLabels: Record<string, string> = {
+  klant: 'Voor klanten',
+  diensten: 'Over onze diensten',
+  werkgebied: 'Werkgebied',
+  kandidaat: 'Werken bij Van Bijsteren',
+  algemeen: 'Algemeen',
+};
+
+const categorieIcons: Record<string, string> = {
+  klant: 'Users',
+  diensten: 'Paintbrush',
+  werkgebied: 'MapPin',
+  kandidaat: 'UserPlus',
+  algemeen: 'Info',
+};
+
+const categorieVolgorde = ['klant', 'diensten', 'werkgebied', 'kandidaat', 'algemeen'];
+
+const faqEntries = (await getCollection('faq')).sort(
+  (a, b) => a.data.volgorde - b.data.volgorde,
+);
+
+const alleItems = faqEntries.map((entry) => ({
+  vraag: entry.data.vraag,
+  antwoord: entry.body?.trim() ?? '',
+  categorie: entry.data.categorie,
+}));
+
+const groepen = categorieVolgorde
+  .map((cat) => ({
+    cat,
+    label: categorieLabels[cat],
+    icon: categorieIcons[cat],
+    items: alleItems.filter((i) => i.categorie === cat),
+  }))
+  .filter((g) => g.items.length > 0);
+---
+
+<BaseLayout
+  title="Veelgestelde vragen stucwerk | Van Bijsteren Stukadoorsbedrijf"
+  description="Antwoorden op de meest gestelde vragen over stucwerk, kosten, doorlooptijd, werkgebied en werken bij Van Bijsteren."
+>
+  {alleItems.length > 0 && <FAQPageSchema items={alleItems} />}
+
+  <HeroSection
+    variant="simple"
+    badge={`${alleItems.length} antwoorden`}
+    heading="Veelgestelde vragen"
+    subheading="Antwoorden op vragen over stucwerk, kosten, doorlooptijd, ons werkgebied en werken bij Van Bijsteren."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Neem contact op', href: '/contact' }}
+  />
+
+  <!-- Categorie-navigatie -->
+  {groepen.length > 1 && (
+    <section class="container -mt-8 pb-4" aria-label="Categorieën">
+      <nav class="mx-auto flex max-w-content flex-wrap justify-center gap-2 rounded-2xl border border-border-light bg-surface p-4 shadow-md ring-1 ring-black/5">
+        {groepen.map((groep) => (
+          <a
+            href={`#${groep.cat}`}
+            class="inline-flex items-center gap-2 rounded-full bg-primary-10 px-4 py-2 text-sm font-semibold text-primary-dark ring-1 ring-primary/15 transition-[background-color,color] hover:bg-primary hover:text-white"
+          >
+            <Icon name={groep.icon} size={14} />
+            {groep.label}
+          </a>
+        ))}
+      </nav>
+    </section>
+  )}
+
+  <div class="container py-16 lg:py-20">
+    {groepen.map((groep) => (
+      <section id={groep.cat} class="mb-16 last:mb-0" aria-label={groep.label}>
+        <div class="mb-8 flex items-center gap-4">
+          <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white shadow-md ring-4 ring-primary-10">
+            <Icon name={groep.icon} size={22} />
+          </span>
+          <h2 class="text-ink tracking-tight">{groep.label}</h2>
+        </div>
+        <FAQAccordion items={groep.items} />
+      </section>
+    ))}
+  </div>
+
+  <CTASection
+    heading="Staat uw vraag er niet bij?"
+    subheading="Neem gerust contact op — wij helpen u graag verder."
+    primaryCta={{
+      label: `Bel ${bedrijf.telefoonDisplay}`,
+      href: `tel:${bedrijf.telefoon}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+    }}
+    secondaryCta={{ label: 'Stuur een bericht', href: '/contact' }}
+  />
+</BaseLayout>

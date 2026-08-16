@@ -1,0 +1,102 @@
+---
+// src/components/sections/RecruitmentCTA.astro — COMPONENT_SPEC §4 (redesigned v2)
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import type { CTA } from '@/types';
+
+interface Highlight {
+  icon: string;
+  tekst: string;
+}
+
+type Props = {
+  heading: string;
+  body: string;
+  primaryCta: CTA;
+  secondaryCta?: CTA;
+  highlights?: Highlight[];
+  backgroundVariant?: 'light' | 'dark';
+  class?: string;
+};
+
+const {
+  heading, body, primaryCta, secondaryCta,
+  highlights = [], backgroundVariant = 'light', class: extra = '',
+} = Astro.props;
+
+const opDonker = backgroundVariant === 'dark';
+---
+
+<section
+  class:list={[
+    'relative isolate overflow-hidden rounded-2xl',
+    opDonker
+      ? 'bg-primary text-white shadow-xl'
+      : 'bg-primary-10 text-ink ring-1 ring-primary/15',
+    extra,
+  ]}
+>
+  {opDonker && (
+    <>
+      <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary-light/25 blur-3xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-primary-dark/40 blur-3xl" aria-hidden="true"></div>
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 28px 28px;"
+        aria-hidden="true"
+      ></div>
+    </>
+  )}
+
+  <div class="container relative py-14 lg:py-16">
+    <div class="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+      <div class="max-w-content">
+        <span class:list={[
+          'inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider',
+          opDonker ? 'text-white/80' : 'text-primary-dark',
+        ]}>
+          <span class:list={['h-px w-8', opDonker ? 'bg-white/60' : 'bg-primary-dark']}></span>
+          Werken bij Van Bijsteren
+        </span>
+        <h2 class:list={['mt-3 tracking-tight', opDonker ? 'text-white' : 'text-ink']}>{heading}</h2>
+        <p class:list={['mt-5 text-lg leading-relaxed', opDonker ? 'text-white/90' : 'text-ink-light']}>
+          {body}
+        </p>
+      </div>
+
+      <div class="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col">
+        <Button href={primaryCta.href} size="lg" variant={opDonker ? 'dark' : 'primary'}
+                external={primaryCta.external} ariaLabel={primaryCta.ariaLabel}>
+          {primaryCta.label}
+        </Button>
+        {secondaryCta && (
+          <Button href={secondaryCta.href} size="lg" variant={opDonker ? 'dark' : 'secondary'}
+                  external={secondaryCta.external} ariaLabel={secondaryCta.ariaLabel}>
+            {secondaryCta.label}
+          </Button>
+        )}
+      </div>
+    </div>
+
+    {highlights.length > 0 && (
+      <ul class:list={[
+        'mt-12 grid gap-6 sm:grid-cols-3',
+        opDonker ? 'border-t border-white/15 pt-10' : 'border-t border-primary/15 pt-10',
+      ]}>
+        {highlights.map((h) => (
+          <li class="flex items-center gap-4">
+            <span class:list={[
+              'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+              opDonker
+                ? 'bg-white/15 text-white ring-1 ring-white/20'
+                : 'bg-white text-primary-dark shadow-sm ring-1 ring-primary/15',
+            ]}>
+              <Icon name={h.icon} size={22} />
+            </span>
+            <span class:list={['font-semibold leading-snug', opDonker ? 'text-white' : 'text-ink']}>{h.tekst}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>

@@ -1,0 +1,89 @@
+---
+// src/pages/bedankt.astro — formulierbevestiging (redesign v2)
+// noindex: bevestigingspagina hoort niet in de index (SEO_STRATEGY §canonical).
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/ui/Button.astro';
+import { CircleCheck, Phone, Mail, Clock } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+---
+
+<BaseLayout
+  title="Bedankt voor uw bericht | Van Bijsteren Stukadoorsbedrijf"
+  description="Bedankt voor uw aanvraag bij Van Bijsteren Stukadoorsbedrijf. Wij nemen zo snel mogelijk contact met u op."
+  noindex={true}
+>
+  <section class="relative isolate overflow-hidden">
+    <div class="pointer-events-none absolute -top-32 -right-32 -z-10 h-96 w-96 rounded-full bg-primary-10 blur-3xl opacity-60" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-96 w-96 rounded-full bg-primary-10 blur-3xl opacity-40" aria-hidden="true"></div>
+
+    <div class="container relative py-20 lg:py-28">
+      <div class="mx-auto max-w-content text-center">
+        <div class="mx-auto inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-primary text-white shadow-lg ring-4 ring-primary-10">
+          <CircleCheck size={44} aria-hidden="true" strokeWidth={2} />
+        </div>
+        <span class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-primary-10 px-3.5 py-1.5 text-sm font-semibold text-primary-dark ring-1 ring-primary/15">
+          Aanvraag ontvangen
+        </span>
+        <h1 class="mt-5 tracking-tight">Bedankt voor uw bericht</h1>
+        <p class="mx-auto mt-5 max-w-prose text-lg leading-relaxed text-ink-light">
+          Wij hebben uw aanvraag in goede orde ontvangen. Een van onze medewerkers neemt
+          zo snel mogelijk — en uiterlijk binnen één werkdag — contact met u op.
+        </p>
+      </div>
+
+      <!-- Wat gebeurt er nu -->
+      <div class="mx-auto mt-14 max-w-content">
+        <h2 class="mb-6 text-center text-2xl font-semibold text-ink tracking-tight">Wat gebeurt er nu?</h2>
+        <ol class="grid gap-4 sm:grid-cols-3">
+          <li class="relative rounded-2xl border border-border-light bg-surface p-6 shadow-sm">
+            <span class="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white ring-4 ring-surface">1</span>
+            <p class="mt-2 font-semibold text-ink">Uw bericht komt binnen</p>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-light">Wij ontvangen uw aanvraag direct in onze inbox.</p>
+          </li>
+          <li class="relative rounded-2xl border border-border-light bg-surface p-6 shadow-sm">
+            <span class="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white ring-4 ring-surface">2</span>
+            <p class="mt-2 font-semibold text-ink">Wij bellen u terug</p>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-light">Binnen één werkdag — vaak sneller — nemen wij persoonlijk contact op.</p>
+          </li>
+          <li class="relative rounded-2xl border border-border-light bg-surface p-6 shadow-sm">
+            <span class="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white ring-4 ring-surface">3</span>
+            <p class="mt-2 font-semibold text-ink">Vervolgstappen</p>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-light">Samen bespreken wij wat u wilt en plannen we een opname of gesprek.</p>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Direct contact + doorlink -->
+      <div class="mx-auto mt-14 max-w-content rounded-2xl border border-border-light bg-surface p-7 shadow-sm lg:p-8">
+        <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+              <Clock size={14} aria-hidden="true" />
+              Nu al vragen?
+            </p>
+            <h2 class="mt-2 text-xl font-semibold text-ink tracking-tight">Bel of mail ons direct</h2>
+            <p class="mt-2 text-ink-light">Wij helpen u graag persoonlijk verder.</p>
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <Button
+              href={`tel:${bedrijf.telefoon}`}
+              size="lg"
+              variant="primary"
+              ariaLabel={`Bel ${bedrijf.naam} op ${bedrijf.telefoonDisplay}`}
+            >
+              <Phone size={18} aria-hidden="true" />{bedrijf.telefoonDisplay}
+            </Button>
+            <Button href={`mailto:${bedrijf.email}`} size="lg" variant="secondary">
+              <Mail size={18} aria-hidden="true" />Mail ons
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <Button href="/" size="md" variant="ghost">Terug naar home</Button>
+        <Button href="/stucwerk" size="md" variant="ghost">Bekijk onze diensten</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

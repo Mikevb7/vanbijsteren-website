@@ -1,0 +1,28 @@
+---
+// src/components/schema/FAQPageSchema.astro
+// FAQPage JSON-LD (SEO_STRATEGY.md §6.5).
+// Noot: levert sinds mei 2026 geen SERP-weergave meer, maar wordt nog wel
+// geparsed door Google en AI-antwoordsystemen. Implementeren als gratis plus.
+import type { FAQItem } from '@/types';
+
+interface Props {
+  items: FAQItem[];
+}
+
+const { items } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.vraag,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.antwoord,
+    },
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

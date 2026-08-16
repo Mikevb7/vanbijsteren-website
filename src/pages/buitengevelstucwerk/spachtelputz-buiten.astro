@@ -1,0 +1,68 @@
+---
+// src/pages/buitengevelstucwerk/spachtelputz-buiten.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import spachtelputzDetail from '@assets/images/resultaten/spachtelputz-detail.png';
+
+const intro = 'Spachtelputz voor buiten combineert een decoratieve uitstraling met weersbestendigheid. Van Bijsteren brengt buitenspachtelputz aan op gevels in Harderwijk en omgeving — een onderhoudsvriendelijke, langdurige afwerking.';
+
+const body = `
+  <p>Spachtelputz voor buiten is geformuleerd om de Nederlandse weersomstandigheden
+  te weerstaan. De karakteristieke fijne structuur geeft uw gevel een verzorgde,
+  levende uitstraling die jarenlang meegaat.</p>
+  <p>Wij stemmen materiaal en kleur af op uw gevel en adviseren u graag over de
+  mogelijkheden. Twijfelt u over kleur of structuur? Bezoek onze showroom op
+  ${bedrijf.showroom.omschrijving}. Voor een exacte prijs maken wij vrijblijvend een
+  offerte op maat.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Buitengevelstucwerk', href: '/buitengevelstucwerk' },
+  { label: 'Spachtelputz buiten' },
+];
+---
+
+<BaseLayout
+  title="Spachtelputz buiten Harderwijk — weersbestendige gevel | Van Bijsteren"
+  description="Spachtelputz voor buiten in Harderwijk en omgeving: een decoratieve en weersbestendige gevelafwerking. Onderhoudsvriendelijk. Vraag een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Spachtelputz buiten" serviceType="Gevelstucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Spachtelputz buiten — decoratieve, weersbestendige gevelafwerking"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: spachtelputzDetail, alt: 'Spachtelputz gevelafwerking — detail', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <InterneLinkBlok
+    heading="Meer over gevelafwerking"
+    links={[
+      { label: 'Buitengevelstucwerk', href: '/buitengevelstucwerk', omschrijving: 'Alle vormen van gevelafwerking.' },
+      { label: 'Spachtelputz', href: '/sierpleister/spachtelputz', omschrijving: 'Ook geschikt voor binnen.' },
+      { label: 'Spachtelputz binnen of buiten?', href: '/kennis/spachtelputz-binnen-of-buiten', omschrijving: 'Welke toepassing past bij u?' },
+    ]}
+  />
+
+  <CTASection
+    heading="Uw gevel laten afwerken met spachtelputz?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

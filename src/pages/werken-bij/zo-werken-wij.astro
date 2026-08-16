@@ -1,0 +1,64 @@
+---
+// src/pages/werken-bij/zo-werken-wij.astro — (Fase 3) — PAGE_SPECS §recruitment
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const body = `
+  <p>Bij Van Bijsteren werk je in een klein, hecht familieteam. Korte lijnen, directe
+  communicatie en een werkgever die je bij naam kent — geen grote organisatie met
+  nummers en formulieren.</p>
+
+  <h2>Een werkdag bij ons</h2>
+  <p>Je rijdt 's ochtends naar de klus in de regio. We werken altijd met goed materiaal
+  en degelijk gereedschap. Tijdens de uitvoering ben je verantwoordelijk voor jouw deel
+  van het werk, maar er is altijd een ervaren collega beschikbaar voor overleg of
+  begeleiding. Eind van de dag lever je netjes op en rij je naar huis — in de regio,
+  niet twee uur verderop.</p>
+
+  <h2>Vakmanschap voorop</h2>
+  <p>De ene dag werk je aan strak gladpleisterwerk in een nieuwbouwhuis, de andere dag
+  breng je een decoratieve afwerking aan in een renovatieproject. Afwisselend werk om
+  trots op te zijn, netjes en zorgvuldig uitgevoerd bij particulieren en aannemers.</p>
+
+  <h2>Dichtbij huis</h2>
+  <p>Wij werken in Harderwijk en directe omgeving op de Noord-Veluwe. Geen vroege files
+  richting de Randstad — 's avonds gewoon thuis.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Werken bij', href: '/werken-bij' },
+  { label: 'Zo werken wij' },
+];
+---
+
+<BaseLayout
+  title="Zo werken wij bij Van Bijsteren | Stukadoor in Harderwijk"
+  description="Hoe is het om bij Van Bijsteren te werken? Een hecht familieteam, afwisselend vakwerk en werk dichtbij huis op de Noord-Veluwe."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="simple"
+    heading="Zo werken wij"
+    subheading="Een hecht familieteam, afwisselend vakwerk en werk dichtbij huis. Zo ziet werken bij Van Bijsteren eruit."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: 'Maak kennis met het team', href: '/werken-bij/team' }}
+  />
+
+  <ContentBlok body={body} />
+
+  <CTASection
+    heading="Lijkt je dit wat?"
+    subheading="Bekijk onze vacatures of stuur een open sollicitatie."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

@@ -1,0 +1,67 @@
+---
+// src/pages/sierpleister/index.astro — pillar (Fase 3) — PAGE_SPECS §diensten
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import DienstGrid from '@components/sections/DienstGrid.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { spokesVoor } from '@data/diensten';
+import { bedrijf } from '@data/bedrijf';
+
+const intro = 'Sierpleister geeft uw wanden een decoratieve, levende uitstraling. Van Bijsteren verzorgt sierpleister-afwerkingen zoals spachtelputz en granolputz in Harderwijk en omgeving — voor binnen en buiten.';
+
+const seoBody = `
+  <p>Sierpleister is een verzamelnaam voor decoratieve wandafwerkingen met structuur.
+  De afwerking is duurzaam, onderhoudsvriendelijk en in veel kleuren leverbaar. Welke
+  sierpleister het beste past, hangt af van de locatie en het gewenste effect.</p>
+  <p>Twijfelt u over kleur of structuur? Bezoek onze showroom op ${bedrijf.showroom.omschrijving}
+  voor een live demonstratie.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Sierpleister' },
+];
+---
+
+<BaseLayout
+  title="Sierpleister Harderwijk | Spachtelputz & granolputz | Van Bijsteren"
+  description="Decoratieve sierpleister in Harderwijk en omgeving: spachtelputz en granolputz voor binnen en buiten. Vraag vrijblijvend een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Sierpleister" serviceType="Sierpleisterwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Sierpleister — decoratieve wandafwerking"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+  />
+
+  <DienstGrid heading="Onze sierpleister-afwerkingen" diensten={spokesVoor('sierpleister')} columns={2} />
+
+  <SEOContentSection heading="Structuur en kleur op maat" body={seoBody} />
+
+  <InterneLinkBlok
+    heading="Meer over stucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Strakke wanden en plafonds.' },
+      { label: 'Buitengevelstucwerk', href: '/buitengevelstucwerk', omschrijving: 'Duurzame afwerking van uw gevel.' },
+      { label: 'Decoratief stucwerk', href: '/decoratief-stucwerk', omschrijving: 'Premium afwerkingen.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Sierpleister laten aanbrengen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+// src/components/sections/ContentBlok.astro — prose-tekstblok (redesigned v2)
+type Props = {
+  heading?: string;
+  body: string;
+  soft?: boolean;
+  class?: string;
+};
+
+const { heading, body, soft = false, class: extra = '' } = Astro.props;
+---
+
+<section class:list={[soft ? 'border-y border-border-light bg-surface-soft' : '', extra]}>
+  <div class="container max-w-prose py-16 lg:py-20">
+    {heading && <h2 class="mb-6 text-ink tracking-tight">{heading}</h2>}
+    <div class="prose-body flex flex-col gap-5 text-base leading-relaxed text-ink-light" set:html={body} />
+  </div>
+</section>
+
+<style is:global>
+  /* Prose-styling voor set:html-content in ContentBlok en TeamSection */
+  .prose-body h2 {
+    color: var(--color-ink);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-body h2:first-child { margin-top: 0; }
+  .prose-body h3 {
+    color: var(--color-ink);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-body p {
+    line-height: 1.7;
+    color: var(--color-ink-light);
+  }
+  .prose-body p strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .prose-body a {
+    color: var(--color-primary-dark);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--color-primary-dark) 35%, transparent);
+    transition: text-decoration-color 200ms;
+  }
+  .prose-body a:hover {
+    text-decoration-color: var(--color-primary-dark);
+  }
+  .prose-body ul,
+  .prose-body ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .prose-body ul { list-style: none; }
+  .prose-body ul > li {
+    position: relative;
+    padding-left: 0.5rem;
+  }
+  .prose-body ul > li::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 0.625rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+  }
+  .prose-body ol { list-style: decimal; }
+  .prose-body ol > li::marker {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+  }
+</style>

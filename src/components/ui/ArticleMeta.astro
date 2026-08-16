@@ -1,0 +1,41 @@
+---
+// src/components/ui/ArticleMeta.astro — meta-bar voor kennisartikelen
+import { Calendar, Clock, User } from 'lucide-astro';
+
+type Props = {
+  datum: string;      // 'YYYY-MM-DD'
+  leestijd?: number;  // minuten
+  auteur?: string;
+  class?: string;
+};
+
+const { datum, leestijd, auteur, class: extra = '' } = Astro.props;
+
+const formatter = new Intl.DateTimeFormat('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+const datumLabel = formatter.format(new Date(datum));
+---
+
+<div class:list={['flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-border-light py-4 text-sm text-ink-muted', extra]}>
+  <span class="inline-flex items-center gap-2">
+    <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary-10 text-primary-dark">
+      <Calendar size={15} aria-hidden="true" strokeWidth={2.25} />
+    </span>
+    <time datetime={datum} class="font-medium text-ink">{datumLabel}</time>
+  </span>
+  {leestijd && (
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary-10 text-primary-dark">
+        <Clock size={15} aria-hidden="true" strokeWidth={2.25} />
+      </span>
+      <span class="font-medium text-ink">{leestijd} min leestijd</span>
+    </span>
+  )}
+  {auteur && (
+    <span class="inline-flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary-10 text-primary-dark">
+        <User size={15} aria-hidden="true" strokeWidth={2.25} />
+      </span>
+      <span class="font-medium text-ink">{auteur}</span>
+    </span>
+  )}
+</div>

@@ -1,0 +1,65 @@
+---
+// src/pages/stucwerk-reparatie-renovatie.astro — pillar (Fase 3) — PAGE_SPECS §diensten
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import plafondInUitvoering from '@assets/images/werkfoto/plafond-in-uitvoering.jpg';
+
+const intro = 'Beschadigd of verouderd stucwerk? Van Bijsteren herstelt scheuren, beschadigingen en loszittend stucwerk in Harderwijk en omgeving. Vakkundig en netjes, met oog voor de bestaande afwerking.';
+
+const seoBody = `
+  <p>Stucwerk kan in de loop der jaren scheuren, loslaten of beschadigd raken — door
+  zetting, vocht of gewoon ouderdom. Wij beoordelen de oorzaak en herstellen de schade,
+  zodat uw wand of plafond er weer strak bij staat.</p>
+  <p>Bij uitgebreide schade kijken wij samen met u of reparatie of een nieuwe afwerking
+  de beste keuze is. U ontvangt altijd een helder advies vooraf.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Reparatie & renovatie' },
+];
+---
+
+<BaseLayout
+  title="Stucwerk reparatie & renovatie Harderwijk | Van Bijsteren"
+  description="Vakkundig herstel van beschadigd of verouderd stucwerk in Harderwijk en omgeving. Scheuren, beschadigingen en loszittend stucwerk. Vraag een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Stucwerk reparatie en renovatie" serviceType="Stucwerkreparatie" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Reparatie & renovatie — herstel van stucwerk"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: plafondInUitvoering, alt: 'Stucwerk-reparatie in uitvoering', width: 1600, height: 1200 }}
+  />
+
+  <SEOContentSection heading="Vakkundig herstel, helder advies" body={seoBody} />
+
+  <InterneLinkBlok
+    heading="Meer over stucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Strakke wanden en plafonds.' },
+      { label: 'Buitengevelstucwerk', href: '/buitengevelstucwerk', omschrijving: 'Duurzame gevelafwerking.' },
+      { label: 'Stucwerk (overzicht)', href: '/stucwerk', omschrijving: 'Alle vormen van stucwerk.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Stucwerk laten herstellen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

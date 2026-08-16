@@ -1,0 +1,83 @@
+---
+// src/pages/sierpleister/spachtelputz.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import spachtelputzOvz from '@assets/images/resultaten/spachtelputz-overzicht.png';
+
+const intro = 'Spachtelputz is een van de meest populaire sierpleisters in Nederland. De karakteristieke fijne structuur geeft wanden een warme, levende uitstraling en is geschikt voor zowel binnen als buiten. Van Bijsteren verzorgt spachtelputz in Harderwijk en omgeving.';
+
+const body = `
+  <p>Spachtelputz is een minerale sierpleister die met een spatel in cirkelvormige
+  bewegingen wordt aangebracht, wat de typische structuur geeft. De afwerking is
+  duurzaam, onderhoudsvriendelijk en beschikbaar in veel kleuren.</p>
+  <p>Spachtelputz voor buiten is geformuleerd om weersomstandigheden te weerstaan en
+  geeft uw gevel een onderhoudsvriendelijke, langdurige afwerking.</p>
+  <p>Twijfelt u over de kleur of het effect? Bezoek onze showroom op
+  ${bedrijf.showroom.omschrijving} voor een live demonstratie.</p>
+`;
+
+const faqItems = [
+  {
+    vraag: 'Wat kost spachtelputz?',
+    antwoord: 'De prijs van spachtelputz verschilt per locatie (binnen of buiten), de oppervlakte en de gekozen kleur. Als richtprijs kunt u denken aan €12 tot €22 per m² voor binnenstucwerk. Vraag een offerte voor een exacte prijs.',
+  },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Sierpleister', href: '/sierpleister' },
+  { label: 'Spachtelputz' },
+];
+---
+
+<BaseLayout
+  title="Spachtelputz Harderwijk — sierpleister binnen & buiten | Van Bijsteren"
+  description="Spachtelputz in Harderwijk en omgeving: decoratieve, onderhoudsvriendelijke sierpleister voor binnen en buiten. Vraag een vrijblijvende offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Spachtelputz" serviceType="Sierpleisterwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Spachtelputz — decoratieve wandafwerking voor binnen en buiten"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: spachtelputzOvz, alt: 'Spachtelputz afwerking — decoratieve wandstructuur', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <section class="border-t border-border-light bg-surface-soft">
+    <div class="container max-w-prose py-12 lg:py-16">
+      <h2 class="mb-5 text-ink">Veelgestelde vragen</h2>
+      <FAQAccordion items={faqItems} />
+    </div>
+  </section>
+
+  <InterneLinkBlok
+    heading="Meer over sierpleister"
+    links={[
+      { label: 'Sierpleister', href: '/sierpleister', omschrijving: 'Alle sierpleister-afwerkingen.' },
+      { label: 'Granolputz', href: '/sierpleister/granolputz', omschrijving: 'Grovere, robuuste structuur.' },
+      { label: 'Spachtelputz binnen of buiten?', href: '/kennis/spachtelputz-binnen-of-buiten', omschrijving: 'Welke toepassing past bij u?' },
+    ]}
+  />
+
+  <CTASection
+    heading="Spachtelputz laten aanbrengen?"
+    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

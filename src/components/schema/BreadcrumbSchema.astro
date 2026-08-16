@@ -1,0 +1,35 @@
+---
+// src/components/schema/BreadcrumbSchema.astro
+// BreadcrumbList JSON-LD (SEO_STRATEGY.md §6.3) — voor pagina's dieper dan niveau 1.
+// Het laatste item (huidige pagina) krijgt bewust geen `item`-URL.
+import { bedrijf } from '@data/bedrijf';
+
+export interface Kruimel {
+  naam: string;
+  href?: string;
+}
+
+interface Props {
+  items: Kruimel[];
+}
+
+const { items } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((kruimel, i) => {
+    const element: Record<string, unknown> = {
+      '@type': 'ListItem',
+      position: i + 1,
+      name: kruimel.naam,
+    };
+    if (kruimel.href) {
+      element.item = new URL(kruimel.href, bedrijf.website).toString();
+    }
+    return element;
+  }),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

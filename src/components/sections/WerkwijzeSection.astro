@@ -1,0 +1,52 @@
+---
+// src/components/sections/WerkwijzeSection.astro — COMPONENT_SPEC §16 (redesigned v2)
+import Icon from '@components/ui/Icon.astro';
+import type { WerkwijzeStap } from '@/types';
+
+type Props = {
+  heading?: string;
+  intro?: string;
+  steps: WerkwijzeStap[];
+  class?: string;
+};
+
+const { heading, intro, steps, class: extra = '' } = Astro.props;
+---
+
+<section class:list={['container py-16 lg:py-24', extra]}>
+  {heading && (
+    <div class="text-center">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+        <span class="h-px w-8 bg-primary-dark"></span>
+        Werkwijze
+        <span class="h-px w-8 bg-primary-dark"></span>
+      </span>
+      <h2 class="mt-3 text-ink tracking-tight">{heading}</h2>
+      {intro && <p class="mx-auto mt-4 max-w-content text-lg leading-relaxed text-ink-light">{intro}</p>}
+    </div>
+  )}
+
+  <ol class:list={['mt-14 grid gap-8 sm:grid-cols-2', steps.length >= 6 ? 'lg:grid-cols-3 xl:grid-cols-6' : 'lg:grid-cols-3']}>
+    {steps.map((stap, i) => (
+      <li class="group relative flex flex-col items-center text-center">
+        {/* Connectie-lijn (alleen desktop, laatste item niet) */}
+        {i < steps.length - 1 && (
+          <span
+            class="absolute left-[calc(50%+2rem)] top-7 hidden h-0.5 w-[calc(100%-4rem)] bg-gradient-to-r from-primary/40 to-primary/10 xl:block"
+            aria-hidden="true"
+          ></span>
+        )}
+
+        <span
+          class="relative z-10 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white
+                 ring-4 ring-primary-10 shadow-md
+                 transition-transform duration-300 group-hover:scale-105"
+        >
+          {stap.icon ? <Icon name={stap.icon} size={24} /> : <span>{stap.nummer}</span>}
+        </span>
+        <h3 class="mt-5 text-base font-semibold text-ink tracking-tight">{stap.titel}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-ink-light">{stap.beschrijving}</p>
+      </li>
+    ))}
+  </ol>
+</section>

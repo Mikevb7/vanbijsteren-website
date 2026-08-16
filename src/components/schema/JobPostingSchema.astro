@@ -1,0 +1,60 @@
+---
+// src/components/schema/JobPostingSchema.astro
+// JobPosting JSON-LD voor Google for Jobs (SEO_STRATEGY.md §5.1).
+// Eén per unieke vacature-URL. `description` moet exact overeenkomen met de
+// zichtbare pagina-inhoud. Salaris alleen tonen als bevestigd (anders weglaten).
+//
+// Afwijking van het doc-voorbeeld: `jobLocationType: TELECOMMUTE` +
+// `applicantLocationRequirements` zijn NIET opgenomen — stukwerk is fysiek werk
+// op locatie, dus thuiswerk-markup zou Google misleiden.
+import { bedrijf } from '@data/bedrijf';
+import type { JobPostingData } from '@/types';
+
+interface Props {
+  data: JobPostingData;
+}
+
+const { data } = Astro.props;
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: data.titel,
+  description: data.beschrijving,
+  datePosted: data.datePosted,
+  validThrough: data.validThrough,
+  employmentType: data.employmentType,
+  hiringOrganization: {
+    '@type': 'Organization',
+    name: bedrijf.naam,
+    sameAs: bedrijf.website,
+    logo: new URL('/logo.svg', bedrijf.website).toString(),
+  },
+  jobLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: bedrijf.adres.straat,
+      addressLocality: data.stad,
+      postalCode: data.postcode,
+      addressCountry: bedrijf.adres.land,
+    },
+  },
+};
+
+if (typeof data.salarisMin === 'number') {
+  const value: Record<string, unknown> = {
+    '@type': 'QuantitativeValue',
+    minValue: data.salarisMin,
+    unitText: data.salarisEenheid ?? 'MONTH',
+  };
+  if (typeof data.salarisMax === 'number') value.maxValue = data.salarisMax;
+  schema.baseSalary = {
+    '@type': 'MonetaryAmount',
+    currency: 'EUR',
+    value,
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

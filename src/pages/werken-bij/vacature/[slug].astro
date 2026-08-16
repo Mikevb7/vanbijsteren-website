@@ -1,0 +1,129 @@
+---
+// src/pages/werken-bij/vacature/[slug].astro — vacature + JobPosting (Fase 3) — PAGE_SPECS §recruitment
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import JobPostingSchema from '@components/schema/JobPostingSchema.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import FormComponent from '@components/ui/FormComponent.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+export async function getStaticPaths() {
+  const vacatures = await getCollection('vacatures', (v) => v.data.isActief);
+  return vacatures.map((vacature) => ({
+    params: { slug: vacature.data.slug },
+    props: { vacature },
+  }));
+}
+
+const { vacature } = Astro.props;
+const v = vacature.data;
+
+const lijst = (items: string[]) => items.map((i) => `<li>${i}</li>`).join('');
+
+// Eén body-string: zichtbare inhoud én JobPosting.description moeten exact overeenkomen.
+const body = `
+  <h2>Wat ga je doen?</h2>
+  <p>Als ${v.titel.toLowerCase()} bij Van Bijsteren ben je dagelijks bezig met het
+  afwerken van wanden en plafonds in de Noord-Veluwe. Je werkt aan uiteenlopende
+  projecten — van nieuwbouwwoningen tot renovaties, van strak gladpleisterwerk tot
+  decoratieve afwerkingen.</p>
+  <ul>
+    <li>Uitvoeren van gladpleisterwerk, schuurwerk en spackspuitwerk</li>
+    <li>Aanbrengen van sierpleister zoals spachtelputz en granolputz</li>
+    <li>Buitengevelstucwerk en reparatiewerk</li>
+    <li>Eventueel decoratieve afwerkingen zoals Frescolori en Italiaans stucwerk</li>
+    <li>Netjes en zorgvuldig werken bij particulieren en aannemers</li>
+  </ul>
+
+  <h2>Wat verwachten wij?</h2>
+  <ul>${lijst(v.vereisten)}</ul>
+
+  <h2>Wat bieden wij?</h2>
+  <ul>${lijst(v.aanbod)}</ul>
+
+  <h2>Over Van Bijsteren</h2>
+  <p>Van Bijsteren Stukadoorsbedrijf is een familiebedrijf in Harderwijk met drie
+  generaties vakmanschap. Wij zijn NOA-erkend en staan bekend om ons vakwerk en onze
+  betrouwbaarheid. Een klein, hecht team waar je er echt bij hoort.</p>
+
+  <h2>Solliciteren</h2>
+  <p>Stuur een korte motivatie (en eventueel je cv) via het formulier hieronder.
+  Liever eerst even bellen? Dat kan altijd: ${bedrijf.telefoonDisplay}. Wij reageren
+  altijd binnen 2 werkdagen.</p>
+`;
+
+const jobData = {
+  titel: v.titel,
+  beschrijving: body,
+  datePosted: v.datePosted.toISOString().slice(0, 10),
+  validThrough: v.validThrough.toISOString().slice(0, 10),
+  employmentType: v.employmentType,
+  stad: v.stad,
+  postcode: v.postcode,
+};
+
+const faqItems = [
+  {
+    vraag: 'Ik heb geen ervaring als stukadoor, kan ik toch solliciteren?',
+    antwoord: 'Ja. Wij zijn open voor gemotiveerde zij-instromers en leerlingen. Motivatie en een goede werkhouding wegen zwaarder dan een papiertje. Neem gerust contact op voor een oriënterend gesprek.',
+  },
+  {
+    vraag: 'Welk salaris kan ik verwachten?',
+    antwoord: 'Wij betalen conform de cao Afbouw, afhankelijk van uw ervaring en functie. Neem contact op voor meer informatie.',
+  },
+  {
+    vraag: 'Hoe snel hoor ik iets na mijn sollicitatie?',
+    antwoord: 'Wij reageren altijd binnen 2 werkdagen. We houden het laagdrempelig — bellen mag ook.',
+  },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Werken bij', href: '/werken-bij' },
+  { label: v.titel },
+];
+---
+
+<BaseLayout
+  title={`Vacature ${v.titel} Harderwijk | Van Bijsteren`}
+  description={v.samenvatting}
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <JobPostingSchema data={jobData} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <section class="container py-10 lg:py-14">
+    <span class="inline-flex items-center rounded-full bg-primary-10 px-3 py-1 text-sm font-semibold text-primary-dark">Vacature open</span>
+    <h1 class="mt-4 text-ink">Vacature: {v.titel} — Harderwijk e.o.</h1>
+    <p class="mt-3 max-w-content text-lg text-ink-light">{v.samenvatting}</p>
+  </section>
+
+  <ContentBlok body={body} />
+
+  <section class="border-t border-border-light bg-surface-soft">
+    <div class="container py-12 lg:py-16">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-7">
+          <h2 class="mb-5 text-ink">Solliciteer direct</h2>
+          <FormComponent variant="sollicitatie" functies={[v.titel]} />
+        </div>
+        <div class="lg:col-span-5">
+          <h2 class="mb-5 text-ink">Veelgestelde vragen</h2>
+          <FAQAccordion items={faqItems} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Heb je een vraag?"
+    subheading="Bel ons gerust of kom langs in de showroom."
+    primaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: 'Bekijk alle vacatures', href: '/werken-bij' }}
+  />
+</BaseLayout>

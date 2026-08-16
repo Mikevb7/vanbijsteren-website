@@ -1,0 +1,45 @@
+---
+// src/components/cards/DienstCard.astro — COMPONENT_SPEC §7 (redesigned v2)
+import Icon from '@components/ui/Icon.astro';
+import { ArrowRight } from 'lucide-astro';
+import type { DienstCardProps } from '@/types';
+
+type Props = DienstCardProps & { class?: string };
+
+const { icon, titel, omschrijving, href, ctaLabel, class: extra = '' } = Astro.props;
+---
+
+<article class:list={['group relative h-full', extra]}>
+  <a
+    href={href}
+    class="relative flex flex-col h-full p-7 rounded-2xl border border-border-light bg-surface
+           transition-[transform,box-shadow,border-color] duration-300 ease-out
+           hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+  >
+    {/* Subtiele gradient-accent op hover */}
+    <span
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+    ></span>
+
+    <span
+      class="relative inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary-10 text-primary-dark mb-5
+             ring-1 ring-primary/10
+             transition-[transform,background-color] duration-300
+             group-hover:scale-105 group-hover:bg-primary group-hover:text-white"
+    >
+      <Icon name={icon} size={28} />
+    </span>
+
+    <h3 class="relative text-xl font-semibold text-ink tracking-tight">{titel}</h3>
+    <p class="relative mt-2.5 text-base leading-relaxed text-ink-light grow">{omschrijving}</p>
+
+    <span class="relative mt-6 inline-flex items-center gap-1.5 text-base font-semibold text-primary-dark">
+      <span class="border-b border-transparent transition-colors group-hover:border-primary-dark">
+        {ctaLabel ?? `Meer over ${titel.toLowerCase()}`}
+      </span>
+      <ArrowRight size={18} aria-hidden="true" strokeWidth={2.25} class="transition-transform duration-300 group-hover:translate-x-1" />
+    </span>
+  </a>
+</article>

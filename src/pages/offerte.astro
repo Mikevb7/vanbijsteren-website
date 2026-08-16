@@ -1,0 +1,94 @@
+---
+// src/pages/offerte.astro — offerte aanvragen (Fase 3, redesign v2) — PAGE_SPECS §/offerte
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import WerkwijzeSection from '@components/sections/WerkwijzeSection.astro';
+import FormComponent from '@components/ui/FormComponent.astro';
+import LocalBusinessInfoBlock from '@components/ui/LocalBusinessInfoBlock.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import { Phone } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+
+const stappen = [
+  { nummer: 1, titel: 'Offerte', beschrijving: 'U vraagt vrijblijvend een offerte aan. Wij nemen binnen één werkdag contact op.' },
+  { nummer: 2, titel: 'Planning', beschrijving: 'Na akkoord plannen wij de uitvoering in op een moment dat u uitkomt.' },
+  { nummer: 3, titel: 'Uitvoering', beschrijving: 'Onze stukadoors voeren het werk netjes uit en leveren samen met u op.' },
+];
+
+const trust = [
+  { icon: 'BadgeCheck', tekst: 'Vrijblijvend en kosteloos' },
+  { icon: 'Clock', tekst: 'Reactie binnen 1 werkdag' },
+  { icon: 'Award', tekst: 'NOA-erkend vakwerk' },
+];
+---
+
+<BaseLayout
+  title="Offerte aanvragen stucwerk | Van Bijsteren Stukadoorsbedrijf Harderwijk"
+  description="Vraag vrijblijvend een offerte aan bij Van Bijsteren. Stucwerk in Harderwijk en omgeving. Wij nemen snel contact op."
+>
+  <HeroSection
+    variant="simple"
+    badge="Vrijblijvend en kosteloos"
+    heading="Vrijblijvende offerte aanvragen"
+    subheading="Vertel ons wat u wilt laten doen en waar. Wij nemen zo snel mogelijk contact op — meestal binnen één werkdag."
+    primaryCta={{ label: 'Direct bellen', href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+
+  <div class="container py-16 lg:py-20">
+    <!-- Trust-indicators -->
+    <ul class="mx-auto mb-12 flex max-w-content flex-wrap items-center justify-center gap-x-8 gap-y-3">
+      {trust.map((t) => (
+        <li class="inline-flex items-center gap-2 text-sm font-semibold text-ink">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+            <Icon name={t.icon} size={16} />
+          </span>
+          {t.tekst}
+        </li>
+      ))}
+    </ul>
+
+    <div class="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+      <!-- Formulier -->
+      <div class="rounded-2xl border border-border-light bg-surface p-7 shadow-sm lg:p-10">
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+          <span class="h-px w-8 bg-primary-dark"></span>
+          Uw aanvraag
+        </span>
+        <h2 class="mt-3 text-ink tracking-tight">Vul het formulier in</h2>
+        <p class="mt-2 text-ink-light">Hoe meer detail u geeft, hoe scherper wij een offerte kunnen maken.</p>
+        <div class="mt-8">
+          <FormComponent variant="offerte" />
+        </div>
+      </div>
+
+      <!-- Zijkant: bellen + NAP -->
+      <aside class="flex flex-col gap-6">
+        <div class="rounded-2xl bg-gradient-to-br from-primary-10 via-surface-soft to-primary-10 p-7 ring-1 ring-primary/15 lg:p-8">
+          <h2 class="text-xl font-semibold text-ink tracking-tight">Liever bellen of langskomen?</h2>
+          <p class="mt-3 text-base leading-relaxed text-ink-light">
+            Dat kan altijd. Bel ons op {bedrijf.telefoonDisplay} of kom langs in onze
+            showroom op {bedrijf.showroom.omschrijving}.
+          </p>
+          <div class="mt-6">
+            <Button
+              href={`tel:${bedrijf.telefoon}`}
+              size="lg"
+              variant="primary"
+              ariaLabel={`Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naamKort}`}
+              class="w-full justify-center"
+            >
+              <Phone size={18} aria-hidden="true" />Bel {bedrijf.telefoonDisplay}
+            </Button>
+          </div>
+        </div>
+
+        <LocalBusinessInfoBlock heading="Onze gegevens" />
+      </aside>
+    </div>
+  </div>
+
+  <section class="border-t border-border-light bg-surface-soft" aria-label="Hoe werkt het">
+    <WerkwijzeSection heading="Hoe werkt het?" steps={stappen} />
+  </section>
+</BaseLayout>

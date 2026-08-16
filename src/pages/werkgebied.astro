@@ -1,0 +1,49 @@
+---
+// src/pages/werkgebied.astro — werkgebied overzicht (Fase 3) — PAGE_SPECS §lokaal
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import RegioLinkBlok from '@components/sections/RegioLinkBlok.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { regio, alleWerkplaatsen } from '@data/regio';
+import { bedrijf } from '@data/bedrijf';
+
+const places = regio.map((r) => ({
+  naam: r.naam,
+  href: r.heeftPagina ? r.href : undefined,
+  actief: r.isHoofdlocatie,
+}));
+
+const body = `
+  <p>Van Bijsteren Stukadoorsbedrijf is gevestigd in Harderwijk en werkt in de hele
+  Noord-Veluwe en directe omgeving. Vanuit onze vestiging zijn de meeste plaatsen binnen
+  een half uur bereikbaar, zodat we snel bij u kunnen zijn voor een vrijblijvende opname.</p>
+  <p>Wij werken onder meer in ${alleWerkplaatsen.join(', ')}. Staat uw plaats er niet bij,
+  maar ligt u in de buurt? Neem gerust contact op — voor grotere projecten rijden wij ook
+  wat verder.</p>
+`;
+---
+
+<BaseLayout
+  title="Stukadoor in de Noord-Veluwe | Werkgebied Van Bijsteren Harderwijk"
+  description="Van Bijsteren Stukadoorsbedrijf werkt in Harderwijk, Ermelo, Putten, Nunspeet, Zeewolde en omgeving. Erkend stukadoorsbedrijf. Vraag een offerte aan."
+>
+  <HeroSection
+    variant="simple"
+    heading="Ons werkgebied — Noord-Veluwe en omgeving"
+    subheading="Gevestigd in Harderwijk, werkzaam in de hele regio. Bekijk waar wij werken."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+
+  <RegioLinkBlok heading="Waar wij werken" places={places} />
+
+  <ContentBlok heading="Stukadoor voor de hele Noord-Veluwe" body={body} soft={true} />
+
+  <CTASection
+    heading="Stukwerk nodig in uw omgeving?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+// src/components/sections/DienstGrid.astro — grid van DienstCards (redesigned v2)
+import DienstCard from '@components/cards/DienstCard.astro';
+import type { Dienst } from '@data/diensten';
+
+type Props = {
+  heading?: string;
+  intro?: string;
+  diensten: Dienst[];
+  columns?: 2 | 3;
+  eyebrow?: string;
+  class?: string;
+};
+
+const { heading, intro, diensten, columns = 3, eyebrow = 'Wat wij doen', class: extra = '' } = Astro.props;
+const kolommen = columns === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3';
+---
+
+<section class:list={['container py-16 lg:py-20', extra]}>
+  {heading && (
+    <div class="max-w-content">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+        <span class="h-px w-8 bg-primary-dark"></span>
+        {eyebrow}
+      </span>
+      <h2 class="mt-3 text-ink tracking-tight">{heading}</h2>
+      {intro && <p class="mt-4 text-lg leading-relaxed text-ink-light">{intro}</p>}
+    </div>
+  )}
+
+  <div class:list={['grid gap-6', heading ? 'mt-12' : '', kolommen]}>
+    {diensten.map((dienst) => (
+      <DienstCard
+        icon={dienst.icon}
+        titel={dienst.naam}
+        omschrijving={dienst.korteOmschrijving}
+        href={dienst.href}
+      />
+    ))}
+  </div>
+</section>

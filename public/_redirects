@@ -1,0 +1,6 @@
+# LET OP: dit bestand werkt NIET op Vercel.
+# Vercel leest redirects uit vercel.json → "redirects" array.
+# /index.php → / staat al in vercel.json.
+#
+# Voeg extra Joomla-redirects toe in vercel.json zodra de URL-inventarisatie klaar is:
+# { "source": "/oud-pad", "destination": "/nieuw-pad", "permanent": true }

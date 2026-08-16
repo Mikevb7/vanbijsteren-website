@@ -1,0 +1,191 @@
+---
+// src/pages/reviews.astro — reviews (Fase 3, redesign v4) — PAGE_SPECS §vertrouwen
+// Toont Google-reviews (build-time via scripts/fetch-google-reviews.mjs) + lokale reviews.
+// GEEN AggregateRating-schema (self-serving, BUILD_SPEC §3.3). Bron transparant vermeld.
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import TestimonialCard from '@components/cards/TestimonialCard.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import Button from '@components/ui/Button.astro';
+import { Star, MessageSquareText, ExternalLink } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+import googlePayload from '@data/google-reviews.json';
+import type { GoogleReviewsPayload } from '@/types';
+
+const google = googlePayload as GoogleReviewsPayload;
+
+// Google-reviews eerst — meest recente eerst, alle met tekst
+const googleReviews = (google.reviews ?? [])
+  .filter((r) => r.tekst.length > 0)
+  .sort((a, b) => b.tijd - a.tijd)
+  .map((r) => ({
+    quote:        r.tekst,
+    auteur:       r.auteur,
+    plaats:       undefined as string | undefined,
+    rating:       r.rating,
+    bron:         'google',
+    datum:        undefined as string | undefined,
+    tijdRelatief: r.tijdRelatief,
+    auteurUrl:    r.auteurUrl,
+    profielFoto:  r.profielFoto,
+  }));
+
+// Lokale reviews aanvullend
+const lokaleReviews = (await getCollection('reviews', (r) => r.data.geverifieerd))
+  .sort((a, b) => b.data.datum.getTime() - a.data.datum.getTime())
+  .map((r) => ({
+    quote:  (r.body ?? '').trim(),
+    auteur: r.data.auteur,
+    plaats: r.data.plaats,
+    rating: r.data.rating,
+    bron:   r.data.bron,
+    datum:  String(r.data.datum.getFullYear()),
+  }));
+
+const reviews = [...googleReviews, ...lokaleReviews];
+
+// Aggregate uit Google (over ALLE reviews) heeft voorkeur — dat is de officiële Google-rating.
+// Fallback: gemiddelde over de zichtbare set.
+const gemiddeld = google.rating ?? (reviews.length
+  ? (reviews.reduce((sum, r) => sum + (r.rating ?? 0), 0) / reviews.length)
+  : 0);
+const gemiddeldAfgerond = Math.round(gemiddeld * 10) / 10;
+const totaalCount = google.userRatingsTotal ?? reviews.length;
+
+const bronnenSet = new Set(reviews.map((r) => r.bron).filter(Boolean));
+const bronnen = Array.from(bronnenSet);
+
+const gridClass =
+  reviews.length === 1 ? 'mx-auto max-w-2xl'
+  : reviews.length === 2 ? 'grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto'
+  : 'grid gap-6 sm:grid-cols-2 lg:grid-cols-3';
+
+const heeftGoogle = googleReviews.length > 0;
+---
+
+<BaseLayout
+  title="Reviews Van Bijsteren Stukadoorsbedrijf | Wat klanten zeggen"
+  description="Lees de ervaringen van klanten over Van Bijsteren Stukadoorsbedrijf in Harderwijk en omgeving. Geverifieerde Google-reviews."
+>
+  <HeroSection
+    variant="simple"
+    badge={heeftGoogle ? `${totaalCount}+ Google-reviews` : `${reviews.length} klantervaring${reviews.length === 1 ? '' : 'en'}`}
+    heading="Wat onze klanten zeggen"
+    subheading="Echte ervaringen van klanten in Harderwijk en omgeving. Transparant en geverifieerd."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={google.url ? { label: 'Bekijk op Google', href: google.url, external: true } : undefined}
+  />
+
+  {reviews.length > 0 && (
+    <section class="container -mt-8 pb-4" aria-label="Samenvatting reviews">
+      <div class="mx-auto flex max-w-content flex-col items-center gap-4 rounded-2xl border border-border-light bg-surface p-6 shadow-md ring-1 ring-black/5 sm:flex-row sm:justify-between sm:gap-8 sm:p-8">
+        <div class="flex items-center gap-5">
+          <div class="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+            <span class="text-2xl font-extrabold tracking-tight">{gemiddeldAfgerond.toString().replace('.', ',')}</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-0.5 text-warning" role="img" aria-label={`Gemiddelde beoordeling ${gemiddeldAfgerond} van 5`}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star size={18} aria-hidden="true" fill={i < Math.round(gemiddeld) ? 'currentColor' : 'none'} strokeWidth={2} />
+              ))}
+            </div>
+            <p class="mt-1 text-sm text-ink-light">
+              {heeftGoogle
+                ? <>Gemiddelde op basis van <strong class="text-ink">{totaalCount} Google-reviews</strong></>
+                : <>Gemiddelde beoordeling · {reviews.length} review{reviews.length === 1 ? '' : 's'}</>
+              }
+            </p>
+          </div>
+        </div>
+        {bronnen.length > 0 && (
+          <div class="text-sm text-ink-light sm:text-right">
+            <p class="text-xs font-semibold uppercase tracking-wide text-ink-muted">Bronnen</p>
+            <p class="mt-1 flex flex-wrap gap-1.5 sm:justify-end">
+              {bronnen.map((b) => (
+                <span class="inline-flex items-center rounded-full bg-surface-soft px-2.5 py-0.5 text-xs font-medium text-ink-muted ring-1 ring-border-light capitalize">
+                  {b}
+                </span>
+              ))}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <section class="container py-16 lg:py-20">
+    {reviews.length === 0 && (
+      <div class="mx-auto max-w-content rounded-2xl border-2 border-dashed border-border bg-surface-soft p-10 text-center">
+        <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-10 text-primary-dark">
+          <MessageSquareText size={26} aria-hidden="true" />
+        </span>
+        <p class="mt-5 text-lg text-ink-light">Binnenkort vindt u hier de ervaringen van onze klanten.</p>
+      </div>
+    )}
+
+    {reviews.length === 1 && (
+      <div class="grid items-stretch gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <TestimonialCard {...reviews[0]} class="text-lg" />
+        <aside class="flex flex-col justify-between rounded-2xl bg-gradient-to-br from-primary via-primary to-primary-dark p-8 text-white shadow-lg">
+          <div>
+            <div class="flex items-center gap-1 text-warning" role="img" aria-label={`Gemiddelde beoordeling ${gemiddeldAfgerond}`}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star size={22} aria-hidden="true" fill={i < Math.round(gemiddeld) ? 'currentColor' : 'rgba(255,255,255,0.35)'} strokeWidth={1.5} />
+              ))}
+            </div>
+            <p class="mt-4 text-4xl font-extrabold tracking-tight">{gemiddeldAfgerond.toFixed(1).replace('.', ',')} / 5</p>
+            <p class="mt-2 text-white/95">Geverifieerde klantreview{heeftGoogle ? ' via Google' : ''}.</p>
+          </div>
+          <div class="mt-8 space-y-3">
+            <Button href={`tel:${bedrijf.telefoon}`} size="lg" variant="dark" class="w-full justify-center">Bel ons direct</Button>
+            <p class="text-sm text-white/85">Meer reviews volgen. Tevreden over ons werk? Laat een review achter op Google.</p>
+          </div>
+        </aside>
+      </div>
+    )}
+
+    {reviews.length >= 2 && (
+      <div class={gridClass}>
+        {reviews.map((review) => (
+          <TestimonialCard {...review} />
+        ))}
+      </div>
+    )}
+
+    <div class="mx-auto mt-16 max-w-content overflow-hidden rounded-2xl border border-border-light bg-gradient-to-br from-primary-10 via-surface-soft to-primary-10 p-8 ring-1 ring-primary/15 lg:p-10">
+      <div class="flex flex-col items-start gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+        <div>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+            <span class="h-px w-8 bg-primary-dark"></span>
+            Deel uw ervaring
+          </span>
+          <h2 class="mt-2 text-2xl font-semibold text-ink tracking-tight">Tevreden over ons werk?</h2>
+          <p class="mt-2 text-base leading-relaxed text-ink-light">
+            Laat een review achter op Google — daar helpt u andere klanten enorm mee.
+            Liever rechtstreeks contact? Bel ons op
+            <a href={`tel:${bedrijf.telefoon}`} class="font-semibold text-primary-dark hover:underline">{bedrijf.telefoonDisplay}</a>.
+          </p>
+        </div>
+        {google.url && (
+          <a
+            href={google.url}
+            rel="noopener"
+            target="_blank"
+            class="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-5 py-3 font-semibold text-white shadow-sm transition-[background-color,transform] hover:bg-primary-dark hover:-translate-y-0.5"
+          >
+            Review op Google
+            <ExternalLink size={16} aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Zelf ervaren wat wij voor u kunnen betekenen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

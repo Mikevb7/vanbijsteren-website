@@ -1,0 +1,68 @@
+---
+// src/components/cards/VacatureCard.astro — COMPONENT_SPEC §8 (redesigned v2)
+import Button from '@components/ui/Button.astro';
+import { MapPin, FileText, Euro, Check } from 'lucide-astro';
+import type { VacatureCardProps } from '@/types';
+
+type Props = VacatureCardProps & { class?: string };
+
+const {
+  titel, locatie, contractType, salarisRange, highlights, href, isOpen = true,
+  class: extra = '',
+} = Astro.props;
+---
+
+<article
+  class:list={[
+    'group flex flex-col gap-6 rounded-2xl border border-border-light bg-surface p-7 shadow-sm',
+    'transition-[transform,box-shadow,border-color] duration-300',
+    'hover:-translate-y-1 hover:shadow-lg hover:border-primary/30',
+    'md:flex-row md:items-center md:justify-between',
+    extra,
+  ]}
+>
+  <div class="grow">
+    <div class="flex flex-wrap items-center gap-3">
+      <h3 class="text-xl font-semibold text-ink tracking-tight">{titel}</h3>
+      {isOpen && (
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-dark ring-1 ring-primary/20">
+          <span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+          Vacature open
+        </span>
+      )}
+    </div>
+
+    <dl class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-light">
+      <div class="inline-flex items-center gap-1.5">
+        <MapPin size={16} aria-hidden="true" class="text-primary-dark" /><dt class="sr-only">Locatie</dt><dd>{locatie}</dd>
+      </div>
+      <div class="inline-flex items-center gap-1.5">
+        <FileText size={16} aria-hidden="true" class="text-primary-dark" /><dt class="sr-only">Contract</dt><dd>{contractType}</dd>
+      </div>
+      {salarisRange && (
+        <div class="inline-flex items-center gap-1.5">
+          <Euro size={16} aria-hidden="true" class="text-primary-dark" /><dt class="sr-only">Salaris</dt><dd>{salarisRange}</dd>
+        </div>
+      )}
+    </dl>
+
+    {highlights.length > 0 && (
+      <ul class="mt-5 flex flex-col gap-2">
+        {highlights.map((punt) => (
+          <li class="flex items-start gap-2.5 text-base text-ink">
+            <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary-dark">
+              <Check size={14} aria-hidden="true" strokeWidth={2.5} />
+            </span>
+            <span>{punt}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+
+  <div class="shrink-0">
+    <Button href={href} size="lg" ariaLabel={`Solliciteer als ${titel}`} class="w-full md:w-auto">
+      Bekijk vacature
+    </Button>
+  </div>
+</article>

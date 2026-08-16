@@ -1,0 +1,43 @@
+---
+// src/pages/cookies.astro — cookieverklaring (Fase 3) — PAGE_SPECS §JURIDISCH
+// Indexeerbaar. Site gebruikt cookieloze Plausible analytics → geen tracking-cookies.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const body = `
+  <h2>Gebruiken wij cookies?</h2>
+  <p>Deze website plaatst geen tracking- of advertentiecookies. Wij hoeven u daarom
+  ook geen cookiebanner of toestemmingsvraag voor te leggen.</p>
+
+  <h2>Website-statistieken</h2>
+  <p>Voor het bijhouden van bezoekersaantallen gebruiken wij Plausible Analytics, een
+  privacyvriendelijk systeem. Plausible verzamelt uitsluitend geanonimiseerde,
+  geaggregeerde statistieken, plaatst geen cookies en bewaart geen persoonsgegevens.
+  Daardoor is uw bezoek niet tot u te herleiden.</p>
+
+  <h2>Functionele gegevens</h2>
+  <p>Wanneer u een formulier op deze website invult, worden de door u ingevulde
+  gegevens verwerkt om uw aanvraag te behandelen. Lees daarover meer in onze
+  <a href="/privacy">privacyverklaring</a>.</p>
+
+  <h2>Vragen?</h2>
+  <p>Heeft u vragen over hoe wij met gegevens omgaan? Bel ons gerust op
+  <a href="tel:${bedrijf.telefoon}">${bedrijf.telefoonDisplay}</a>.</p>
+`;
+---
+
+<BaseLayout
+  title="Cookieverklaring | Van Bijsteren Stukadoorsbedrijf"
+  description="Deze website gebruikt geen tracking-cookies. Lees hoe Van Bijsteren omgaat met cookies en statistieken."
+>
+  <HeroSection
+    variant="simple"
+    heading="Cookieverklaring"
+    subheading="Wij gebruiken geen tracking-cookies. Zo zit het."
+    primaryCta={{ label: 'Neem contact op', href: '/contact' }}
+  />
+
+  <ContentBlok body={body} />
+</BaseLayout>

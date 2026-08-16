@@ -1,0 +1,137 @@
+---
+// src/components/sections/TeamSection.astro — COMPONENT_SPEC §17 (redesigned v3 + perf)
+// Adaptive layout: 1 lid = spotlight met tekstuele context ernaast,
+//                  2 leden = 2-col centered, 3 leden = 3-col, 4+ = 4-col grid.
+import { Image } from 'astro:assets';
+import { Quote } from 'lucide-astro';
+import type { TeamLidProps } from '@/types';
+
+type Props = {
+  heading: string;
+  body?: string;
+  members: TeamLidProps[];
+  class?: string;
+};
+
+const { heading, body, members, class: extra = '' } = Astro.props;
+
+const gridKlasse =
+  members.length === 2 ? 'mx-auto max-w-3xl grid gap-6 sm:grid-cols-2'
+  : members.length === 3 ? 'grid gap-6 sm:grid-cols-2 lg:grid-cols-3'
+  : 'grid gap-6 sm:grid-cols-2 lg:grid-cols-4';
+---
+
+<section class:list={['container py-20 lg:py-24', extra]}>
+  <div class="mx-auto max-w-content text-center">
+    <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+      <span class="h-px w-8 bg-primary-dark"></span>
+      Ons team
+      <span class="h-px w-8 bg-primary-dark"></span>
+    </span>
+    <h2 class="mt-3 text-ink tracking-tight">{heading}</h2>
+    {body && <p class="mx-auto mt-4 max-w-prose text-lg leading-relaxed text-ink-light">{body}</p>}
+  </div>
+
+  {members.length === 1 ? (
+    <div class="mt-14 mx-auto grid max-w-4xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-stretch">
+      {(() => {
+        const lid = members[0];
+        const heeftMeta = lid.foto && typeof lid.foto.src !== 'string';
+        const fotoSrcStr = lid.foto && typeof lid.foto.src === 'string' ? lid.foto.src : '';
+        return (
+          <>
+            <div class="overflow-hidden rounded-2xl border border-border-light bg-surface shadow-sm">
+              {lid.foto && heeftMeta ? (
+                <Image
+                  src={lid.foto.src as ImageMetadata}
+                  alt={lid.foto.alt}
+                  widths={[300, 500, 700]}
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  formats={['webp']}
+                  quality={78}
+                  loading="lazy"
+                  class="aspect-[3/4] w-full object-cover"
+                />
+              ) : lid.foto ? (
+                <img
+                  src={fotoSrcStr}
+                  alt={lid.foto.alt}
+                  width={lid.foto.width}
+                  height={lid.foto.height}
+                  loading="lazy"
+                  class="aspect-[3/4] w-full object-cover"
+                />
+              ) : (
+                <div class="flex aspect-[3/4] w-full items-center justify-center bg-gradient-to-br from-primary-10 via-primary-10 to-primary/20 text-7xl font-bold text-primary-dark" aria-hidden="true">
+                  {lid.naam.charAt(0)}
+                </div>
+              )}
+            </div>
+            <div class="flex flex-col justify-center rounded-2xl bg-gradient-to-br from-primary-10 via-surface-soft to-primary-10 p-8 ring-1 ring-primary/15 lg:p-10">
+              <h3 class="text-3xl font-bold text-ink tracking-tight">{lid.naam}</h3>
+              <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary-dark">{lid.rol}</p>
+              {lid.quote && (
+                <blockquote class="mt-6 flex gap-3 border-l-2 border-primary pl-4 text-lg italic leading-relaxed text-ink">
+                  <Quote size={20} aria-hidden="true" class="mt-1 shrink-0 text-primary" fill="currentColor" />
+                  <span>{lid.quote}</span>
+                </blockquote>
+              )}
+            </div>
+          </>
+        );
+      })()}
+    </div>
+  ) : (
+    <ul class:list={['mt-14', gridKlasse]}>
+      {members.map((lid) => {
+        const heeftMeta = lid.foto && typeof lid.foto.src !== 'string';
+        const fotoSrcStr = lid.foto && typeof lid.foto.src === 'string' ? lid.foto.src : '';
+        return (
+          <li
+            class="group flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface shadow-sm
+                   transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="relative overflow-hidden">
+              {lid.foto && heeftMeta ? (
+                <Image
+                  src={lid.foto.src as ImageMetadata}
+                  alt={lid.foto.alt}
+                  widths={[200, 320, 480]}
+                  sizes="(max-width: 640px) 50vw, 320px"
+                  formats={['webp']}
+                  quality={78}
+                  loading="lazy"
+                  class="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : lid.foto ? (
+                <img
+                  src={fotoSrcStr}
+                  alt={lid.foto.alt}
+                  width={lid.foto.width}
+                  height={lid.foto.height}
+                  loading="lazy"
+                  class="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div class="flex aspect-[3/4] w-full items-center justify-center bg-gradient-to-br from-primary-10 to-primary/15 text-5xl font-bold text-primary-dark" aria-hidden="true">
+                  {lid.naam.charAt(0)}
+                </div>
+              )}
+              <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true"></div>
+            </div>
+            <div class="flex flex-col gap-1 p-6">
+              <h3 class="text-lg font-semibold text-ink tracking-tight">{lid.naam}</h3>
+              <p class="text-sm font-semibold uppercase tracking-wide text-primary-dark">{lid.rol}</p>
+              {lid.quote && (
+                <blockquote class="mt-3 flex gap-2 border-l-2 border-primary/30 pl-3 text-sm italic leading-relaxed text-ink-light">
+                  <Quote size={14} aria-hidden="true" class="mt-0.5 shrink-0 text-primary-light" fill="currentColor" />
+                  <span>{lid.quote}</span>
+                </blockquote>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  )}
+</section>

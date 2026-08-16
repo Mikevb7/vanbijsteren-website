@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Blokkeer admin en tijdelijke/onafgemaakte pagina's
+Disallow: /admin/
+Disallow: /_astro/
+
+# Sitemap
+Sitemap: https://www.vanbijsterenstukadoors.nl/sitemap-index.xml

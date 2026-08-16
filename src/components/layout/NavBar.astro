@@ -1,0 +1,194 @@
+---
+// src/components/layout/NavBar.astro (redesigned v2)
+import { bedrijf } from '@data/bedrijf';
+import { mainNav } from '@data/nav';
+import Button from '@components/ui/Button.astro';
+import { Menu, Phone, ChevronDown } from 'lucide-astro';
+---
+
+<header id="site-header" class="sticky top-0 z-50 border-b border-border-light/60 bg-surface/85 backdrop-blur-md supports-[backdrop-filter]:bg-surface/75 transition-shadow duration-300">
+  <nav class="container flex items-center justify-between gap-4 h-16 lg:h-20" aria-label="Hoofdnavigatie">
+    <!-- Logo -->
+    <a href="/" class="group flex items-center font-extrabold text-lg lg:text-xl text-ink shrink-0 tracking-tight">
+      <span class="text-primary-dark transition-colors group-hover:text-primary">Van&nbsp;Bijsteren</span>
+    </a>
+
+    <!-- Desktop navigatie -->
+    <ul class="hidden lg:flex items-center gap-0.5">
+      {mainNav.map((item) => (
+        <li class="relative group">
+          {item.children ? (
+            <>
+              <a
+                href={item.href}
+                class:list={[
+                  'inline-flex items-center gap-1 px-3.5 py-2 rounded-md text-base font-medium transition-colors',
+                  item.highlight
+                    ? 'text-primary-dark hover:bg-primary-10'
+                    : 'text-ink hover:text-primary-dark hover:bg-surface-soft',
+                ]}
+                aria-haspopup="true"
+              >
+                {item.label}
+                <ChevronDown size={15} aria-hidden="true" strokeWidth={2.25} class="transition-transform duration-200 group-hover:rotate-180" />
+              </a>
+              <div
+                class="absolute left-0 top-full pt-3 opacity-0 invisible translate-y-1 transition-all duration-200
+                       group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                       group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0"
+              >
+                <ul class="min-w-[17rem] rounded-xl border border-border-light bg-surface/95 backdrop-blur-md p-2 shadow-xl ring-1 ring-black/5">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class="block px-3.5 py-2 rounded-md text-base text-ink transition-colors hover:bg-primary-10 hover:text-primary-dark"
+                      >
+                        {child.label}
+                      </a>
+                      {child.children && (
+                        <ul class="my-1 ml-3 border-l border-border-light pl-3">
+                          {child.children.map((grand) => (
+                            <li>
+                              <a
+                                href={grand.href}
+                                class="block rounded-md px-3 py-1.5 text-sm text-ink-light transition-colors hover:bg-primary-10 hover:text-primary-dark"
+                              >
+                                {grand.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <a
+              href={item.href}
+              class="inline-flex items-center px-3.5 py-2 rounded-md text-base font-medium text-ink transition-colors hover:text-primary-dark hover:bg-surface-soft"
+            >
+              {item.label}
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <!-- Desktop CTA -->
+    <div class="hidden lg:flex items-center gap-4 shrink-0">
+      <a
+        href={`tel:${bedrijf.telefoon}`}
+        class="group inline-flex items-center gap-2 text-base font-semibold text-primary-dark transition-colors hover:text-primary"
+      >
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary-10 ring-1 ring-primary/15 transition-colors group-hover:bg-primary group-hover:text-white">
+          <Phone size={16} aria-hidden="true" strokeWidth={2.25} />
+        </span>
+        {bedrijf.telefoonDisplay}
+      </a>
+      <Button href="/offerte" size="md">Offerte aanvragen</Button>
+    </div>
+
+    <!-- Mobiele hamburger -->
+    <button
+      type="button"
+      id="nav-toggle"
+      class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-md text-ink transition-colors hover:bg-surface-soft"
+      aria-label="Menu openen"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <Menu size={24} aria-hidden="true" />
+    </button>
+  </nav>
+
+  <!-- Mobiel menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden fixed inset-0 top-16 z-40 hidden overflow-y-auto bg-surface"
+  >
+    <div class="container py-5">
+      <ul class="flex flex-col">
+        {mainNav.map((item) => (
+          <li class="border-b border-border-light">
+            {item.children ? (
+              <details>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-2 py-3.5 text-lg font-medium text-ink">
+                  <span>{item.label}</span>
+                  <ChevronDown size={20} aria-hidden="true" class="mobile-chevron transition-transform" />
+                </summary>
+                <ul class="pb-3 pl-1">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} class="block rounded-md py-2 pl-3 text-base text-ink-light transition-colors hover:bg-primary-10 hover:text-primary-dark">
+                        {child.label}
+                      </a>
+                      {child.children && (
+                        <ul class="pl-5">
+                          {child.children.map((grand) => (
+                            <li>
+                              <a href={grand.href} class="block rounded-md py-1.5 pl-3 text-sm text-ink-muted transition-colors hover:text-primary-dark">
+                                {grand.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a href={item.href} class="block py-3.5 text-lg font-medium text-ink transition-colors hover:text-primary-dark">
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-8 flex flex-col gap-3">
+        <Button href="/offerte" size="lg" class="w-full">Offerte aanvragen</Button>
+        <a
+          href={`tel:${bedrijf.telefoon}`}
+          class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border-2 border-primary/30 bg-primary-10 text-base font-semibold text-primary-dark transition-colors hover:bg-primary-10/70"
+        >
+          <Phone size={18} aria-hidden="true" />
+          Bel {bedrijf.telefoonDisplay}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  details[open] > summary .mobile-chevron { transform: rotate(180deg); }
+  summary::-webkit-details-marker { display: none; }
+  #site-header.is-scrolled { box-shadow: 0 4px 20px -8px rgb(0 0 0 / 0.08); }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const header = document.getElementById('site-header');
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
+
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 8) header.classList.add('is-scrolled');
+      else header.classList.remove('is-scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

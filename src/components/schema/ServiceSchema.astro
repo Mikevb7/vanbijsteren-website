@@ -1,0 +1,29 @@
+---
+// src/components/schema/ServiceSchema.astro
+// Service JSON-LD per dienstpagina (SEO_STRATEGY.md §6.4).
+import { bedrijf } from '@data/bedrijf';
+
+interface Props {
+  naam:         string;
+  serviceType:  string;
+  description:  string;
+  areaServed?:  string;
+}
+
+const { naam, serviceType, description, areaServed = 'Gelderland' } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: naam,
+  serviceType,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: bedrijf.naam,
+  },
+  areaServed: { '@type': 'State', name: areaServed },
+  description,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

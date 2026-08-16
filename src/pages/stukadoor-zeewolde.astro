@@ -1,0 +1,72 @@
+---
+// src/pages/stukadoor-zeewolde.astro — lokaal (Fase 3) — PAGE_SPECS §lokaal
+// CONTENT-GATE: noindex tot er ≥2 Zeewolde-projecten met foto zijn (PAGE_SPECS: "niet live zonder").
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import DienstGrid from '@components/sections/DienstGrid.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import RegioLinkBlok from '@components/sections/RegioLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { pillarDiensten } from '@data/diensten';
+import { regio } from '@data/regio';
+import { bedrijf } from '@data/bedrijf';
+
+const intro = `
+  <p>Op zoek naar een stukadoor in Zeewolde? Van Bijsteren Stukadoorsbedrijf werkt
+  regelmatig in Zeewolde — op zo’n 20 minuten rijden vanuit Harderwijk. Erkend NOA-lid,
+  altijd een vrijblijvende offerte vooraf.</p>
+  <p>Wij verzorgen alle vormen van stucwerk in Zeewolde en omgeving: van strak
+  binnenstucwerk en sierpleister tot gevelafwerking en reparatiewerk. Vakkundig, netjes
+  en op tijd.</p>
+`;
+
+const faqItems = [
+  {
+    vraag: 'Wat kost stucwerk per m²?',
+    antwoord: 'De prijs van stucwerk hangt af van de ondergrond, de gewenste afwerking en de oppervlakte. Voor een nauwkeurige prijs komen wij graag vrijblijvend langs om het werk op te nemen.',
+  },
+  {
+    vraag: 'Hoe snel kunnen jullie in Zeewolde komen?',
+    antwoord: 'Zeewolde ligt op zo’n 20 minuten van Harderwijk. Wij reageren binnen één werkdag op uw aanvraag en plannen het opnemen zo snel mogelijk in.',
+  },
+];
+
+const andereplaatsen = regio
+  .filter((r) => r.heeftPagina && r.slug !== 'zeewolde')
+  .map((r) => ({ naam: r.naam, href: r.href }));
+---
+
+<BaseLayout
+  title="Stukadoor Zeewolde | Van Bijsteren Stukadoorsbedrijf"
+  description="Erkend stukadoorsbedrijf voor stucwerk in Zeewolde. Van Bijsteren is op zo’n 20 minuten vanuit Zeewolde. Vraag een vrijblijvende offerte aan."
+  noindex={true}
+>
+  <HeroSection
+    variant="local"
+    heading="Stukadoor in Zeewolde — vakmanschap dichtbij"
+    subheading="Op zo’n 20 minuten vanuit Harderwijk. Erkend NOA-stukadoorsbedrijf voor heel Zeewolde."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+
+  <SEOContentSection heading="Uw stukadoor in Zeewolde" body={intro} />
+
+  <DienstGrid heading="Onze diensten in Zeewolde" diensten={pillarDiensten} columns={3} />
+
+  <section class="container py-12 lg:py-16">
+    <div class="max-w-prose">
+      <h2 class="mb-5 text-ink">Veelgestelde vragen</h2>
+      <FAQAccordion items={faqItems} />
+    </div>
+  </section>
+
+  <RegioLinkBlok heading="Ook werkzaam in" places={andereplaatsen} />
+
+  <CTASection
+    heading="Stukwerk nodig in Zeewolde?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

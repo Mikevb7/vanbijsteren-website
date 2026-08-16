@@ -1,0 +1,55 @@
+---
+// src/components/ui/ContactBlok.astro — COMPONENT_SPEC §12
+// NAP + directe acties. Schema apart op paginaniveau (LocalBusinessSchema).
+import { bedrijf } from '@data/bedrijf';
+import Button from '@components/ui/Button.astro';
+import FormComponent from '@components/ui/FormComponent.astro';
+import WhatsAppButton from '@components/ui/WhatsAppButton.astro';
+import LocalBusinessInfoBlock from '@components/ui/LocalBusinessInfoBlock.astro';
+import { Phone } from 'lucide-astro';
+
+type Props = {
+  heading?: string;
+  intro?: string;
+  showForm?: boolean;
+  showWhatsApp?: boolean;
+  mapEmbed?: string;
+  class?: string;
+};
+
+const {
+  heading, intro, showForm = false, showWhatsApp = false, mapEmbed, class: extra = '',
+} = Astro.props;
+---
+
+<section class:list={['container py-16 lg:py-24', extra]}>
+  {heading && <h2 class="text-ink">{heading}</h2>}
+  {intro && <p class="mt-4 max-w-content text-lg text-ink-light">{intro}</p>}
+
+  <div class:list={['mt-8 grid gap-10', showForm && 'lg:grid-cols-2']}>
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <Button href={`tel:${bedrijf.telefoon}`} size="lg" variant="primary"
+                ariaLabel={`Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naamKort}`}>
+          <Phone size={18} aria-hidden="true" />Bel {bedrijf.telefoonDisplay}
+        </Button>
+        {showWhatsApp && (
+          <WhatsAppButton phoneNumber={bedrijf.telefoon} position="inline"
+                          message="Hallo, ik heb een vraag over stukadoorswerk." />
+        )}
+      </div>
+
+      <LocalBusinessInfoBlock />
+
+      {mapEmbed && (
+        <div class="overflow-hidden rounded-lg border border-border-light shadow-sm" set:html={mapEmbed} />
+      )}
+    </div>
+
+    {showForm && (
+      <div class="rounded-lg border border-border-light bg-surface p-6 lg:p-8">
+        <FormComponent variant="contact" />
+      </div>
+    )}
+  </div>
+</section>

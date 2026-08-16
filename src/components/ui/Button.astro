@@ -1,0 +1,61 @@
+---
+// src/components/ui/Button.astro (redesigned v2)
+interface Props {
+  href?:      string;
+  type?:      'button' | 'submit';
+  variant?:   'primary' | 'secondary' | 'ghost' | 'dark';
+  size?:      'md' | 'lg';
+  external?:  boolean;
+  ariaLabel?: string;
+  class?:     string;
+}
+
+const {
+  href,
+  type      = 'button',
+  variant   = 'primary',
+  size      = 'md',
+  external  = false,
+  ariaLabel,
+  class: extra = '',
+} = Astro.props;
+
+const base =
+  'group/btn relative inline-flex items-center justify-center gap-2 min-h-[44px] font-semibold rounded-md ' +
+  'transition-[background-color,transform,box-shadow,border-color] duration-200 ease-out ' +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ' +
+  'disabled:opacity-50 disabled:cursor-not-allowed';
+
+const sizes: Record<string, string> = {
+  md: 'px-6 py-3 text-base',
+  lg: 'px-7 py-3.5 text-base',
+};
+
+// Tekst op witte achtergrond gebruikt primary-dark voor voldoende contrast (WCAG AA).
+const variants: Record<string, string> = {
+  primary:
+    'bg-primary text-white shadow-sm hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-md',
+  secondary:
+    'border-2 border-primary/70 text-primary-dark bg-white/60 backdrop-blur-sm ' +
+    'hover:border-primary hover:bg-primary-10 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0',
+  ghost:
+    'text-primary-dark hover:bg-primary-10 hover:underline decoration-2 underline-offset-4',
+  dark:
+    'bg-white text-primary-dark shadow-sm hover:bg-surface-soft hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0',
+};
+
+const cls = [base, sizes[size], variants[variant], extra].filter(Boolean).join(' ');
+
+const rel    = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+
+{href ? (
+  <a href={href} class={cls} aria-label={ariaLabel} rel={rel} target={target}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={cls} aria-label={ariaLabel}>
+    <slot />
+  </button>
+)}

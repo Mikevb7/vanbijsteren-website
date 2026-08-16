@@ -1,0 +1,137 @@
+---
+// src/pages/kennis/wat-kost-stucwerk.astro — kennisartikel (Fase 3, redesign v2)
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ArticleSchema from '@components/schema/ArticleSchema.astro';
+import FAQPageSchema from '@components/schema/FAQPageSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import ArticleMeta from '@components/ui/ArticleMeta.astro';
+import { Lightbulb } from 'lucide-astro';
+import { bedrijf } from '@data/bedrijf';
+
+const gepubliceerd = '2026-06-01';
+
+const intro = 'Wat kost stucwerk laten doen? Als globale indicatie kost gladpleisterwerk gemiddeld €15 tot €25 per m² en spachtelputz binnen ongeveer €12 tot €22 per m², beide exclusief btw. De uiteindelijke prijs hangt af van de ondergrond, de afwerking en de oppervlakte. Hieronder leggen we de belangrijkste factoren uit.';
+
+const body = `
+  <h2>Directe prijsindicaties</h2>
+  <p>Prijzen voor stucwerk verschillen per afwerking. Als richtprijs, exclusief btw:</p>
+  <ul>
+    <li><strong>Gladpleisterwerk:</strong> gemiddeld €15 tot €25 per m²</li>
+    <li><strong>Spachtelputz (binnen):</strong> ongeveer €12 tot €22 per m²</li>
+  </ul>
+  <p>Dit zijn indicaties. De exacte prijs bepalen wij na het opnemen van het werk,
+  zodat u niet voor verrassingen komt te staan.</p>
+
+  <h2>Welke factoren bepalen de prijs?</h2>
+  <p>De kosten van stucwerk worden vooral bepaald door:</p>
+  <ul>
+    <li><strong>De staat van de ondergrond:</strong> een beschadigde of oneffen muur
+    vraagt meer voorbereiding dan een vlakke ondergrond.</li>
+    <li><strong>De gewenste afwerking:</strong> een strakke gladde wand vraagt meer
+    werk dan een gespoten afwerking zoals spackspuitwerk.</li>
+    <li><strong>De oppervlakte en toegankelijkheid:</strong> grotere oppervlakten zijn
+    per m² vaak voordeliger; lastig bereikbare ruimtes vragen extra tijd.</li>
+  </ul>
+
+  <h2>Wanneer is een offerte zinvol?</h2>
+  <p>Omdat geen twee klussen gelijk zijn, is een offerte op maat de enige manier om
+  een exacte prijs te krijgen. Wij komen vrijblijvend langs om het werk op te nemen
+  en geven u een helder advies vooraf.</p>
+`;
+
+const faqItems = [
+  {
+    vraag: 'Wat kost gladpleisterwerk per m²?',
+    antwoord: 'Gladpleisterwerk kost gemiddeld €15 tot €25 per m², exclusief btw. De prijs is afhankelijk van de staat van de ondergrond, de gewenste afwerking en de toegankelijkheid van de ruimte. Vraag een vrijblijvende offerte voor een exacte prijs.',
+  },
+  {
+    vraag: 'Wat kost spachtelputz?',
+    antwoord: 'De prijs van spachtelputz verschilt per locatie (binnen of buiten), de oppervlakte en de gekozen kleur. Als richtprijs kunt u denken aan €12 tot €22 per m² voor binnenstucwerk. Vraag een offerte voor een exacte prijs.',
+  },
+  {
+    vraag: 'Hoe lang duurt het stucken van een kamer?',
+    antwoord: 'Een gemiddelde kamer (circa 40 m² wand) wordt in één à twee werkdagen gestuct, afhankelijk van het type afwerking en de voorbereidingstijd. Na het stucken is een droogtijd van meerdere dagen nodig voordat u kunt schilderen of behangen.',
+  },
+];
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Kennis' },
+  { label: 'Wat kost stucwerk?' },
+];
+---
+
+<BaseLayout
+  title="Wat kost stucwerk? Prijzen en factoren | Van Bijsteren"
+  description="Wat kost stucwerk laten doen? Ontdek prijsranges voor gladpleisterwerk, spachtelputz en meer. Van Bijsteren legt het transparant uit."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ArticleSchema headline="Wat kost stucwerk? Prijzen en factoren uitgelegd" datePublished={gepubliceerd} url="/kennis/wat-kost-stucwerk" aboutNaam="Stucwerk" />
+  <FAQPageSchema items={faqItems} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="simple"
+    badge="Kennisartikel"
+    heading="Wat kost stucwerk? Prijzen en factoren uitgelegd"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Bekijk diensten', href: '/stucwerk' }}
+  />
+
+  <div class="container max-w-prose pt-6">
+    <ArticleMeta datum={gepubliceerd} leestijd={4} auteur={bedrijf.naamKort} />
+  </div>
+
+  <!-- Kernpunt callout -->
+  <div class="container max-w-prose pt-10">
+    <aside class="flex gap-4 rounded-2xl border-l-4 border-primary bg-primary-10 p-6 ring-1 ring-primary/10">
+      <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white">
+        <Lightbulb size={20} aria-hidden="true" strokeWidth={2.25} />
+      </span>
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wide text-primary-dark">Kern</p>
+        <p class="mt-1 text-base leading-relaxed text-ink">
+          Gladpleisterwerk €15–25/m², spachtelputz binnen €12–22/m² (excl. btw).
+          Een exacte prijs volgt uit een vrijblijvende offerte op maat.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <ContentBlok body={body} />
+
+  <section class="border-y border-border-light bg-surface-soft">
+    <div class="container max-w-prose py-16 lg:py-20">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+        <span class="h-px w-8 bg-primary-dark"></span>
+        FAQ
+      </span>
+      <h2 class="mt-3 mb-8 text-ink tracking-tight">Veelgestelde vragen over prijzen</h2>
+      <FAQAccordion items={faqItems} />
+    </div>
+  </section>
+
+  <InterneLinkBlok
+    heading="Lees ook"
+    links={[
+      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Spachtelputz', href: '/sierpleister/spachtelputz', omschrijving: 'Populaire sierpleister.' },
+      { label: 'Vraag een offerte aan', href: '/offerte', omschrijving: 'Een exacte prijs op maat.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Benieuwd naar de prijs voor uw project?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

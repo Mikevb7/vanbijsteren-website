@@ -1,0 +1,67 @@
+---
+// src/pages/binnen-stucwerk/plafond-stucen.astro — cluster-spoke (Fase 3) — PAGE_SPECS §spokes
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import ContentBlok from '@components/sections/ContentBlok.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+import plafondAfgewerkt from '@assets/images/resultaten/plafond-afgewerkt.png';
+
+const intro = 'Een strak gestuct plafond maakt een ruimte direct af. Van Bijsteren stuct plafonds in Harderwijk en omgeving tot een egaal oppervlak zonder zichtbare naden of oneffenheden — klaar voor de schilder.';
+
+const body = `
+  <p>Plafonds vragen om vakmanschap: oneffenheden en naden vallen door de lichtval
+  sneller op dan bij wanden. Wij beoordelen de ondergrond en kiezen de juiste
+  voorbereiding en afwerking voor een strak, egaal resultaat.</p>
+  <p>Of het nu gaat om een nieuwbouwplafond, het wegwerken van stucplaatnaden of het
+  herstellen van een bestaand plafond — wij adviseren u graag over de mogelijkheden.
+  Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
+  { label: 'Plafond stucen' },
+];
+---
+
+<BaseLayout
+  title="Plafond stucen Harderwijk — strakke plafonds | Van Bijsteren"
+  description="Plafond laten stucen in Harderwijk en omgeving. Strakke, egale plafonds zonder naden of oneffenheden. Vraag een vrijblijvende offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Plafond stucen" serviceType="Stucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Plafond stucen — strakke plafonds zonder oneffenheden"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: plafondAfgewerkt, alt: 'Strak afgewerkt gestuct plafond', width: 1200, height: 900 }}
+  />
+
+  <ContentBlok body={body} />
+
+  <InterneLinkBlok
+    heading="Meer over binnenstucwerk"
+    links={[
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Uw plafond laten stucen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

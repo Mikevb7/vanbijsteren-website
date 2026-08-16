@@ -1,0 +1,183 @@
+---
+// src/pages/demo.astro — TIJDELIJKE Fase 1c demo/verificatiepagina (niet voor productie)
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { bedrijf } from '@data/bedrijf';
+import { pillarDiensten } from '@data/diensten';
+
+import HeroSection from '@components/sections/HeroSection.astro';
+import RecruitmentCTA from '@components/sections/RecruitmentCTA.astro';
+import StatistiekenBlok from '@components/sections/StatistiekenBlok.astro';
+import FamiliebedrijfSection from '@components/sections/FamiliebedrijfSection.astro';
+import Timeline from '@components/sections/Timeline.astro';
+import WerkwijzeSection from '@components/sections/WerkwijzeSection.astro';
+import TeamSection from '@components/sections/TeamSection.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import RegioLinkBlok from '@components/sections/RegioLinkBlok.astro';
+
+import DienstCard from '@components/cards/DienstCard.astro';
+import VacatureCard from '@components/cards/VacatureCard.astro';
+import TestimonialCard from '@components/cards/TestimonialCard.astro';
+
+import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import ContactBlok from '@components/ui/ContactBlok.astro';
+import FormComponent from '@components/ui/FormComponent.astro';
+
+const belCta = { label: 'Bel direct', href: `tel:${bedrijf.telefoon}` };
+---
+
+<BaseLayout title="Componenten demo (Fase 1c)" description="Tijdelijke verificatiepagina." noindex={true}>
+  <div class="container pt-6">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Demo' }]} />
+  </div>
+
+  <HeroSection
+    variant="home"
+    heading="Vakmanschap in stucwerk, al 3 generaties"
+    subheading="Van strak gladpleisterwerk tot decoratieve sierpleister. Erkend stukadoorsbedrijf in Harderwijk en omstreken."
+    badge="3 generaties vakmanschap"
+    primaryCta={{ label: 'Offerte aanvragen', href: '/offerte' }}
+  />
+
+  <StatistiekenBlok
+    stats={[
+      { waarde: `sinds ${bedrijf.oprichtingsjaar}`, label: 'Familiebedrijf', icon: 'CalendarDays' },
+      { waarde: `${bedrijf.generaties} generaties`, label: 'Vakmanschap', icon: 'Users' },
+      { waarde: `±${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
+      { waarde: 'NOA', label: 'Erkend bedrijf', icon: 'BadgeCheck' },
+    ]}
+  />
+
+  <section class="container py-12">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {pillarDiensten.map((d) => (
+        <DienstCard icon={d.icon} titel={d.naam} omschrijving={d.korteOmschrijving} href={d.href} />
+      ))}
+    </div>
+  </section>
+
+  <RecruitmentCTA
+    backgroundVariant="dark"
+    heading="Op zoek naar een vaste plek als stukadoor?"
+    body="Werk dichtbij huis in een hecht familieteam, met ruimte voor vakmanschap en een vast contract."
+    primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
+    secondaryCta={belCta}
+    highlights={[
+      { icon: 'FileCheck', tekst: 'Vast contract' },
+      { icon: 'Home', tekst: 'Werk dichtbij huis' },
+      { icon: 'Users', tekst: 'Goed team' },
+    ]}
+  />
+
+  <section class="container py-12">
+    <VacatureCard
+      titel="Allround Stukadoor"
+      locatie="Harderwijk e.o."
+      contractType="Vast contract, fulltime"
+      salarisRange="Conform cao Afbouw"
+      highlights={['Afwisselend werk binnen en buiten', 'Hecht familieteam', 'Goede arbeidsvoorwaarden']}
+      href="/werken-bij/allround-stukadoor"
+    />
+  </section>
+
+  <section class="container py-12">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <TestimonialCard
+        quote="Strak werk geleverd en netjes afgewerkt. Echte vakmensen."
+        auteur="Peter V."
+        plaats="Harderwijk"
+        rating={5}
+        bron="Google"
+        datum="maart 2026"
+      />
+    </div>
+  </section>
+
+  <WerkwijzeSection
+    heading="Zo werken wij"
+    intro="Van eerste contact tot oplevering — duidelijk en zonder verrassingen."
+    steps={[
+      { nummer: 1, titel: 'Contact', beschrijving: 'U neemt contact op met uw vraag.', icon: 'Phone' },
+      { nummer: 2, titel: 'Opname', beschrijving: 'Wij komen langs voor advies.', icon: 'ClipboardList' },
+      { nummer: 3, titel: 'Offerte', beschrijving: 'Heldere offerte zonder verrassingen.', icon: 'FileText' },
+      { nummer: 4, titel: 'Planning', beschrijving: 'We plannen het werk in.', icon: 'CalendarDays' },
+      { nummer: 5, titel: 'Uitvoering', beschrijving: 'Vakkundige uitvoering.', icon: 'Hammer' },
+      { nummer: 6, titel: 'Oplevering', beschrijving: 'Samen het resultaat bekijken.', icon: 'CheckCircle2' },
+    ]}
+  />
+
+  <FamiliebedrijfSection
+    heading="Een familiebedrijf met traditie"
+    body={`<p>Sinds ${bedrijf.oprichtingsjaar} staat Van Bijsteren voor vakmanschap.</p><p>Inmiddels ${bedrijf.generaties} generaties verder.</p>`}
+    highlights={[
+      { icon: 'Heart', titel: 'Persoonlijk', tekst: 'U bent geen nummer.' },
+      { icon: 'Award', titel: 'Vakmanschap', tekst: 'Kwaliteit voorop.' },
+      { icon: 'MapPin', titel: 'Dichtbij', tekst: 'Lokaal verankerd.' },
+    ]}
+  />
+
+  <Timeline
+    heading="Onze geschiedenis"
+    events={[
+      { jaar: bedrijf.oprichtingsjaar, titel: 'Opgericht', beschrijving: 'Herman van Bijsteren start het bedrijf.' },
+      { jaar: 1990, titel: 'Tweede generatie', beschrijving: 'Gert neemt het stokje over.' },
+      { jaar: 2015, titel: 'Derde generatie', beschrijving: 'Marcel zet de traditie voort.' },
+    ]}
+  />
+
+  <TeamSection
+    heading="Ons team"
+    body="De mensen achter het vakmanschap."
+    members={[
+      { naam: 'Marcel van Bijsteren', rol: 'Eigenaar', quote: 'Kwaliteit leveren waar we trots op zijn.' },
+      { naam: 'Gert van Bijsteren', rol: 'Stukadoor' },
+    ]}
+  />
+
+  <RegioLinkBlok
+    heading="Wij werken in de regio"
+    intro="Stukadoorswerk in Harderwijk en omliggende plaatsen."
+    places={[
+      { naam: 'Harderwijk', href: '/stukadoor-harderwijk', actief: true },
+      { naam: 'Ermelo', href: '/stukadoor-ermelo' },
+      { naam: 'Putten' },
+    ]}
+  />
+
+  <SEOContentSection
+    heading="Stukadoor in Harderwijk en omstreken"
+    body="<p>Op zoek naar een stukadoor in Harderwijk? Van Bijsteren verzorgt al drie generaties strak stucwerk, sierpleister en gevelafwerking.</p>"
+    faqItems={[
+      { vraag: 'Wat kost stucwerk per m²?', antwoord: '<p>Dat hangt af van de ondergrond en afwerking. Vraag een vrijblijvende offerte aan.</p>' },
+      { vraag: 'Werken jullie ook buiten Harderwijk?', antwoord: '<p>Ja, in een straal van circa 50 km rondom Harderwijk.</p>' },
+    ]}
+  />
+
+  <section class="container py-12">
+    <h2 class="mb-6">Losse FAQ-accordion</h2>
+    <FAQAccordion
+      defaultOpen={true}
+      items={[
+        { vraag: 'Geven jullie garantie?', antwoord: '<p>Ja, op al ons werk.</p>' },
+        { vraag: 'Hoe snel kunnen jullie starten?', antwoord: '<p>Afhankelijk van de planning, meestal binnen enkele weken.</p>' },
+      ]}
+    />
+  </section>
+
+  <ContactBlok
+    heading="Neem contact op"
+    intro="Bel ons of stuur een bericht."
+    showForm={true}
+    showWhatsApp={true}
+  />
+
+  <section class="container py-12">
+    <h2 class="mb-6">Offerteformulier</h2>
+    <FormComponent variant="offerte" />
+  </section>
+
+  <section class="container py-12">
+    <h2 class="mb-6">Sollicitatieformulier</h2>
+    <FormComponent variant="sollicitatie" functies={['Allround Stukadoor', 'Leerling Stukadoor']} />
+  </section>
+</BaseLayout>

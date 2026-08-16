@@ -1,0 +1,148 @@
+---
+// src/components/ui/FormComponent.astro — COMPONENT_SPEC §21
+// Formulierverwerking via Formspree (Vercel-hosting). Native HTML POST — werkt
+// zonder JavaScript. Stel per variant een Formspree form-ID in als env var in
+// Vercel dashboard: PUBLIC_FORMSPREE_OFFERTE / PUBLIC_FORMSPREE_SOLLICITATIE /
+// PUBLIC_FORMSPREE_CONTACT. Whitelist ook het succesdomein in Formspree
+// (Settings → Redirect URL) voor de _next-redirect naar /bedankt.
+import Button from '@components/ui/Button.astro';
+import { diensten } from '@data/diensten';
+import { bedrijf } from '@data/bedrijf';
+
+type Variant = 'offerte' | 'sollicitatie' | 'contact';
+
+type Props = {
+  variant: Variant;
+  functies?: string[];  // voor sollicitatie-select
+  class?: string;
+};
+
+const { variant, functies = [], class: extra = '' } = Astro.props;
+
+const onderwerp =
+  variant === 'offerte'       ? 'Offerteaanvraag — Van Bijsteren Stukadoorsbedrijf' :
+  variant === 'sollicitatie'  ? 'Sollicitatie — Van Bijsteren Stukadoorsbedrijf' :
+                                'Contactformulier — Van Bijsteren Stukadoorsbedrijf';
+
+// Formspree form-ID's worden ingesteld als PUBLIC_-env vars in Vercel dashboard.
+// Zolang ze niet zijn ingesteld, is de action leeg en zal de browser niets submitten.
+const formspreeId =
+  variant === 'offerte'      ? (import.meta.env.PUBLIC_FORMSPREE_OFFERTE ?? '') :
+  variant === 'sollicitatie' ? (import.meta.env.PUBLIC_FORMSPREE_SOLLICITATIE ?? '') :
+                               (import.meta.env.PUBLIC_FORMSPREE_CONTACT ?? '');
+
+const action = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
+
+const dienstOpties = diensten.filter((d) => d.isPillar).map((d) => d.naam);
+
+// Sollicitatie-variant heeft bestandsupload (cv). Formspree ondersteunt
+// bestandsbijlagen alleen op betaalde plannen (Gold+).
+const enctype = variant === 'sollicitatie' ? 'multipart/form-data' : undefined;
+---
+
+<form
+  method="POST"
+  action={action || undefined}
+  enctype={enctype}
+  class:list={['flex flex-col gap-5', extra]}
+>
+  {/* Formspree hidden-velden */}
+  <input type="hidden" name="_subject" value={onderwerp} />
+  {/* _next: redirect naar /bedankt na succesvolle verzending.
+      Vereist whitelist in Formspree dashboard → Settings → Redirect URL. */}
+  <input type="hidden" name="_next" value={`${bedrijf.website}/bedankt`} />
+  {/* Honeypot — Formspree herkent _gotcha als spamveld */}
+  <p class="hidden" aria-hidden="true">
+    <label>Niet invullen: <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="flex flex-col gap-1.5">
+      <label for="f-naam" class="text-sm font-semibold text-ink">Naam <span class="text-warning" aria-hidden="true">*</span></label>
+      <input id="f-naam" name="naam" type="text" required autocomplete="name"
+             class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15" />
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="f-tel" class="text-sm font-semibold text-ink">Telefoon <span class="text-warning" aria-hidden="true">*</span></label>
+      <input id="f-tel" name="telefoon" type="tel" required autocomplete="tel"
+             class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15" />
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="f-email" class="text-sm font-semibold text-ink">E-mail <span class="text-warning" aria-hidden="true">*</span></label>
+    <input id="f-email" name="email" type="email" required autocomplete="email"
+           class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15" />
+  </div>
+
+  {variant === 'offerte' && (
+    <>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="flex flex-col gap-1.5">
+          <label for="f-dienst" class="text-sm font-semibold text-ink">Dienst</label>
+          <select id="f-dienst" name="dienst"
+                  class="rounded-md border border-border bg-surface px-3 py-2.5 text-ink focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary">
+            <option value="">Maak een keuze…</option>
+            {dienstOpties.map((d) => <option value={d}>{d}</option>)}
+            <option value="anders">Anders / weet ik nog niet</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label for="f-plaats" class="text-sm font-semibold text-ink">Plaats</label>
+          <input id="f-plaats" name="plaats" type="text" autocomplete="address-level2"
+                 class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15" />
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="f-omschrijving" class="text-sm font-semibold text-ink">Omschrijving van het werk <span class="text-warning" aria-hidden="true">*</span></label>
+        <textarea id="f-omschrijving" name="omschrijving" rows="5" required
+                  class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15"></textarea>
+      </div>
+    </>
+  )}
+
+  {variant === 'sollicitatie' && (
+    <>
+      <div class="flex flex-col gap-1.5">
+        <label for="f-functie" class="text-sm font-semibold text-ink">Functie</label>
+        <select id="f-functie" name="functie"
+                class="rounded-md border border-border bg-surface px-3 py-2.5 text-ink focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary">
+          <option value="">Maak een keuze…</option>
+          {functies.map((f) => <option value={f}>{f}</option>)}
+          <option value="open">Open sollicitatie</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="f-motivatie" class="text-sm font-semibold text-ink">Motivatie <span class="text-warning" aria-hidden="true">*</span></label>
+        <textarea id="f-motivatie" name="motivatie" rows="5" required
+                  class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15"></textarea>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="f-cv" class="text-sm font-semibold text-ink">CV (optioneel)</label>
+        <input id="f-cv" name="cv" type="file" accept=".pdf,.doc,.docx"
+               class="text-sm text-ink-light file:mr-3 file:rounded-md file:border-0 file:bg-primary-10 file:px-4 file:py-2 file:font-semibold file:text-primary-dark" />
+      </div>
+    </>
+  )}
+
+  {variant === 'contact' && (
+    <div class="flex flex-col gap-1.5">
+      <label for="f-bericht" class="text-sm font-semibold text-ink">Bericht <span class="text-warning" aria-hidden="true">*</span></label>
+      <textarea id="f-bericht" name="bericht" rows="5" required
+                class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15"></textarea>
+    </div>
+  )}
+
+  <div class="flex items-start gap-2.5">
+    <input id="f-privacy" name="privacy" type="checkbox" required
+           class="mt-1 h-4 w-4 shrink-0 rounded border-border text-primary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary" />
+    <label for="f-privacy" class="text-sm text-ink-light">
+      Ik ga akkoord met de verwerking van mijn gegevens volgens het <a href="/privacy" class="text-primary-dark underline">privacybeleid</a>. <span class="text-warning" aria-hidden="true">*</span>
+    </label>
+  </div>
+
+  <Button type="submit" size="lg" variant="primary" class="w-full sm:w-auto">
+    {variant === 'sollicitatie' ? 'Verstuur sollicitatie' : variant === 'offerte' ? 'Vraag offerte aan' : 'Verstuur bericht'}
+  </Button>
+</form>

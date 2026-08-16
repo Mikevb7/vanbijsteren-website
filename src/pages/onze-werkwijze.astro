@@ -1,0 +1,47 @@
+---
+// src/pages/onze-werkwijze.astro — werkproces (Fase 3) — PAGE_SPECS §/onze-werkwijze
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import WerkwijzeSection from '@components/sections/WerkwijzeSection.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { bedrijf } from '@data/bedrijf';
+
+const stappen = [
+  { nummer: 1, titel: 'Contact', beschrijving: 'U belt, mailt of vult een formulier in. Wij reageren binnen één werkdag.' },
+  { nummer: 2, titel: 'Opname en advies', beschrijving: 'Wij komen de situatie bekijken en geven advies over de beste aanpak. Zonder kosten en zonder verplichtingen.' },
+  { nummer: 3, titel: 'Offerte', beschrijving: 'U ontvangt een heldere offerte met een vaste prijs. Geen verrassingen achteraf.' },
+  { nummer: 4, titel: 'Planning', beschrijving: 'Na akkoord plannen wij de uitvoering in. Wij houden ons aan de afgesproken datum en tijdstip.' },
+  { nummer: 5, titel: 'Uitvoering', beschrijving: 'Onze stukadoors gaan aan de slag. Netjes, professioneel en met respect voor uw woning of bedrijfspand.' },
+  { nummer: 6, titel: 'Oplevering', beschrijving: 'Na afronding inspecteren wij het werk samen met u. Pas als u tevreden bent, is de klus klaar.' },
+];
+---
+
+<BaseLayout
+  title="Hoe werkt Van Bijsteren? Onze werkwijze stucwerk | Harderwijk"
+  description="Van eerste contact tot nette oplevering. Zo pakt Van Bijsteren Stukadoorsbedrijf een stucklus aan. Transparant en zonder verrassingen."
+>
+  <HeroSection
+    variant="simple"
+    heading="Onze werkwijze — van contact tot oplevering"
+    subheading="Geen verrassingen. Wij leggen van tevoren uit wat we doen, wanneer en wat het kost."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: 'Neem contact op', href: '/contact' }}
+  />
+
+  <WerkwijzeSection
+    heading="In zes stappen"
+    intro="Zo verloopt een stucklus bij Van Bijsteren — helder en overzichtelijk."
+    steps={stappen}
+  />
+
+  <CTASection
+    heading="Klaar om te beginnen?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{
+      label: `Bel ${bedrijf.telefoonDisplay}`,
+      href: `tel:${bedrijf.telefoon}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+    }}
+  />
+</BaseLayout>

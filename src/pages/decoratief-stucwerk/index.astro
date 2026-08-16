@@ -1,0 +1,69 @@
+---
+// src/pages/decoratief-stucwerk/index.astro — pillar (Fase 3) — PAGE_SPECS §diensten
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/ui/Breadcrumbs.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
+import ServiceSchema from '@components/schema/ServiceSchema.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import DienstGrid from '@components/sections/DienstGrid.astro';
+import SEOContentSection from '@components/sections/SEOContentSection.astro';
+import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
+import CTASection from '@components/sections/CTASection.astro';
+import { spokesVoor } from '@data/diensten';
+import { bedrijf } from '@data/bedrijf';
+import frescoloriItaliaans from '@assets/images/resultaten/frescolori-italiaans.png';
+
+const intro = 'Decoratief stucwerk maakt van een wand een blikvanger. Van Bijsteren is gespecialiseerd in premium afwerkingen zoals Italiaans stucwerk en Frescolori — met de hand aangebracht door ervaren vakmensen.';
+
+const seoBody = `
+  <p>Decoratieve afwerkingen vragen om vakmanschap, ervaring en gevoel voor detail.
+  Het resultaat is een uniek, diep en elegant wandbeeld dat in iedere lichtval anders
+  overkomt.</p>
+  <p>Op foto's komen deze afwerkingen niet volledig tot hun recht. Bezoek daarom onze
+  showroom op ${bedrijf.showroom.omschrijving} om de effecten live te ervaren.</p>
+`;
+
+const kruimels = [
+  { label: 'Home', href: '/' },
+  { label: 'Stucwerk', href: '/stucwerk' },
+  { label: 'Decoratief stucwerk' },
+];
+---
+
+<BaseLayout
+  title="Decoratief stucwerk Harderwijk | Italiaans stucwerk & Frescolori | Van Bijsteren"
+  description="Premium decoratief stucwerk in Harderwijk en omgeving: Italiaans stucwerk en Frescolori. Uniek, luxe en vakkundig aangebracht. Vraag een offerte aan."
+>
+  <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
+  <ServiceSchema naam="Decoratief stucwerk" serviceType="Decoratief stucwerk" description={intro} />
+
+  <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
+
+  <HeroSection
+    variant="service"
+    heading="Decoratief stucwerk — premium wandafwerking"
+    subheading={intro}
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    image={{ src: frescoloriItaliaans, alt: 'Decoratief stucwerk — Italiaans stucwerk en Frescolori', width: 1200, height: 900 }}
+  />
+
+  <DienstGrid heading="Onze decoratieve afwerkingen" diensten={spokesVoor('decoratief-stucwerk')} columns={2} />
+
+  <SEOContentSection heading="Kunst op de wand" body={seoBody} />
+
+  <InterneLinkBlok
+    heading="Meer over stucwerk"
+    links={[
+      { label: 'Sierpleister', href: '/sierpleister', omschrijving: 'Decoratieve wandafwerkingen.' },
+      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Strakke wanden en plafonds.' },
+      { label: 'Stucwerk (overzicht)', href: '/stucwerk', omschrijving: 'Alle vormen van stucwerk.' },
+    ]}
+  />
+
+  <CTASection
+    heading="Een bijzondere wandafwerking laten maken?"
+    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+  />
+</BaseLayout>

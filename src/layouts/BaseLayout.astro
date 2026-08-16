@@ -1,0 +1,95 @@
+---
+// src/layouts/BaseLayout.astro
+import { bedrijf } from '@data/bedrijf';
+import NavBar from '@components/layout/NavBar.astro';
+import Footer from '@components/layout/Footer.astro';
+import StickyMobileCTA from '@components/layout/StickyMobileCTA.astro';
+import LocalBusinessSchema from '@components/schema/LocalBusinessSchema.astro';
+import '@styles/global.css';
+
+interface Props {
+  title:        string;
+  description:  string;
+  canonical?:   string;
+  ogImage?:     string;
+  noindex?:     boolean;
+  schema?:      object | object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-image.jpg',
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const canonicalURL = canonical
+  ? new URL(canonical, bedrijf.website).toString()
+  : new URL(Astro.url.pathname, bedrijf.website).toString();
+
+const ogImageURL = new URL(ogImage, bedrijf.website).toString();
+---
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+  <!-- Open Graph -->
+  <meta property="og:type"         content="website" />
+  <meta property="og:title"        content={title} />
+  <meta property="og:description"  content={description} />
+  <meta property="og:url"          content={canonicalURL} />
+  <meta property="og:image"        content={ogImageURL} />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale"       content="nl_NL" />
+  <meta property="og:site_name"    content={bedrijf.naam} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image"       content={ogImageURL} />
+
+  <!-- Favicons -->
+  <link rel="icon"             href="/favicon.ico" sizes="any" />
+  <link rel="icon"             href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Plausible analytics — privacy-vriendelijk, geen cookie-consent nodig -->
+  <script defer data-domain="vanbijsterenstukadoors.nl" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Schema.org: LocalBusiness op elke pagina -->
+  <LocalBusinessSchema />
+
+  <!-- Extra schema per pagina (JobPosting, FAQPage, etc.) -->
+  {schema && (
+    <script type="application/ld+json" set:html={JSON.stringify(
+      Array.isArray(schema) ? schema : [schema]
+    )} />
+  )}
+</head>
+<body>
+  <!-- Skip-link voor toetsenbordgebruikers -->
+  <a href="#main-content" class="skip-link">Ga naar inhoud</a>
+
+  <NavBar />
+
+  <main id="main-content" class="pb-20 lg:pb-0">
+    <slot />
+  </main>
+
+  <Footer />
+  <StickyMobileCTA />
+</body>
+</html>
