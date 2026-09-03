@@ -55,7 +55,7 @@ const groepen = categorieVolgorde
 
   <HeroSection
     variant="simple"
-    badge={`${alleItems.length} antwoorden`}
+    badge={`${alleItems.length} ${alleItems.length === 1 ? 'antwoord' : 'antwoorden'}`}
     heading="Veelgestelde vragen"
     subheading="Antwoorden op vragen over stucwerk, kosten, doorlooptijd, ons werkgebied en werken bij Van Bijsteren."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}

@@ -33,7 +33,7 @@ const splitWidths    = [400, 600, 800, 1000, 1200];
 <section
   class:list={[
     'relative isolate overflow-hidden',
-    opDonker ? 'min-h-[68vh] flex items-center text-white' : '',
+    opDonker ? 'min-h-[68vh] max-h-[92svh] flex items-center text-white' : '',
     !heeftFoto ? 'bg-gradient-to-b from-surface-soft via-surface to-surface' : 'bg-surface',
     extra,
   ]}
@@ -72,12 +72,12 @@ const splitWidths    = [400, 600, 800, 1000, 1200];
 
   <div
     class:list={[
-      'container relative',
-      opDonker ? 'py-20 lg:py-28' : 'py-16 lg:py-24',
+      'container relative min-w-0 w-full',
+      opDonker ? 'py-14 sm:py-20 lg:py-28' : 'py-12 sm:py-16 lg:py-24',
       splitLayout ? 'grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14' : '',
     ]}
   >
-    <div class={splitLayout ? 'max-w-xl' : 'max-w-content'}>
+    <div class={splitLayout ? 'min-w-0 max-w-xl' : 'min-w-0 max-w-content'}>
       {badge && (
         <p
           class:list={[
@@ -91,13 +91,13 @@ const splitWidths    = [400, 600, 800, 1000, 1200];
 
       <h1
         class:list={[
-          tekstKleur, 'font-extrabold tracking-tight',
-          isHome ? 'text-4xl leading-[1.05] sm:text-5xl lg:text-6xl' : 'text-3xl leading-[1.1] sm:text-4xl lg:text-5xl',
+          tekstKleur, 'font-extrabold tracking-tight [overflow-wrap:break-word] [hyphens:auto]',
+          isHome ? 'text-[1.875rem] leading-[1.1] sm:text-5xl lg:text-6xl' : 'text-[1.5rem] leading-[1.2] sm:text-4xl lg:text-5xl',
         ]}
       >{heading}</h1>
 
       {subheading && (
-        <p class:list={['mt-6 text-lg leading-relaxed lg:text-xl', leadKleur, 'max-w-prose']}>
+        <p class:list={['mt-5 sm:mt-6 text-base sm:text-lg leading-relaxed lg:text-xl [overflow-wrap:anywhere]', leadKleur, 'max-w-prose']}>
           {subheading}
         </p>
       )}
@@ -117,7 +117,7 @@ const splitWidths    = [400, 600, 800, 1000, 1200];
     </div>
 
     {splitLayout && image && (
-      <div class="relative">
+      <div class="relative min-w-0">
         <div class="pointer-events-none absolute -bottom-4 -right-4 h-full w-full rounded-2xl bg-primary/15 lg:-bottom-6 lg:-right-6" aria-hidden="true"></div>
         <div class="pointer-events-none absolute -top-3 -left-3 h-24 w-24 rounded-2xl border-2 border-primary/25" aria-hidden="true"></div>
         {heeftMetadata ? (

@@ -83,12 +83,12 @@ const verhaalHighlights = [
         <span class="relative inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-md ring-4 ring-white/60">
           <Award size={28} aria-hidden="true" />
         </span>
-        <div class="relative">
+        <div class="relative min-w-0">
           <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-dark ring-1 ring-primary/15">
             <Sparkles size={12} aria-hidden="true" />
             Keurmerk
           </span>
-          <h2 class="mt-2.5 text-xl font-semibold text-ink tracking-tight">NOA-erkend stukadoorsbedrijf</h2>
+          <h2 class="mt-2.5 text-lg sm:text-xl font-semibold text-ink tracking-tight [hyphens:auto]">NOA-erkend stukadoorsbedrijf</h2>
           <p class="mt-2 text-base leading-relaxed text-ink-light">
             Ons NOA-lidmaatschap staat voor erkend vakmanschap, kwaliteit en heldere
             afspraken. U weet waar u aan toe bent.
@@ -100,11 +100,11 @@ const verhaalHighlights = [
         <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
           <Store size={28} aria-hidden="true" />
         </span>
-        <div>
+        <div class="min-w-0">
           <span class="inline-flex items-center gap-1.5 rounded-full bg-primary-10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-dark ring-1 ring-primary/15">
             Bezoek ons
           </span>
-          <h2 class="mt-2.5 text-xl font-semibold text-ink tracking-tight">{bedrijf.showroom.naam}</h2>
+          <h2 class="mt-2.5 text-lg sm:text-xl font-semibold text-ink tracking-tight [hyphens:auto]">{bedrijf.showroom.naam}</h2>
           <p class="mt-2 text-base leading-relaxed text-ink-light">
             Bekijk verschillende stucafwerkingen live in onze showroom op
             {' '}{bedrijf.showroom.omschrijving}.

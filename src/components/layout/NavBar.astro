@@ -3,7 +3,7 @@
 import { bedrijf } from '@data/bedrijf';
 import { mainNav } from '@data/nav';
 import Button from '@components/ui/Button.astro';
-import { Menu, Phone, ChevronDown } from 'lucide-astro';
+import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
 ---
 
 <header id="site-header" class="sticky top-0 z-50 border-b border-border-light/60 bg-surface/85 backdrop-blur-md supports-[backdrop-filter]:bg-surface/75 transition-shadow duration-300">
@@ -95,19 +95,20 @@ import { Menu, Phone, ChevronDown } from 'lucide-astro';
     <button
       type="button"
       id="nav-toggle"
-      class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-md text-ink transition-colors hover:bg-surface-soft"
+      class="lg:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-md bg-primary-10 text-primary-dark ring-1 ring-primary/20 transition-colors hover:bg-primary hover:text-white shrink-0"
       aria-label="Menu openen"
       aria-controls="mobile-menu"
       aria-expanded="false"
     >
-      <Menu size={24} aria-hidden="true" />
+      <Menu size={24} aria-hidden="true" strokeWidth={2.25} class="nav-icon-open" />
+      <X size={24} aria-hidden="true" strokeWidth={2.25} class="nav-icon-close hidden" />
     </button>
   </nav>
 
   <!-- Mobiel menu -->
   <div
     id="mobile-menu"
-    class="lg:hidden fixed inset-0 top-16 z-40 hidden overflow-y-auto bg-surface"
+    class="lg:hidden fixed left-0 right-0 top-16 z-40 hidden h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-surface"
   >
     <div class="container py-5">
       <ul class="flex flex-col">
@@ -175,11 +176,31 @@ import { Menu, Phone, ChevronDown } from 'lucide-astro';
   const header = document.getElementById('site-header');
 
   if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      const open = menu.classList.toggle('hidden') === false;
+    const iconOpen = toggle.querySelector('.nav-icon-open');
+    const iconClose = toggle.querySelector('.nav-icon-close');
+    const setState = (open: boolean) => {
+      menu.classList.toggle('hidden', !open);
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+      iconOpen?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
       document.body.style.overflow = open ? 'hidden' : '';
+    };
+    toggle.addEventListener('click', () => {
+      setState(menu.classList.contains('hidden'));
+    });
+    // Sluit menu bij navigatie naar een interne link
+    menu.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('a')) setState(false);
+    });
+    // Sluit bij escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) setState(false);
+    });
+    // Reset bij resize naar desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && !menu.classList.contains('hidden')) setState(false);
     });
   }
 
