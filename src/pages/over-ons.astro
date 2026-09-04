@@ -23,7 +23,7 @@ const teamLeden = (await getCollection('team'))
 const stats = [
   { waarde: String(bedrijf.generaties), label: 'Generaties vakmanschap', icon: 'Users' },
   { waarde: `${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
-  { waarde: 'NOA', label: 'Erkend keurmerk', icon: 'Award' },
+  { waarde: 'NOA', label: 'Erkend keurmerk', logoSrc: '/images/noa-logo.svg', logoAlt: 'NOA — Nederlandse Ondernemersvereniging Afbouwbedrijven' },
   { waarde: String(bedrijf.oprichtingsjaar), label: 'Opgericht', icon: 'Calendar' },
 ];
 
@@ -77,19 +77,19 @@ const verhaalHighlights = [
   <!-- Keurmerk & showroom -->
   <section class="container pb-20 lg:pb-24" aria-label="Keurmerk en showroom">
     <div class="grid gap-6 md:grid-cols-2 lg:gap-8">
-      <article class="group relative flex items-start gap-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary-10 to-primary/10 p-8 ring-1 ring-primary/15 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <article class="group relative flex items-start gap-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary-10 to-primary/10 p-6 sm:p-8 ring-1 ring-primary/15 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg">
         <span aria-hidden="true"
               class="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-primary/10 blur-2xl"></span>
-        <span class="relative inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-md ring-4 ring-white/60">
-          <Award size={28} aria-hidden="true" />
+        <span class="relative inline-flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-xl bg-white shadow-md ring-1 ring-primary/15 p-2">
+          <img src="/images/noa-logo.svg" alt="NOA logo" class="h-full! w-full object-contain" />
         </span>
         <div class="relative min-w-0">
           <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary-dark ring-1 ring-primary/15">
             <Sparkles size={12} aria-hidden="true" />
             Keurmerk
           </span>
-          <h2 class="mt-2.5 text-lg sm:text-xl font-semibold text-ink tracking-tight [hyphens:auto]">NOA-erkend stukadoorsbedrijf</h2>
-          <p class="mt-2 text-base leading-relaxed text-ink-light">
+          <h2 class="mt-2.5 text-lg! sm:text-xl! font-semibold text-ink tracking-tight [hyphens:auto]">NOA-erkend stukadoorsbedrijf</h2>
+          <p class="mt-2 text-sm sm:text-base leading-relaxed text-ink-light">
             Ons NOA-lidmaatschap staat voor erkend vakmanschap, kwaliteit en heldere
             afspraken. U weet waar u aan toe bent.
           </p>

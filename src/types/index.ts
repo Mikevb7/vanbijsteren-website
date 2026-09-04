@@ -102,9 +102,11 @@ export interface WerkwijzeStap {
 }
 
 export interface Statistiek {
-  waarde:  string;
-  label:   string;
-  icon?:   string;
+  waarde:    string;
+  label:     string;
+  icon?:     string;
+  logoSrc?:  string;  // optioneel: pad naar SVG/PNG logo dat i.p.v. de "waarde" tekst wordt getoond
+  logoAlt?:  string;
 }
 
 export interface TijdlijnEvent {

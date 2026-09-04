@@ -35,9 +35,9 @@ const trust = [
     primaryCta={{ label: 'Direct bellen', href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
   />
 
-  <div class="container py-16 lg:py-20">
+  <div class="container py-10 sm:py-16 lg:py-20">
     <!-- Trust-indicators -->
-    <ul class="mx-auto mb-12 flex max-w-content flex-wrap items-center justify-center gap-x-8 gap-y-3">
+    <ul class="mx-auto mb-8 flex max-w-content flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mb-12 sm:gap-x-8">
       {trust.map((t) => (
         <li class="inline-flex items-center gap-2 text-sm font-semibold text-ink">
           <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary-10 text-primary-dark ring-1 ring-primary/15">

@@ -21,7 +21,7 @@ const gridKlasse =
   : 'grid gap-6 sm:grid-cols-2 lg:grid-cols-4';
 ---
 
-<section class:list={['container py-20 lg:py-24', extra]}>
+<section class:list={['container py-12 sm:py-20 lg:py-24', extra]}>
   <div class="mx-auto max-w-content text-center">
     <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
       <span class="h-px w-8 bg-primary-dark"></span>
@@ -33,7 +33,7 @@ const gridKlasse =
   </div>
 
   {members.length === 1 ? (
-    <div class="mt-14 mx-auto grid max-w-4xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-stretch">
+    <div class="mt-10 mx-auto grid max-w-4xl gap-6 sm:mt-14 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-stretch">
       {(() => {
         const lid = members[0];
         const heeftMeta = lid.foto && typeof lid.foto.src !== 'string';
@@ -85,7 +85,7 @@ const gridKlasse =
       })()}
     </div>
   ) : (
-    <ul class:list={['mt-14', gridKlasse]}>
+    <ul class:list={['mt-10 sm:mt-14', gridKlasse]}>
       {members.map((lid) => {
         const heeftMeta = lid.foto && typeof lid.foto.src !== 'string';
         const fotoSrcStr = lid.foto && typeof lid.foto.src === 'string' ? lid.foto.src : '';

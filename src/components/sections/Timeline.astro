@@ -11,9 +11,9 @@ type Props = {
 const { heading, events, class: extra = '' } = Astro.props;
 ---
 
-<section class:list={['container py-20 lg:py-24', extra]}>
+<section class:list={['container py-12 sm:py-20 lg:py-24', extra]}>
   {heading && (
-    <div class="mb-16 text-center">
+    <div class="mb-10 text-center sm:mb-16">
       <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
         <span class="h-px w-8 bg-primary-dark"></span>
         Geschiedenis

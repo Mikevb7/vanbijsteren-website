@@ -7,7 +7,6 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 
 const body = `
-  <h2>NOA-erkend stukadoorsbedrijf</h2>
   <p>Van Bijsteren is lid van de NOA, de Nederlandse Ondernemersvereniging voor
   Afbouwbedrijven. Dit keurmerk geeft u de zekerheid van erkend vakmanschap, duidelijke
   afspraken en een bedrijf dat zich houdt aan de kwaliteitsnormen van de branche.</p>
@@ -33,6 +32,23 @@ const body = `
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{ label: 'Over ons', href: '/over-ons' }}
   />
+
+  <section class="container pt-10 sm:pt-16 lg:pt-20">
+    <div class="mx-auto max-w-prose">
+      <div class="flex flex-col items-center gap-6 rounded-2xl border border-border-light bg-surface-soft p-6 text-center ring-1 ring-primary/10 sm:flex-row sm:items-center sm:gap-8 sm:p-8 sm:text-left">
+        <a href="https://noa.nl" target="_blank" rel="noopener noreferrer" aria-label="Bekijk NOA — noa.nl" class="shrink-0">
+          <img src="/images/noa-logo.svg" alt="NOA — Nederlandse Ondernemersvereniging Afbouwbedrijven" class="h-20! w-auto sm:h-24!" />
+        </a>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-wider text-primary-dark">Erkend lid</p>
+          <h2 class="mt-1 text-lg! sm:text-xl! font-semibold text-ink tracking-tight">NOA-erkend stukadoorsbedrijf</h2>
+          <p class="mt-2 text-sm sm:text-base leading-relaxed text-ink-light">
+            Van Bijsteren is lid van de Nederlandse Ondernemersvereniging Afbouwbedrijven.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <ContentBlok body={body} />
 

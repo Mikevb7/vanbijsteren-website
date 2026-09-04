@@ -14,19 +14,23 @@ const kolommen = [
 ];
 ---
 
-<footer class="relative isolate mt-24 overflow-hidden bg-ink text-surface">
+<footer class="relative isolate overflow-hidden bg-ink text-surface">
   {/* Subtiele decoratieve accents */}
   <div class="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary/15 blur-3xl" aria-hidden="true"></div>
   <div class="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-primary/10 blur-3xl" aria-hidden="true"></div>
   {/* Bovenrand accent-lijn */}
   <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" aria-hidden="true"></div>
 
-  <div class="container relative py-20">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-8">
+  <div class="container relative py-12 sm:py-16 lg:py-20">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-8">
       <!-- Merk + NAP -->
       <div class="col-span-2 md:col-span-3 lg:col-span-2">
         <p class="text-2xl font-extrabold tracking-tight text-white">{bedrijf.naamKort}</p>
         <p class="mt-2 text-sm text-surface/60">Erkend NOA stukadoorsbedrijf in de Noord-Veluwe</p>
+        <a href="/certificeringen-en-keurmerken" aria-label="NOA — erkend stukadoorsbedrijf" class="mt-5 inline-flex items-center gap-3 rounded-lg bg-white px-4 py-2.5 ring-1 ring-white/20 transition-colors hover:bg-white/95">
+          <img src="/images/noa-logo.svg" alt="NOA logo" class="h-10! w-auto" />
+          <span class="text-xs font-semibold uppercase tracking-wider text-primary-dark">Erkend lid</span>
+        </a>
 
         <address class="not-italic mt-6 space-y-3 text-sm text-surface/75">
           <p class="flex items-start gap-3">

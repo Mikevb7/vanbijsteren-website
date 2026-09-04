@@ -16,7 +16,7 @@ const { heading, subheading, primaryCta, secondaryCta, class: extra = '' } = Ast
 
 <section
   class:list={[
-    'relative isolate overflow-hidden bg-primary py-20 text-white lg:py-24',
+    'relative isolate overflow-hidden bg-primary py-14 text-white sm:py-20 lg:py-24',
     extra,
   ]}
   aria-label={heading}
@@ -38,7 +38,7 @@ const { heading, subheading, primaryCta, secondaryCta, class: extra = '' } = Ast
         {subheading}
       </p>
     )}
-    <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:mt-10 sm:flex-row">
       <Button href={primaryCta.href} size="lg" variant="dark"
               external={primaryCta.external} ariaLabel={primaryCta.ariaLabel}>
         {primaryCta.label}

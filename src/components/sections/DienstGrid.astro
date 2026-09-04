@@ -16,7 +16,7 @@ const { heading, intro, diensten, columns = 3, eyebrow = 'Wat wij doen', class: 
 const kolommen = columns === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3';
 ---
 
-<section class:list={['container py-16 lg:py-20', extra]}>
+<section class:list={['container py-10 sm:py-16 lg:py-20', extra]}>
   {heading && (
     <div class="max-w-content">
       <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
@@ -28,7 +28,7 @@ const kolommen = columns === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols
     </div>
   )}
 
-  <div class:list={['grid gap-6', heading ? 'mt-12' : '', kolommen]}>
+  <div class:list={['grid gap-4 sm:gap-6', heading ? 'mt-8 sm:mt-12' : '', kolommen]}>
     {diensten.map((dienst) => (
       <DienstCard
         icon={dienst.icon}

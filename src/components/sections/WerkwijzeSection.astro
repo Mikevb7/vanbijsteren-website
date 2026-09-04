@@ -13,7 +13,7 @@ type Props = {
 const { heading, intro, steps, class: extra = '' } = Astro.props;
 ---
 
-<section class:list={['container py-16 lg:py-24', extra]}>
+<section class:list={['container py-10 sm:py-16 lg:py-24', extra]}>
   {heading && (
     <div class="text-center">
       <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
@@ -26,7 +26,7 @@ const { heading, intro, steps, class: extra = '' } = Astro.props;
     </div>
   )}
 
-  <ol class:list={['mt-14 grid gap-8 sm:grid-cols-2', steps.length >= 6 ? 'lg:grid-cols-3 xl:grid-cols-6' : 'lg:grid-cols-3']}>
+  <ol class:list={['mt-10 grid gap-6 sm:mt-14 sm:grid-cols-2 sm:gap-8', steps.length >= 6 ? 'lg:grid-cols-3 xl:grid-cols-6' : 'lg:grid-cols-3']}>
     {steps.map((stap, i) => (
       <li class="group relative flex flex-col items-center text-center">
         {/* Connectie-lijn (alleen desktop, laatste item niet) */}

@@ -11,7 +11,7 @@ const { heading, body, soft = false, class: extra = '' } = Astro.props;
 ---
 
 <section class:list={[soft ? 'border-y border-border-light bg-surface-soft' : '', extra]}>
-  <div class="container max-w-prose py-16 lg:py-20">
+  <div class="container max-w-prose py-10 sm:py-16 lg:py-20">
     {heading && <h2 class="mb-6 text-ink tracking-tight">{heading}</h2>}
     <div class="prose-body flex flex-col gap-5 text-base leading-relaxed text-ink-light" set:html={body} />
   </div>

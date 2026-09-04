@@ -79,10 +79,10 @@ const groepen = categorieVolgorde
     </section>
   )}
 
-  <div class="container py-16 lg:py-20">
+  <div class="container py-10 sm:py-16 lg:py-20">
     {groepen.map((groep) => (
-      <section id={groep.cat} class="mb-16 last:mb-0" aria-label={groep.label}>
-        <div class="mb-8 flex items-center gap-4">
+      <section id={groep.cat} class="mb-12 last:mb-0 sm:mb-16" aria-label={groep.label}>
+        <div class="mb-6 flex items-center gap-3 sm:mb-8 sm:gap-4">
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white shadow-md ring-4 ring-primary-10">
             <Icon name={groep.icon} size={22} />
           </span>

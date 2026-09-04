@@ -85,11 +85,12 @@ const ogImageURL = new URL(ogImage, bedrijf.website).toString();
 
   <NavBar />
 
-  <main id="main-content" class="pb-20 lg:pb-0">
+  <main id="main-content">
     <slot />
   </main>
 
   <Footer />
+  <div aria-hidden="true" class="lg:hidden" style="height: calc(64px + env(safe-area-inset-bottom))"></div>
   <StickyMobileCTA />
 </body>
 </html>

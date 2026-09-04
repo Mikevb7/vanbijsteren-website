@@ -72,7 +72,7 @@ const websiteSchema = {
 const stats = [
   { waarde: String(bedrijf.generaties), label: 'Generaties vakmanschap', icon: 'Users' },
   { waarde: `${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
-  { waarde: 'NOA', label: 'Erkend keurmerk', icon: 'Award' },
+  { waarde: 'NOA', label: 'Erkend keurmerk', logoSrc: '/images/noa-logo.svg', logoAlt: 'NOA — Nederlandse Ondernemersvereniging Afbouwbedrijven' },
   { waarde: String(bedrijf.oprichtingsjaar), label: 'Opgericht', icon: 'Calendar' },
 ];
 
@@ -136,52 +136,58 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
   />
 
   <!-- 2. Split-audience: klant vs. vakman -->
-  <section class="container py-20 lg:py-24" aria-label="Voor klanten en voor vakmensen">
-    <div class="grid gap-6 md:grid-cols-2 md:gap-8">
-      <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-8 lg:p-10
+  <section class="container py-10 sm:py-16 lg:py-24" aria-label="Voor klanten en voor vakmensen">
+    <div class="grid gap-3 sm:gap-6 md:grid-cols-2 md:gap-8">
+      <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-4 sm:p-8 lg:p-10
                       transition-[transform,box-shadow,border-color] duration-300
                       hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
         <span aria-hidden="true"
               class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-        <span class="relative inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
-                     transition-[transform,background-color,color] duration-300
-                     group-hover:bg-primary group-hover:text-white group-hover:scale-105">
-          <Icon name="Home" size={30} />
-        </span>
-        <h2 class="relative mt-5 text-2xl font-semibold text-ink tracking-tight">Stucwerk laten uitvoeren?</h2>
-        <p class="relative mt-3 grow text-base leading-relaxed text-ink-light">
+        <div class="relative flex items-start gap-3 sm:block">
+          <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10 sm:h-14 sm:w-14
+                       transition-[transform,background-color,color] duration-300
+                       group-hover:bg-primary group-hover:text-white group-hover:scale-105">
+            <Icon name="Home" size={22} class="sm:hidden" />
+            <Icon name="Home" size={30} class="hidden sm:block" />
+          </span>
+          <h2 class="text-lg! font-semibold text-ink tracking-tight sm:mt-5 sm:text-2xl!">Stucwerk laten uitvoeren?</h2>
+        </div>
+        <p class="relative mt-2 grow text-sm leading-relaxed text-ink-light sm:mt-3 sm:text-base">
           Wij verzorgen binnen- en buitenstucwerk in Harderwijk en omgeving. Ervaren,
-          erkend en netjes. Vraag een vrijblijvende offerte aan.
+          erkend en netjes.
         </p>
-        <div class="relative mt-7">
-          <Button href="/offerte" size="lg" variant="primary">Vraag offerte aan</Button>
+        <div class="relative mt-4 sm:mt-7">
+          <Button href="/offerte" size="md" variant="primary" class="w-full sm:w-auto">Vraag offerte aan</Button>
         </div>
       </article>
 
-      <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-8 lg:p-10
+      <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-border-light bg-surface p-4 sm:p-8 lg:p-10
                       transition-[transform,box-shadow,border-color] duration-300
                       hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
         <span aria-hidden="true"
               class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-        <span class="relative inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
-                     transition-[transform,background-color,color] duration-300
-                     group-hover:bg-primary group-hover:text-white group-hover:scale-105">
-          <Icon name="UserPlus" size={30} />
-        </span>
-        <h2 class="relative mt-5 text-2xl font-semibold text-ink tracking-tight">Op zoek naar werk als stukadoor?</h2>
-        <p class="relative mt-3 grow text-base leading-relaxed text-ink-light">
-          Bij Van Bijsteren werk je in een hecht team, dicht bij huis, aan mooi en
-          afwisselend werk. Met nette voorwaarden en ruimte om je te ontwikkelen.
+        <div class="relative flex items-start gap-3 sm:block">
+          <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10 sm:h-14 sm:w-14
+                       transition-[transform,background-color,color] duration-300
+                       group-hover:bg-primary group-hover:text-white group-hover:scale-105">
+            <Icon name="UserPlus" size={22} class="sm:hidden" />
+            <Icon name="UserPlus" size={30} class="hidden sm:block" />
+          </span>
+          <h2 class="text-lg! font-semibold text-ink tracking-tight sm:mt-5 sm:text-2xl!">Op zoek naar werk als stukadoor?</h2>
+        </div>
+        <p class="relative mt-2 grow text-sm leading-relaxed text-ink-light sm:mt-3 sm:text-base">
+          Bij Van Bijsteren werk je in een hecht team, dicht bij huis en met nette
+          voorwaarden.
         </p>
-        <div class="relative mt-7">
-          <Button href="/werken-bij" size="lg" variant="secondary">Bekijk vacatures</Button>
+        <div class="relative mt-4 sm:mt-7">
+          <Button href="/werken-bij" size="md" variant="secondary" class="w-full sm:w-auto">Bekijk vacatures</Button>
         </div>
       </article>
     </div>
   </section>
 
   <!-- 3. Diensten -->
-  <section class="border-t border-border-light bg-surface-soft py-20 lg:py-24" aria-label="Onze diensten">
+  <section class="border-t border-border-light bg-surface-soft py-12 sm:py-20 lg:py-24" aria-label="Onze diensten">
     <div class="container">
       <div class="max-w-content">
         <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
@@ -193,7 +199,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
           Van gladpleisterwerk tot decoratief stucwerk — wij doen het allemaal.
         </p>
       </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-8 grid gap-4 sm:mt-12 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {pillarDiensten.map((dienst) => (
           <DienstCard
             icon={dienst.icon}
@@ -221,7 +227,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
     {/* WCAG AA overlay-stack: uniforme donkere laag + linker gradient waar tekst zit */}
     <div class="absolute inset-0 -z-10 bg-ink/65" aria-hidden="true"></div>
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink/70 via-ink/25 to-transparent" aria-hidden="true"></div>
-    <div class="container relative py-20 lg:py-28">
+    <div class="container relative py-14 sm:py-20 lg:py-28">
       <div class="max-w-xl text-white">
         <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/90">
           <span class="h-px w-8 bg-white/70"></span>
@@ -246,12 +252,12 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
     image={{ src: familieFoto, alt: 'Drie generaties Van Bijsteren: Mike, Gert en Marcel', width: 1600, height: 1200 }}
     highlights={familieHighlights}
   />
-  <div class="container -mt-8 pb-4">
+  <div class="container -mt-6 pb-2 sm:-mt-8 sm:pb-4">
     <Button href="/over-ons" size="lg" variant="ghost">Lees ons verhaal</Button>
   </div>
 
   <!-- 7. Recruitment-CTA -->
-  <div class="container py-16 lg:py-20">
+  <div class="container py-10 sm:py-16 lg:py-20">
     <RecruitmentCTA
       heading="Op zoek naar een vaste baan als stukadoor?"
       body="In de Noord-Veluwe, bij een familiebedrijf dat u bij naam kent. Afwisselend werk, van strakke binnenwanden tot bijzondere decoratieve afwerkingen. Met de zekerheid van een vast contract en een goed team om u heen."
@@ -264,7 +270,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
 
   <!-- 8. Reviews — adaptief: 1 review = spotlight layout, meer = grid -->
   {uitgelichteReviews.length > 0 && (
-    <section class="border-t border-border-light bg-surface-soft py-20 lg:py-24" aria-label="Klantbeoordelingen">
+    <section class="border-t border-border-light bg-surface-soft py-12 sm:py-20 lg:py-24" aria-label="Klantbeoordelingen">
       <div class="container">
         <div class="max-w-content">
           <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">

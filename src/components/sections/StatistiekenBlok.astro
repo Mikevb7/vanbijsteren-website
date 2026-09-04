@@ -13,7 +13,7 @@ const { stats, class: extra = '' } = Astro.props;
 const kolommen = stats.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
 ---
 
-<section class:list={['relative isolate overflow-hidden bg-surface-soft py-16 lg:py-20', extra]}>
+<section class:list={['relative isolate overflow-hidden bg-surface-soft py-10 sm:py-16 lg:py-20', extra]}>
   {/* Subtiele decoratieve blob */}
   <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" aria-hidden="true"></div>
   <div class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" aria-hidden="true"></div>
@@ -28,18 +28,29 @@ const kolommen = stats.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
                  shadow-sm transition-[transform,box-shadow,border-color] duration-300
                  hover:-translate-y-1 hover:shadow-md hover:border-primary/25"
         >
-          {stat.icon && (
-            <span
-              class="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
-                     transition-[background-color,color,transform] duration-300
-                     group-hover:bg-primary group-hover:text-white group-hover:scale-105"
-            >
-              <Icon name={stat.icon} size={30} />
-            </span>
+          {stat.logoSrc ? (
+            <img
+              src={stat.logoSrc}
+              alt={stat.logoAlt ?? stat.waarde}
+              loading="lazy"
+              class="my-1 h-14! w-auto max-w-[7rem] object-contain sm:my-2 sm:h-16! lg:h-20!"
+            />
+          ) : (
+            <>
+              {stat.icon && (
+                <span
+                  class="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/10
+                         transition-[background-color,color,transform] duration-300
+                         group-hover:bg-primary group-hover:text-white group-hover:scale-105"
+                >
+                  <Icon name={stat.icon} size={30} />
+                </span>
+              )}
+              <span class="text-3xl font-extrabold tracking-tight text-primary-dark lg:text-[2.5rem] lg:leading-none">
+                {stat.waarde}
+              </span>
+            </>
           )}
-          <span class="text-3xl font-extrabold tracking-tight text-primary-dark lg:text-[2.5rem] lg:leading-none">
-            {stat.waarde}
-          </span>
           <span class="text-sm font-medium leading-snug text-ink-light">{stat.label}</span>
         </li>
       ))}
