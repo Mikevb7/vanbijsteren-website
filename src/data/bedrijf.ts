@@ -10,11 +10,9 @@ export const bedrijf = {
   btw:            "",                                  // TE_VERIFIËREN (TV-18)
 
   // Contact
-  telefoon:       "+31341418298",                     // bevestigd — internationaal
-  telefoonDisplay:"0341 418298",                      // bevestigd — leesbaar
+  telefoon:       "+31633854425",                     // bevestigd — internationaal
+  telefoonDisplay:"06 33 85 44 25",                   // bevestigd — leesbaar
   email:          "info@vanbijsterenstukadoors.nl",    // bevestigd (TV-04 opgelost)
-  mobielMarcel:   "+31633854425",                     // bevestigd — Marcel, internationaal
-  mobielMarcelDisplay: "06 338 544 25",               // bevestigd — Marcel, leesbaar
 
   // Adres — bevestigd door eigenaar 2026-07-12 (gecrosscheckt met Google Business Profile)
   adres: {
