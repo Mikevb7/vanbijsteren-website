@@ -217,21 +217,24 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
   </section>
 
   <!-- 4. Lokale sfeer-band met bus foto — visueel breekpunt in de tekst-heavy sectie flow -->
-  <section class="relative isolate overflow-hidden" aria-label="Herkenbaar in Harderwijk">
-    <Image
-      src={busOpStraat}
-      alt="Van Bijsteren bus op straat in Harderwijk"
-      widths={[640, 960, 1280, 1600, 1920]}
-      sizes="100vw"
-      formats={['webp']}
-      quality={72}
-      loading="lazy"
-      class="absolute inset-0 -z-10 h-full w-full object-cover"
-    />
-    {/* WCAG AA overlay-stack: uniforme donkere laag + linker gradient waar tekst zit */}
-    <div class="absolute inset-0 -z-10 bg-ink/65" aria-hidden="true"></div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink/70 via-ink/25 to-transparent" aria-hidden="true"></div>
-    <div class="container relative py-14 sm:py-20 lg:py-28">
+  <section class="relative isolate overflow-hidden bg-ink" aria-label="Herkenbaar in Harderwijk">
+    <div class="relative sm:absolute sm:inset-0 sm:-z-10">
+      <Image
+        src={busOpStraat}
+        alt="Van Bijsteren bus op straat in Harderwijk"
+        widths={[640, 960, 1280, 1600, 1920]}
+        sizes="100vw"
+        formats={['webp']}
+        quality={72}
+        loading="lazy"
+        class="aspect-[3/2] w-full object-cover sm:aspect-auto sm:h-full"
+      />
+      <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent sm:hidden" aria-hidden="true"></div>
+    </div>
+    {/* Vanaf sm: tekst over de foto — WCAG AA overlay-stack */}
+    <div class="absolute inset-0 -z-10 hidden bg-ink/65 sm:block" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 hidden bg-gradient-to-r from-ink/70 via-ink/25 to-transparent sm:block" aria-hidden="true"></div>
+    <div class="container relative pb-12 pt-2 sm:py-20 lg:py-28">
       <div class="max-w-xl text-white">
         <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/90">
           <span class="h-px w-8 bg-white/70"></span>

@@ -32,7 +32,7 @@ import { bedrijf } from '@data/bedrijf';
       </div>
 
       <!-- Wat gebeurt er nu -->
-      <div class="mx-auto mt-10 max-w-content sm:mt-14">
+      <div class="mx-auto mt-10 max-w-4xl sm:mt-14">
         <h2 class="mb-6 text-center text-2xl font-semibold text-ink tracking-tight">Wat gebeurt er nu?</h2>
         <ol class="grid gap-4 sm:grid-cols-3">
           <li class="relative rounded-2xl border border-border-light bg-surface p-6 shadow-sm">
@@ -54,8 +54,8 @@ import { bedrijf } from '@data/bedrijf';
       </div>
 
       <!-- Direct contact + doorlink -->
-      <div class="mx-auto mt-14 max-w-content rounded-2xl border border-border-light bg-surface p-7 shadow-sm lg:p-8">
-        <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="mx-auto mt-14 max-w-4xl rounded-2xl border border-border-light bg-surface p-7 shadow-sm lg:p-8">
+        <div class="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <p class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
               <Clock size={14} aria-hidden="true" />
@@ -64,7 +64,7 @@ import { bedrijf } from '@data/bedrijf';
             <h2 class="mt-2 text-xl font-semibold text-ink tracking-tight">Bel of mail ons direct</h2>
             <p class="mt-2 text-ink-light">Wij helpen u graag persoonlijk verder.</p>
           </div>
-          <div class="flex flex-col gap-3 sm:flex-row">
+          <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:shrink-0 [&>a]:whitespace-nowrap">
             <Button
               href={`tel:${bedrijf.telefoon}`}
               size="lg"

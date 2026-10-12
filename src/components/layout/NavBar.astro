@@ -14,7 +14,7 @@ import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
     </a>
 
     <!-- Desktop navigatie -->
-    <ul class="hidden lg:flex items-center gap-0.5">
+    <ul class="hidden xl:flex items-center gap-0.5">
       {mainNav.map((item) => (
         <li class="relative group">
           {item.children ? (
@@ -78,7 +78,7 @@ import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
     </ul>
 
     <!-- Desktop CTA -->
-    <div class="hidden lg:flex items-center gap-4 shrink-0">
+    <div class="hidden xl:flex items-center gap-4 shrink-0">
       <a
         href={`tel:${bedrijf.telefoon}`}
         class="group inline-flex items-center gap-2 text-base font-semibold text-primary-dark transition-colors hover:text-primary"
@@ -95,7 +95,7 @@ import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
     <button
       type="button"
       id="nav-toggle"
-      class="lg:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-md bg-primary-10 text-primary-dark ring-1 ring-primary/20 transition-colors hover:bg-primary hover:text-white shrink-0"
+      class="xl:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-md bg-primary-10 text-primary-dark ring-1 ring-primary/20 transition-colors hover:bg-primary hover:text-white shrink-0"
       aria-label="Menu openen"
       aria-controls="mobile-menu"
       aria-expanded="false"
@@ -108,7 +108,7 @@ import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
   <!-- Mobiel menu -->
   <div
     id="mobile-menu"
-    class="lg:hidden fixed left-0 right-0 top-16 z-40 hidden h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-surface"
+    class="xl:hidden fixed left-0 right-0 top-16 lg:top-20 z-40 hidden h-[calc(100dvh-4rem)] lg:h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain bg-surface"
   >
     <div class="container py-5">
       <ul class="flex flex-col">
@@ -200,7 +200,7 @@ import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
     });
     // Reset bij resize naar desktop
     window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024 && !menu.classList.contains('hidden')) setState(false);
+      if (window.innerWidth >= 1280 && !menu.classList.contains('hidden')) setState(false);
     });
   }
 

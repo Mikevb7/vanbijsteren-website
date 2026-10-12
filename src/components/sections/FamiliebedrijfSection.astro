@@ -32,9 +32,9 @@ const stringSrc     = image && typeof image.src === 'string' ? image.src : '';
     {image && (
       <div class:list={['relative', imageLeft ? 'lg:order-1' : 'lg:order-2']}>
         {/* Offset decoratief frame achter foto */}
-        <div class="pointer-events-none absolute -bottom-5 -right-5 h-full w-full rounded-2xl bg-primary/15 lg:-bottom-7 lg:-right-7" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -bottom-3 -right-3 h-full w-full rounded-2xl bg-primary/15 sm:-bottom-5 sm:-right-5 lg:-bottom-7 lg:-right-7" aria-hidden="true"></div>
         {/* Klein accent-vierkant links-boven */}
-        <div class="pointer-events-none absolute -top-4 -left-4 h-20 w-20 rounded-2xl border-2 border-primary/30" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -top-4 -left-4 hidden h-20 w-20 rounded-2xl border-2 border-primary/30 sm:block" aria-hidden="true"></div>
 
         {heeftMetadata ? (
           <Image
