@@ -13,7 +13,7 @@ import CTASection from '@components/sections/CTASection.astro';
 import ArticleMeta from '@components/ui/ArticleMeta.astro';
 import { Lightbulb } from 'lucide-astro';
 import { bedrijf } from '@data/bedrijf';
-import { prijzen, prijsFaqAntwoord } from '@data/prijzen';
+import { prijzen, prijsFaqAntwoord, prijsniveaus } from '@data/prijzen';
 import PrijsIndicatieSection from '@components/sections/PrijsIndicatieSection.astro';
 
 const gepubliceerd = '2026-06-01';
@@ -30,8 +30,15 @@ const body = `
   </ul>
   <p>Over de btw: voor woningen ouder dan twee jaar geldt het verlaagde tarief van
   ${prijzen.btwLaag}%. Voor nieuwbouw en overige projecten geldt ${prijzen.btwHoog}%.</p>
-  <p>Decoratieve afwerkingen zoals spachtelputz en sierpleister prijzen wij altijd op
-  maat, omdat kleur, structuur en ondergrond sterk verschillen.</p>
+
+  <h2 id="prijsniveaus">Prijsniveau per afwerking</h2>
+  <p>Voor andere afwerkingen noemen wij bewust geen bedragen. Kleur, structuur en
+  ondergrond verschillen te veel per klus. Wel geven we u een idee hoe ze zich
+  verhouden tot standaard stucwerk op wanden:</p>
+  <ul>
+    ${prijsniveaus.map((n) => `<li><a href="${n.href}"><strong>${n.naam}</strong></a> — <em>${n.niveau.toLowerCase()}</em>. ${n.uitleg}</li>`).join('\n    ')}
+  </ul>
+  <p>Voor al deze afwerkingen maken wij na een vrijblijvend bezoek een offerte op maat.</p>
   <p>Dit zijn indicaties. De exacte prijs bepalen wij na het opnemen van het werk,
   zodat u niet voor verrassingen komt te staan.</p>
 
@@ -65,7 +72,7 @@ const faqItems = [
   },
   {
     vraag: 'Wat kost spachtelputz?',
-    antwoord: 'Spachtelputz prijzen wij altijd op maat: de prijs verschilt per locatie (binnen of buiten), de oppervlakte, de ondergrond en de gekozen kleur. Vraag een vrijblijvende offerte aan, dan komen wij langs om het werk op te nemen.',
+    antwoord: 'Spachtelputz ligt in prijs hoger dan standaard stucwerk op wanden: sierpleister vraagt meer materiaal en handwerk. Buiten is het weer iets duurder dan binnen, door steigerwerk en weerbestendig materiaal. Een exact bedrag noemen wij pas na een vrijblijvend bezoek, omdat oppervlakte, ondergrond en kleur sterk verschillen.',
   },
   {
     vraag: 'Hoe lang duurt het stucken van een kamer?',

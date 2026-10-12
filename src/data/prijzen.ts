@@ -13,6 +13,25 @@ export const prijzen = {
 } as const;
 // Werkgebied (max. 40 km) staat in bedrijf.ts → werkgebiedRadius.
 
+// ─── Relatieve prijsniveaus (GEEN bedragen) ───────────────────────────────────
+// Alleen wanden/plafonds hebben een bevestigde prijs. Voor de overige afwerkingen
+// noemen we bewust geen bedragen — alleen hoe ze zich verhouden tot standaard
+// stucwerk op wanden. Zo voorkomen we discussies over prijzen op de site.
+export type Prijsniveau = 'Voordeliger' | 'Standaard' | 'Iets hoger' | 'Hoger' | 'Premium' | 'Wisselend';
+
+export const prijsniveaus: { naam: string; href: string; niveau: Prijsniveau; uitleg: string }[] = [
+  { naam: 'Spackspuitwerk',        href: '/binnen-stucwerk/spackspuitwerk',       niveau: 'Voordeliger', uitleg: 'Wordt gespoten in plaats van met de hand opgezet, dus snel klaar — vooral bij grote oppervlakten.' },
+  { naam: 'Schuurwerk',            href: '/binnen-stucwerk/schuurwerk',           niveau: 'Voordeliger', uitleg: 'Een minder strakke afwerking dan glad stucwerk, en daardoor minder bewerkelijk.' },
+  { naam: 'Behangklaar stucwerk',  href: '/binnen-stucwerk/behangklaar-sausklaar', niveau: 'Standaard',   uitleg: 'Een vlakke wand die klaar is voor behang. Dit valt onder onze prijsindicatie voor wanden.' },
+  { naam: 'Gladpleisterwerk',      href: '/binnen-stucwerk/gladpleisterwerk',     niveau: 'Standaard',   uitleg: 'Strakke, gladde wanden. Dit is de basis van onze prijsindicatie voor wanden.' },
+  { naam: 'Sausklaar stucwerk',    href: '/binnen-stucwerk/behangklaar-sausklaar', niveau: 'Iets hoger',  uitleg: 'Verf verbergt niets, dus de wand moet extra strak zijn. Dat vraagt meer afwerktijd.' },
+  { naam: 'Plafond stucen',        href: '/binnen-stucwerk/plafond-stucen',       niveau: 'Iets hoger',  uitleg: 'Boven het hoofd werken is zwaarder en trager dan een wand.' },
+  { naam: 'Spachtelputz & granolputz', href: '/sierpleister',                     niveau: 'Hoger',       uitleg: 'Sierpleister vraagt meer materiaal en handwerk om de structuur overal gelijk te krijgen.' },
+  { naam: 'Buitengevelstucwerk',   href: '/buitengevelstucwerk',                  niveau: 'Hoger',       uitleg: 'Steigerwerk, weerbestendige materialen en planning rond het weer maken gevelwerk duurder.' },
+  { naam: 'Italiaans stucwerk & Frescolori', href: '/decoratief-stucwerk/italiaans-stucwerk-frescolori', niveau: 'Premium', uitleg: 'Meerdere dunne lagen, hoogwaardige kalkpleisters en echt ambachtswerk.' },
+  { naam: 'Reparatie & renovatie', href: '/stucwerk-reparatie-renovatie',         niveau: 'Wisselend',   uitleg: 'Hangt af van de schade. Per m² vaak relatief duurder, omdat voorbereiding en opstart hetzelfde blijven.' },
+];
+
 /** Bedrag als "€ 1.234" (nl-NL, zonder centen). */
 export const euro = (n: number) =>
   new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
