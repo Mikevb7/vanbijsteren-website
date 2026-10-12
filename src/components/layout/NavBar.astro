@@ -4,13 +4,22 @@ import { bedrijf } from '@data/bedrijf';
 import { mainNav } from '@data/nav';
 import Button from '@components/ui/Button.astro';
 import { Menu, Phone, ChevronDown, X } from 'lucide-astro';
+import { Image } from 'astro:assets';
+import logo from '@assets/images/logo/van-bijsteren-logo.png';
 ---
 
 <header id="site-header" class="sticky top-0 z-50 border-b border-border-light/60 bg-surface/85 backdrop-blur-md supports-[backdrop-filter]:bg-surface/75 transition-shadow duration-300">
   <nav class="container flex items-center justify-between gap-4 h-16 lg:h-20" aria-label="Hoofdnavigatie">
     <!-- Logo -->
-    <a href="/" class="group flex items-center font-extrabold text-lg lg:text-xl text-ink shrink-0 tracking-tight">
-      <span class="text-primary-dark transition-colors group-hover:text-primary">Van&nbsp;Bijsteren</span>
+    <a href="/" class="flex items-center shrink-0" aria-label={`${bedrijf.naam} — naar de homepage`}>
+      <Image
+        src={logo}
+        alt={bedrijf.naam}
+        widths={[120, 180, 240, 360]}
+        sizes="(min-width: 1024px) 130px, 106px"
+        loading="eager"
+        class="h-14 w-auto lg:h-[4.25rem]"
+      />
     </a>
 
     <!-- Desktop navigatie -->
