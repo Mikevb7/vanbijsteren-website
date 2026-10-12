@@ -4,12 +4,12 @@ categorie: "klant"
 volgorde: 1
 ---
 
-Als **vrijblijvende prijsindicatie** hanteren wij de volgende richtprijzen:
+Als **prijsindicatie** rekenen wij:
 
-- **Wanden (gladpleisterwerk):** vanaf €30 per m²
-- **Plafonds:** vanaf €35 per m²
-- **Minimum opdracht:** 100 m² totaal
+- **Wanden:** €30 per m²
+- **Plafonds:** €35 per m²
+- **Minimale opdracht:** 100 m² in totaal
 
-Alle prijzen zijn exclusief BTW. Voor woningen ouder dan twee jaar geldt het verlaagde tarief van 9% BTW. Voor nieuwbouw en overige projecten geldt het standaard tarief van 21% BTW.
+Alle prijzen zijn exclusief btw. Voor woningen ouder dan twee jaar geldt het verlaagde tarief van 9%, voor nieuwbouw en overige projecten 21%.
 
-Dit zijn indicatieve tarieven. De definitieve prijs hangt af van de ondergrond, de gewenste afwerking en de omvang van het werk. Voor een nauwkeurige prijs komen wij graag vrijblijvend langs om het werk op te nemen — zo voorkomen we verrassingen achteraf.
+Wij zijn niet de goedkoopste, wel de beste in ons vak: u betaalt voor stucwerk waar u jaren plezier van heeft. De definitieve prijs hangt af van de ondergrond, de gewenste afwerking en de bereikbaarheid. Daarom komen wij altijd eerst vrijblijvend langs om het werk op te nemen.

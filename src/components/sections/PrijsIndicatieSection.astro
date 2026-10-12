@@ -1,107 +1,205 @@
 ---
 // src/components/sections/PrijsIndicatieSection.astro
-// Prijsindicatie-blok met richtprijzen voor stucwerk.
-// Duidelijk gelabeld als indicatief, altijd met verwijzing naar offerte.
+// Prijsindicatie + rekenvakje. Prijzen komen uit src/data/prijzen.ts (enige bron).
+// Positionering: niet de goedkoopste, wel de beste — kwaliteit boven prijs.
 import Button from '@components/ui/Button.astro';
 import Icon from '@components/ui/Icon.astro';
 import { bedrijf } from '@data/bedrijf';
+import { prijzen } from '@data/prijzen';
 
 type Props = {
+  heading?: string;
   class?: string;
 };
 
-const { class: extra = '' } = Astro.props;
+const { heading = 'Krijg direct een prijsindicatie', class: extra = '' } = Astro.props;
+
+const kwaliteit = [
+  { icon: 'Award',      tekst: 'NOA-erkend vakmanschap' },
+  { icon: 'Users',      tekst: `${bedrijf.generaties} generaties, sinds ${bedrijf.oprichtingsjaar}` },
+  { icon: 'BadgeCheck', tekst: 'Strak resultaat, netjes opgeleverd' },
+];
 ---
 
 <section
   class:list={['border-t border-border-light bg-surface-soft', extra]}
-  aria-label="Prijsindicatie stucwerk"
+  aria-labelledby="prijsindicatie-titel"
 >
-  <div class="container py-10 sm:py-16 lg:py-20">
-    <!-- Koptekst -->
-    <div class="text-center">
-      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
-        <span class="h-px w-8 bg-primary-dark"></span>
-        Prijsindicatie
-        <span class="h-px w-8 bg-primary-dark"></span>
-      </span>
-      <h2 class="mt-3 text-ink tracking-tight">Wat kost stucwerk?</h2>
-      <p class="mx-auto mt-4 max-w-content text-base leading-relaxed text-ink-light">
-        Onderstaande richtprijzen geven u een eerste indruk. De definitieve prijs hangt af
-        van de ondergrond, afwerking en omvang. Wij komen altijd vrijblijvend langs voor een
-        nauwkeurige offerte op maat.
-      </p>
-    </div>
+  <div class="container py-12 sm:py-16 lg:py-24">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-14">
 
-    <!-- Prijskaarten -->
-    <div class="mx-auto mt-10 grid max-w-3xl gap-5 sm:mt-12 sm:grid-cols-2">
-      <!-- Wanden -->
-      <div class="rounded-2xl border border-border-light bg-surface p-7 shadow-sm">
-        <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
-          <Icon name="PaintBucket" size={22} />
-        </div>
-        <h3 class="mt-4 text-lg font-semibold text-ink">Wanden</h3>
-        <p class="mt-1 text-sm text-ink-light">Gladpleisterwerk, wanden</p>
-        <p class="mt-4 text-3xl font-bold tracking-tight text-ink">
-          v.a. €30
-          <span class="text-base font-normal text-ink-light">/m²</span>
+      <!-- Links: boodschap + richtprijzen -->
+      <div>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+          <span class="h-px w-8 bg-primary-dark"></span>
+          Prijsindicatie
+        </span>
+        <h2 id="prijsindicatie-titel" class="mt-3 text-ink tracking-tight">{heading}</h2>
+
+        <p class="mt-5 text-xl font-semibold leading-snug text-ink">
+          Wij zijn niet de goedkoopste.<br class="hidden sm:block" />
+          <span class="text-primary-dark"> Wel de beste in ons vak.</span>
         </p>
-        <p class="mt-1 text-xs text-ink-light">excl. BTW</p>
+        <p class="mt-3 text-base leading-relaxed text-ink-light">
+          Goedkoop stucwerk ziet u terug in scheuren en oneffenheden. Wij werken voor een
+          resultaat waar u jaren plezier van heeft — en daar staan wij met onze naam voor.
+        </p>
+
+        <ul class="mt-6 flex flex-col gap-2.5">
+          {kwaliteit.map((k) => (
+            <li class="flex items-center gap-2.5 text-sm font-semibold text-ink">
+              <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+                <Icon name={k.icon} size={14} />
+              </span>
+              {k.tekst}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Richtprijzen -->
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-border-light bg-surface p-5 shadow-sm">
+            <p class="text-sm font-semibold text-ink-light">Wanden</p>
+            <p class="mt-1 text-3xl font-bold tracking-tight text-ink">
+              €{prijzen.wandPerM2}<span class="text-base font-normal text-ink-light"> /m²</span>
+            </p>
+            <p class="mt-1 text-xs text-ink-light">excl. btw</p>
+          </div>
+          <div class="rounded-2xl border border-border-light bg-surface p-5 shadow-sm">
+            <p class="text-sm font-semibold text-ink-light">Plafonds</p>
+            <p class="mt-1 text-3xl font-bold tracking-tight text-ink">
+              €{prijzen.plafondPerM2}<span class="text-base font-normal text-ink-light"> /m²</span>
+            </p>
+            <p class="mt-1 text-xs text-ink-light">excl. btw</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Plafonds -->
-      <div class="rounded-2xl border border-border-light bg-surface p-7 shadow-sm">
-        <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
-          <Icon name="Layers" size={22} />
-        </div>
-        <h3 class="mt-4 text-lg font-semibold text-ink">Plafonds</h3>
-        <p class="mt-1 text-sm text-ink-light">Stucwerk plafond</p>
-        <p class="mt-4 text-3xl font-bold tracking-tight text-ink">
-          v.a. €35
-          <span class="text-base font-normal text-ink-light">/m²</span>
-        </p>
-        <p class="mt-1 text-xs text-ink-light">excl. BTW</p>
-      </div>
-    </div>
-
-    <!-- Voorwaarden & disclaimer -->
-    <ul class="mx-auto mt-8 flex max-w-2xl flex-col gap-2.5 sm:mt-10">
-      <li class="flex items-start gap-2.5 text-sm text-ink-light">
-        <Icon name="Info" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
-        <span>Minimum opdracht: 100 m² totaal oppervlak.</span>
-      </li>
-      <li class="flex items-start gap-2.5 text-sm text-ink-light">
-        <Icon name="Receipt" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
-        <span>
-          BTW: 9% voor woningen ouder dan 2 jaar — 21% voor nieuwbouw en overige projecten.
-        </span>
-      </li>
-      <li class="flex items-start gap-2.5 text-sm text-ink-light">
-        <Icon name="MapPin" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
-        <span>Werkgebied: max. 40 km van Harderwijk (Noord-Veluwe en omgeving).</span>
-      </li>
-      <li class="flex items-start gap-2.5 text-sm text-ink-light">
-        <Icon name="AlertCircle" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
-        <span>
-          Dit zijn indicatieve richtprijzen — geen offerte. Voor een definitieve prijs komen
-          wij kosteloos langs om het werk op te nemen.
-        </span>
-      </li>
-    </ul>
-
-    <!-- CTA -->
-    <div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-      <Button href="/offerte" size="lg" variant="primary">
-        Vraag gratis offerte aan
-      </Button>
-      <Button
-        href={`tel:${bedrijf.telefoon}`}
-        size="lg"
-        variant="ghost"
-        ariaLabel={`Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`}
+      <!-- Rechts: rekenvakje -->
+      <div
+        class="rounded-2xl border border-border-light bg-surface p-6 shadow-lg ring-1 ring-black/5 sm:p-8"
+        data-prijscalc
+        data-wand={prijzen.wandPerM2}
+        data-plafond={prijzen.plafondPerM2}
+        data-minimum={prijzen.minimumM2}
+        data-btw-laag={prijzen.btwLaag}
+        data-btw-hoog={prijzen.btwHoog}
       >
-        Bel {bedrijf.telefoonDisplay}
-      </Button>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-white shadow-md ring-4 ring-primary-10">
+            <Icon name="Calculator" size={20} />
+          </span>
+          <div>
+            <h3 class="text-lg font-semibold text-ink tracking-tight">Reken het zelf uit</h3>
+            <p class="text-sm text-ink-light">Vul het aantal m² in — de indicatie verschijnt direct.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-1.5">
+            <span class="text-sm font-semibold text-ink">Wanden (m²)</span>
+            <input type="number" inputmode="numeric" min="0" step="1" placeholder="bijv. 80" data-input="wand"
+                   class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15" />
+          </label>
+          <label class="flex flex-col gap-1.5">
+            <span class="text-sm font-semibold text-ink">Plafonds (m²)</span>
+            <input type="number" inputmode="numeric" min="0" step="1" placeholder="bijv. 30" data-input="plafond"
+                   class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15" />
+          </label>
+        </div>
+
+        <!-- Uitkomst -->
+        <div class="mt-6 rounded-xl bg-primary-10 p-5 ring-1 ring-primary/15" aria-live="polite">
+          <div data-uitkomst="leeg">
+            <p class="text-sm text-ink-light">Uw prijsindicatie verschijnt hier.</p>
+          </div>
+          <div data-uitkomst="minimum" class="hidden">
+            <p class="text-sm font-semibold text-ink">Onze minimale opdracht is {prijzen.minimumM2} m².</p>
+            <p class="mt-1 text-sm text-ink-light">
+              Gaat het om een kleinere klus? Bel ons even op
+              <a href={`tel:${bedrijf.telefoon}`} class="font-semibold text-primary-dark underline">{bedrijf.telefoonDisplay}</a>,
+              dan kijken we samen wat mogelijk is.
+            </p>
+          </div>
+          <div data-uitkomst="prijs" class="hidden">
+            <p class="text-sm font-semibold text-ink-light">Indicatie voor <span data-out="m2"></span> m²</p>
+            <p class="mt-1 text-4xl font-extrabold tracking-tight text-ink" data-out="excl"></p>
+            <p class="text-xs text-ink-light">excl. btw</p>
+            <dl class="mt-3 grid gap-1 border-t border-primary/15 pt-3 text-sm">
+              <div class="flex justify-between gap-4">
+                <dt class="text-ink-light">Incl. {prijzen.btwLaag}% btw <span class="text-xs">(woning ouder dan 2 jaar)</span></dt>
+                <dd class="font-semibold text-ink" data-out="laag"></dd>
+              </div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-ink-light">Incl. {prijzen.btwHoog}% btw <span class="text-xs">(nieuwbouw / overig)</span></dt>
+                <dd class="font-semibold text-ink" data-out="hoog"></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <Button href="/offerte" size="lg" variant="primary" class="w-full justify-center">
+            Vraag een exacte offerte aan
+          </Button>
+        </div>
+
+        <p class="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-light">
+          <Icon name="Info" size={14} class="mt-0.5 shrink-0 text-primary-dark" />
+          <span>
+            Dit is een indicatie, geen offerte. De definitieve prijs hangt af van de ondergrond en
+            afwerking — daarom komen wij altijd eerst vrijblijvend kijken.
+            {`Werkgebied: tot ${bedrijf.werkgebiedRadius} km rond Harderwijk.`}
+          </span>
+        </p>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const fmt = (n: number) =>
+    new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+
+  document.querySelectorAll<HTMLElement>('[data-prijscalc]').forEach((root) => {
+    const d = root.dataset;
+    const wandPrijs = Number(d.wand), plafondPrijs = Number(d.plafond);
+    const minimum = Number(d.minimum), btwLaag = Number(d.btwLaag), btwHoog = Number(d.btwHoog);
+
+    const inWand = root.querySelector<HTMLInputElement>('[data-input="wand"]')!;
+    const inPlafond = root.querySelector<HTMLInputElement>('[data-input="plafond"]')!;
+    const blok = (naam: string) => root.querySelector<HTMLElement>(`[data-uitkomst="${naam}"]`)!;
+    const out = (naam: string) => root.querySelector<HTMLElement>(`[data-out="${naam}"]`)!;
+    const knop = root.querySelector<HTMLAnchorElement>('a[href^="/offerte"]');
+
+    const toon = (naam: 'leeg' | 'minimum' | 'prijs') =>
+      (['leeg', 'minimum', 'prijs'] as const).forEach((n) => blok(n).classList.toggle('hidden', n !== naam));
+
+    const update = () => {
+      const w = Math.max(0, Math.round(Number(inWand.value) || 0));
+      const p = Math.max(0, Math.round(Number(inPlafond.value) || 0));
+      const m2 = w + p;
+
+      // Offerte-knop neemt de ingevulde m² mee (wordt in het formulier voorgevuld).
+      if (knop) {
+        const q = new URLSearchParams();
+        if (w) q.set('wanden', String(w));
+        if (p) q.set('plafonds', String(p));
+        knop.href = q.toString() ? `/offerte?${q}` : '/offerte';
+      }
+
+      if (m2 === 0) return toon('leeg');
+      if (m2 < minimum) return toon('minimum');
+
+      const excl = w * wandPrijs + p * plafondPrijs;
+      out('m2').textContent = String(m2);
+      out('excl').textContent = fmt(excl);
+      out('laag').textContent = fmt(excl * (1 + btwLaag / 100));
+      out('hoog').textContent = fmt(excl * (1 + btwHoog / 100));
+      toon('prijs');
+    };
+
+    inWand.addEventListener('input', update);
+    inPlafond.addEventListener('input', update);
+  });
+</script>

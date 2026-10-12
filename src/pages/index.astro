@@ -9,6 +9,7 @@ import FamiliebedrijfSection from '@components/sections/FamiliebedrijfSection.as
 import RecruitmentCTA from '@components/sections/RecruitmentCTA.astro';
 import RegioLinkBlok from '@components/sections/RegioLinkBlok.astro';
 import CTASection from '@components/sections/CTASection.astro';
+import PrijsIndicatieSection from '@components/sections/PrijsIndicatieSection.astro';
 import DienstCard from '@components/cards/DienstCard.astro';
 import TestimonialCard from '@components/cards/TestimonialCard.astro';
 import Button from '@components/ui/Button.astro';
@@ -186,6 +187,9 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
     </div>
   </section>
 
+  <!-- 2b. Prijsindicatie + rekenvakje -->
+  <PrijsIndicatieSection />
+
   <!-- 3. Diensten -->
   <section class="border-t border-border-light bg-surface-soft py-12 sm:py-20 lg:py-24" aria-label="Onze diensten">
     <div class="container">
@@ -325,7 +329,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
   <!-- 9. Werkgebied -->
   <RegioLinkBlok
     heading="Wij werken in de Noord-Veluwe"
-    intro="Van Bijsteren Stukadoorsbedrijf is gevestigd op industrieterrein Lorentz in Harderwijk en werkt in de hele regio: Ermelo, Putten, Nunspeet, Hierden, Zeewolde en omliggende plaatsen. Binnen een straal van circa 50 kilometer."
+    intro={`Van Bijsteren Stukadoorsbedrijf is gevestigd op industrieterrein Lorentz in Harderwijk en werkt in de hele regio: Ermelo, Putten, Nunspeet, Hierden, Zeewolde en omliggende plaatsen. Tot ${bedrijf.werkgebiedRadius} kilometer rond Harderwijk.`}
     places={regioPlaatsen}
   />
 

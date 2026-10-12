@@ -13,20 +13,33 @@ import CTASection from '@components/sections/CTASection.astro';
 import ArticleMeta from '@components/ui/ArticleMeta.astro';
 import { Lightbulb } from 'lucide-astro';
 import { bedrijf } from '@data/bedrijf';
+import { prijzen, prijsFaqAntwoord } from '@data/prijzen';
+import PrijsIndicatieSection from '@components/sections/PrijsIndicatieSection.astro';
 
 const gepubliceerd = '2026-06-01';
 
-const intro = 'Wat kost stucwerk laten doen? Als globale indicatie kost gladpleisterwerk gemiddeld €15 tot €25 per m² en spachtelputz binnen ongeveer €12 tot €22 per m², beide exclusief btw. De uiteindelijke prijs hangt af van de ondergrond, de afwerking en de oppervlakte. Hieronder leggen we de belangrijkste factoren uit.';
+const intro = `Wat kost stucwerk laten doen? Als prijsindicatie rekenen wij €${prijzen.wandPerM2} per m² voor wanden en €${prijzen.plafondPerM2} per m² voor plafonds, exclusief btw. De uiteindelijke prijs hangt af van de ondergrond, de afwerking en de oppervlakte. Hieronder leggen we uit hoe dat werkt.`;
 
 const body = `
-  <h2>Directe prijsindicaties</h2>
-  <p>Prijzen voor stucwerk verschillen per afwerking. Als richtprijs, exclusief btw:</p>
+  <h2>Onze prijsindicatie</h2>
+  <p>Als richtprijs hanteren wij, exclusief btw:</p>
   <ul>
-    <li><strong>Gladpleisterwerk:</strong> gemiddeld €15 tot €25 per m²</li>
-    <li><strong>Spachtelputz (binnen):</strong> ongeveer €12 tot €22 per m²</li>
+    <li><strong>Wanden:</strong> €${prijzen.wandPerM2} per m²</li>
+    <li><strong>Plafonds:</strong> €${prijzen.plafondPerM2} per m²</li>
+    <li><strong>Minimale opdracht:</strong> ${prijzen.minimumM2} m² in totaal</li>
   </ul>
+  <p>Over de btw: voor woningen ouder dan twee jaar geldt het verlaagde tarief van
+  ${prijzen.btwLaag}%. Voor nieuwbouw en overige projecten geldt ${prijzen.btwHoog}%.</p>
+  <p>Decoratieve afwerkingen zoals spachtelputz en sierpleister prijzen wij altijd op
+  maat, omdat kleur, structuur en ondergrond sterk verschillen.</p>
   <p>Dit zijn indicaties. De exacte prijs bepalen wij na het opnemen van het werk,
   zodat u niet voor verrassingen komt te staan.</p>
+
+  <h2>Niet de goedkoopste, wel de beste</h2>
+  <p>U vindt vast een stukadoor die het voor minder doet. Maar goedkoop stucwerk ziet
+  u later terug in scheuren, oneffenheden en loszittende pleister. Wij werken al
+  ${bedrijf.generaties} generaties voor een resultaat waar u jaren plezier van heeft —
+  NOA-erkend en netjes opgeleverd.</p>
 
   <h2>Welke factoren bepalen de prijs?</h2>
   <p>De kosten van stucwerk worden vooral bepaald door:</p>
@@ -47,12 +60,12 @@ const body = `
 
 const faqItems = [
   {
-    vraag: 'Wat kost gladpleisterwerk per m²?',
-    antwoord: 'Gladpleisterwerk kost gemiddeld €15 tot €25 per m², exclusief btw. De prijs is afhankelijk van de staat van de ondergrond, de gewenste afwerking en de toegankelijkheid van de ruimte. Vraag een vrijblijvende offerte voor een exacte prijs.',
+    vraag: 'Wat kost stucwerk per m²?',
+    antwoord: prijsFaqAntwoord,
   },
   {
     vraag: 'Wat kost spachtelputz?',
-    antwoord: 'De prijs van spachtelputz verschilt per locatie (binnen of buiten), de oppervlakte en de gekozen kleur. Als richtprijs kunt u denken aan €12 tot €22 per m² voor binnenstucwerk. Vraag een offerte voor een exacte prijs.',
+    antwoord: 'Spachtelputz prijzen wij altijd op maat: de prijs verschilt per locatie (binnen of buiten), de oppervlakte, de ondergrond en de gekozen kleur. Vraag een vrijblijvende offerte aan, dan komen wij langs om het werk op te nemen.',
   },
   {
     vraag: 'Hoe lang duurt het stucken van een kamer?',
@@ -69,7 +82,7 @@ const kruimels = [
 
 <BaseLayout
   title="Wat kost stucwerk? Prijzen en factoren | Van Bijsteren"
-  description="Wat kost stucwerk laten doen? Ontdek prijsranges voor gladpleisterwerk, spachtelputz en meer. Van Bijsteren legt het transparant uit."
+  description={`Wat kost stucwerk? Prijsindicatie: wanden €${prijzen.wandPerM2}/m², plafonds €${prijzen.plafondPerM2}/m² (excl. btw). Van Bijsteren uit Harderwijk legt transparant uit hoe de prijs tot stand komt.`}
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
   <ArticleSchema headline="Wat kost stucwerk? Prijzen en factoren uitgelegd" datePublished={gepubliceerd} url="/kennis/wat-kost-stucwerk" aboutNaam="Stucwerk" />
@@ -99,7 +112,7 @@ const kruimels = [
       <div>
         <p class="text-sm font-semibold uppercase tracking-wide text-primary-dark">Kern</p>
         <p class="mt-1 text-base leading-relaxed text-ink">
-          Gladpleisterwerk €15–25/m², spachtelputz binnen €12–22/m² (excl. btw).
+          Wanden €{prijzen.wandPerM2}/m², plafonds €{prijzen.plafondPerM2}/m² (excl. btw, minimaal {prijzen.minimumM2} m²).
           Een exacte prijs volgt uit een vrijblijvende offerte op maat.
         </p>
       </div>
@@ -118,6 +131,8 @@ const kruimels = [
       <FAQAccordion items={faqItems} />
     </div>
   </section>
+
+  <PrijsIndicatieSection heading="Reken uw prijsindicatie uit" />
 
   <InterneLinkBlok
     heading="Lees ook"

@@ -70,7 +70,7 @@ export const bedrijf = {
   merkkleurPMS: "",         // TE_VERIFIËREN (TV-01) — Pantone voor drukwerk
 
   // Werkgebied
-  werkgebiedRadius: 50,  // km
+  werkgebiedRadius: 40,  // km — max. afstand vanaf Harderwijk (bevestigd door Marcel, 12-10-2026)
 } as const;
 
 export type Bedrijf = typeof bedrijf;

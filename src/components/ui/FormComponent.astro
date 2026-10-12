@@ -162,6 +162,16 @@ const dienstOpties = diensten.filter((d) => d.isPillar).map((d) => d.naam);
       fout.textContent = tekst;
       fout.classList.remove('hidden');
     };
+    // Voorvullen vanuit de prijscalculator (?wanden=80&plafonds=30).
+    const omschrijving = form.querySelector('textarea[name="omschrijving"]');
+    const qs = new URLSearchParams(window.location.search);
+    if (omschrijving && !omschrijving.value && (qs.get('wanden') || qs.get('plafonds'))) {
+      const regels = [];
+      if (qs.get('wanden')) regels.push(`Wanden: ca. ${parseInt(qs.get('wanden'), 10) || 0} m²`);
+      if (qs.get('plafonds')) regels.push(`Plafonds: ca. ${parseInt(qs.get('plafonds'), 10) || 0} m²`);
+      omschrijving.value = regels.join('\n') + '\n\n';
+    }
+
     const algemeneFout =
       `Het versturen is helaas niet gelukt. Bel ons op ${telefoon} of mail naar ${email}, dan helpen wij u direct verder.`;
 

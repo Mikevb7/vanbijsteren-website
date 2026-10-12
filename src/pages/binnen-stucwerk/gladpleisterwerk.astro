@@ -11,6 +11,7 @@ import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
 import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import gladpleisterwanden from '@assets/images/resultaten/gladpleisterwanden.png';
+import { prijzen, prijsFaqAntwoord } from '@data/prijzen';
 
 const intro = 'Gladpleisterwerk is de meest toegepaste wandafwerking voor een strak, egaal resultaat. Hiermee krijgt u gladde wanden die klaar zijn voor schilderwerk of behang — en die door hun vlakke oppervlak eenvoudig schoon te houden zijn. Van Bijsteren verzorgt gladpleisterwerk in Harderwijk en omgeving.';
 
@@ -35,9 +36,10 @@ const body = `
 
   <h2>Prijs en doorlooptijd</h2>
   <p>De kosten voor gladpleisterwerk zijn afhankelijk van de oppervlakte, de staat
-  van de ondergrond en de gewenste afwerking. Als globale indicatie: gladpleisterwerk
-  kost gemiddeld €15 tot €25 per m², exclusief btw. Voor een exacte prijs maakt
-  een vrijblijvende offerte het meeste duidelijk.</p>
+  van de ondergrond en de gewenste afwerking. Als prijsindicatie rekenen wij
+  €${prijzen.wandPerM2} per m² voor wanden en €${prijzen.plafondPerM2} per m² voor plafonds,
+  exclusief btw, bij een minimale opdracht van ${prijzen.minimumM2} m². Voor een exacte
+  prijs maakt een vrijblijvende offerte het meeste duidelijk.</p>
 
   <h2>Onderhoud</h2>
   <p>Gladgepleisterde wanden zijn eenvoudig te onderhouden. Reinigen met een vochtige
@@ -48,7 +50,7 @@ const body = `
 const faqItems = [
   {
     vraag: 'Wat kost gladpleisterwerk per m²?',
-    antwoord: 'Gladpleisterwerk kost gemiddeld €15 tot €25 per m², exclusief btw. De prijs is afhankelijk van de staat van de ondergrond, de gewenste afwerking en de toegankelijkheid van de ruimte. Vraag een vrijblijvende offerte voor een exacte prijs.',
+    antwoord: prijsFaqAntwoord,
   },
   {
     vraag: 'Wat is het verschil tussen sausklaar en behangklaar?',
