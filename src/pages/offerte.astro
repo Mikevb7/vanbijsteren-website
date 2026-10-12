@@ -7,6 +7,7 @@ import FormComponent from '@components/ui/FormComponent.astro';
 import LocalBusinessInfoBlock from '@components/ui/LocalBusinessInfoBlock.astro';
 import Button from '@components/ui/Button.astro';
 import Icon from '@components/ui/Icon.astro';
+import PrijsIndicatieSection from '@components/sections/PrijsIndicatieSection.astro';
 import { Phone } from 'lucide-astro';
 import { bedrijf } from '@data/bedrijf';
 
@@ -87,6 +88,8 @@ const trust = [
       </aside>
     </div>
   </div>
+
+  <PrijsIndicatieSection />
 
   <section class="border-t border-border-light bg-surface-soft" aria-label="Hoe werkt het">
     <WerkwijzeSection heading="Hoe werkt het?" steps={stappen} />

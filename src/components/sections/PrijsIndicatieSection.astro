@@ -1,0 +1,107 @@
+---
+// src/components/sections/PrijsIndicatieSection.astro
+// Prijsindicatie-blok met richtprijzen voor stucwerk.
+// Duidelijk gelabeld als indicatief, altijd met verwijzing naar offerte.
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import { bedrijf } from '@data/bedrijf';
+
+type Props = {
+  class?: string;
+};
+
+const { class: extra = '' } = Astro.props;
+---
+
+<section
+  class:list={['border-t border-border-light bg-surface-soft', extra]}
+  aria-label="Prijsindicatie stucwerk"
+>
+  <div class="container py-10 sm:py-16 lg:py-20">
+    <!-- Koptekst -->
+    <div class="text-center">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-dark">
+        <span class="h-px w-8 bg-primary-dark"></span>
+        Prijsindicatie
+        <span class="h-px w-8 bg-primary-dark"></span>
+      </span>
+      <h2 class="mt-3 text-ink tracking-tight">Wat kost stucwerk?</h2>
+      <p class="mx-auto mt-4 max-w-content text-base leading-relaxed text-ink-light">
+        Onderstaande richtprijzen geven u een eerste indruk. De definitieve prijs hangt af
+        van de ondergrond, afwerking en omvang. Wij komen altijd vrijblijvend langs voor een
+        nauwkeurige offerte op maat.
+      </p>
+    </div>
+
+    <!-- Prijskaarten -->
+    <div class="mx-auto mt-10 grid max-w-3xl gap-5 sm:mt-12 sm:grid-cols-2">
+      <!-- Wanden -->
+      <div class="rounded-2xl border border-border-light bg-surface p-7 shadow-sm">
+        <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+          <Icon name="PaintBucket" size={22} />
+        </div>
+        <h3 class="mt-4 text-lg font-semibold text-ink">Wanden</h3>
+        <p class="mt-1 text-sm text-ink-light">Gladpleisterwerk, wanden</p>
+        <p class="mt-4 text-3xl font-bold tracking-tight text-ink">
+          v.a. €30
+          <span class="text-base font-normal text-ink-light">/m²</span>
+        </p>
+        <p class="mt-1 text-xs text-ink-light">excl. BTW</p>
+      </div>
+
+      <!-- Plafonds -->
+      <div class="rounded-2xl border border-border-light bg-surface p-7 shadow-sm">
+        <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+          <Icon name="Layers" size={22} />
+        </div>
+        <h3 class="mt-4 text-lg font-semibold text-ink">Plafonds</h3>
+        <p class="mt-1 text-sm text-ink-light">Stucwerk plafond</p>
+        <p class="mt-4 text-3xl font-bold tracking-tight text-ink">
+          v.a. €35
+          <span class="text-base font-normal text-ink-light">/m²</span>
+        </p>
+        <p class="mt-1 text-xs text-ink-light">excl. BTW</p>
+      </div>
+    </div>
+
+    <!-- Voorwaarden & disclaimer -->
+    <ul class="mx-auto mt-8 flex max-w-2xl flex-col gap-2.5 sm:mt-10">
+      <li class="flex items-start gap-2.5 text-sm text-ink-light">
+        <Icon name="Info" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
+        <span>Minimum opdracht: 100 m² totaal oppervlak.</span>
+      </li>
+      <li class="flex items-start gap-2.5 text-sm text-ink-light">
+        <Icon name="Receipt" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
+        <span>
+          BTW: 9% voor woningen ouder dan 2 jaar — 21% voor nieuwbouw en overige projecten.
+        </span>
+      </li>
+      <li class="flex items-start gap-2.5 text-sm text-ink-light">
+        <Icon name="MapPin" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
+        <span>Werkgebied: max. 40 km van Harderwijk (Noord-Veluwe en omgeving).</span>
+      </li>
+      <li class="flex items-start gap-2.5 text-sm text-ink-light">
+        <Icon name="AlertCircle" size={16} class="mt-0.5 shrink-0 text-primary-dark" />
+        <span>
+          Dit zijn indicatieve richtprijzen — geen offerte. Voor een definitieve prijs komen
+          wij kosteloos langs om het werk op te nemen.
+        </span>
+      </li>
+    </ul>
+
+    <!-- CTA -->
+    <div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+      <Button href="/offerte" size="lg" variant="primary">
+        Vraag gratis offerte aan
+      </Button>
+      <Button
+        href={`tel:${bedrijf.telefoon}`}
+        size="lg"
+        variant="ghost"
+        ariaLabel={`Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`}
+      >
+        Bel {bedrijf.telefoonDisplay}
+      </Button>
+    </div>
+  </div>
+</section>

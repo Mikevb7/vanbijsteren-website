@@ -8,6 +8,7 @@ import HeroSection from '@components/sections/HeroSection.astro';
 import DienstGrid from '@components/sections/DienstGrid.astro';
 import SEOContentSection from '@components/sections/SEOContentSection.astro';
 import CTASection from '@components/sections/CTASection.astro';
+import PrijsIndicatieSection from '@components/sections/PrijsIndicatieSection.astro';
 import { pillarDiensten } from '@data/diensten';
 import { bedrijf } from '@data/bedrijf';
 import totaaloverzichtKamer from '@assets/images/resultaten/totaaloverzicht-kamer.png';
@@ -49,6 +50,8 @@ const kruimels = [
   <DienstGrid heading="Wat wij doen" diensten={pillarDiensten} columns={3} />
 
   <SEOContentSection heading="Vakwerk voor particulier en aannemer" body={seoBody} />
+
+  <PrijsIndicatieSection />
 
   <CTASection
     heading="Stucwerk laten uitvoeren?"
