@@ -162,7 +162,7 @@ const heeftGoogle = googleReviews.length > 0;
           </span>
           <h2 class="mt-2 text-2xl font-semibold text-ink tracking-tight">Tevreden over ons werk?</h2>
           <p class="mt-2 text-base leading-relaxed text-ink-light">
-            Laat een review achter op Google — daar helpt u andere klanten enorm mee.
+            Laat een review achter op Google, daar helpt u andere klanten enorm mee.
             Liever rechtstreeks contact? Bel ons op{' '}
             <a href={`tel:${bedrijf.telefoon}`} class="font-semibold text-primary-dark hover:underline">{bedrijf.telefoonDisplay}</a>.
           </p>
@@ -186,6 +186,6 @@ const heeftGoogle = googleReviews.length > 0;
     heading="Zelf ervaren wat wij voor u kunnen betekenen?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

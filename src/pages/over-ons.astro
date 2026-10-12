@@ -23,7 +23,7 @@ const teamLeden = (await getCollection('team'))
 const stats = [
   { waarde: String(bedrijf.generaties), label: 'Generaties vakmanschap', icon: 'Users' },
   { waarde: `${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
-  { waarde: 'NOA', label: 'Erkend keurmerk', logoSrc: '/images/noa-logo.svg', logoAlt: 'NOA — Nederlandse Ondernemersvereniging Afbouwbedrijven' },
+  { waarde: 'NOA', label: 'Erkend keurmerk', logoSrc: '/images/noa-logo.svg', logoAlt: 'NOA, Nederlandse Ondernemersvereniging Afbouwbedrijven' },
   { waarde: String(bedrijf.oprichtingsjaar), label: 'Opgericht', icon: 'Calendar' },
 ];
 
@@ -33,7 +33,7 @@ const verhaalBody = `
   erkend stukadoorsbedrijf met een hecht team van vakmensen.</p>
   <p>Drie generaties lang is er één ding niet veranderd: de aandacht voor kwaliteit
   en de trots op goed vakwerk. Of het nu gaat om een eenvoudige reparatie of een
-  complete gevel — wij doen ons best voor ieder project.</p>
+  complete gevel, wij doen ons best voor ieder project.</p>
   <p>Wij zijn lid van de NOA (Nederlandse Ondernemersvereniging voor Afbouwbedrijven)
   en werken vanuit onze showroom op industrieterrein Lorentz in Harderwijk.</p>
 `;
@@ -52,7 +52,7 @@ const verhaalHighlights = [
   <HeroSection
     variant="simple"
     badge={`Familiebedrijf sinds ${bedrijf.oprichtingsjaar}`}
-    heading="Over Van Bijsteren — drie generaties stukadoors"
+    heading="Over Van Bijsteren - drie generaties stukadoors"
     subheading={`In ${bedrijf.oprichtingsjaar} begon Herman van Bijsteren een stukadoorsbedrijf in Harderwijk. Vandaag staat de derde generatie Van Bijsteren voor hetzelfde vakmanschap.`}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
@@ -70,7 +70,7 @@ const verhaalHighlights = [
 
   <TeamSection
     heading="De mensen achter het bedrijf"
-    body="Een klein, hecht team van vakmensen — u krijgt altijd met dezelfde gezichten te maken."
+    body="Een klein, hecht team van vakmensen, u krijgt altijd met dezelfde gezichten te maken."
     members={teamLeden}
   />
 
@@ -107,7 +107,8 @@ const verhaalHighlights = [
           <h2 class="mt-2.5 text-lg sm:text-xl font-semibold text-ink tracking-tight [hyphens:auto]">{bedrijf.showroom.naam}</h2>
           <p class="mt-2 text-base leading-relaxed text-ink-light">
             Bekijk verschillende stucafwerkingen live in onze showroom op
-            {' '}{bedrijf.showroom.omschrijving}.
+            {' '}{bedrijf.showroom.omschrijving}. Alleen op afspraak, want overdag zijn wij
+            aan het werk.
           </p>
         </div>
       </article>
@@ -116,12 +117,12 @@ const verhaalHighlights = [
 
   <CTASection
     heading="Benieuwd wat wij voor u kunnen doen?"
-    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    subheading="Vraag vrijblijvend een offerte aan of maak een afspraak voor de showroom."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{
       label: `Bel ${bedrijf.telefoonDisplay}`,
       href: `tel:${bedrijf.telefoon}`,
-      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}`,
     }}
   />
 </BaseLayout>

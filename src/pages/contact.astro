@@ -14,18 +14,18 @@ import pandExterieur from '@assets/images/showroom/pand-exterieur.jpg';
 
 <BaseLayout
   title="Contact | Van Bijsteren Stukadoorsbedrijf Harderwijk"
-  description="Neem contact op met Van Bijsteren Stukadoorsbedrijf in Harderwijk. Bel, WhatsApp of bezoek onze showroom."
+  description="Neem contact op met Van Bijsteren Stukadoorsbedrijf in Harderwijk. Bel, WhatsApp of maak een afspraak voor onze showroom."
 >
   <HeroSection
     variant="simple"
     badge="Reactie binnen 1 werkdag"
     heading="Neem contact op"
-    subheading="Bel, WhatsApp of vul het formulier in. Wij reageren snel — meestal binnen één werkdag."
+    subheading="Bel, WhatsApp of vul het formulier in. Wij reageren snel, meestal binnen één werkdag."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{
       label: `Bel ${bedrijf.telefoonDisplay}`,
       href: `tel:${bedrijf.telefoon}`,
-      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}`,
     }}
   />
 
@@ -49,14 +49,14 @@ import pandExterieur from '@assets/images/showroom/pand-exterieur.jpg';
         <div class="rounded-2xl bg-gradient-to-br from-primary-10 via-surface-soft to-primary-10 p-7 ring-1 ring-primary/15 lg:p-8">
           <h3 class="text-xl font-semibold text-ink tracking-tight">Liever direct contact?</h3>
           <p class="mt-2 text-sm leading-relaxed text-ink-light">
-            Bel of stuur een WhatsApp — u krijgt altijd een persoon aan de lijn.
+            Bel of stuur een WhatsApp, u krijgt altijd een persoon aan de lijn.
           </p>
           <div class="mt-6 flex flex-col gap-3">
             <Button
               href={`tel:${bedrijf.telefoon}`}
               size="lg"
               variant="primary"
-              ariaLabel={`Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naamKort}`}
+              ariaLabel={`Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naamKort}`}
               class="w-full justify-center"
             >
               <Phone size={18} aria-hidden="true" />Bel {bedrijf.telefoonDisplay}
@@ -100,13 +100,15 @@ import pandExterieur from '@assets/images/showroom/pand-exterieur.jpg';
           <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-white shadow-md">
             <Store size={22} aria-hidden="true" />
           </span>
-          Kom langs in onze showroom
+          Showroom bezoeken? Op afspraak
         </h2>
         <p class="mt-5 text-lg leading-relaxed text-ink-light">
           In {bedrijf.showroom.naam} op {bedrijf.showroom.omschrijving} kunt u
           verschillende stucafwerkingen live bekijken. Zo maakt u eenvoudig een keuze.
-          Loop gerust binnen of bel even vooraf op
-          <a href={`tel:${bedrijf.telefoon}`} class="font-semibold text-primary-dark hover:underline">{bedrijf.telefoonDisplay}</a>.
+          Langskomen kan alleen op afspraak: overdag zijn wij aan het werk en is er
+          niemand aanwezig. Bel ons op
+          <a href={`tel:${bedrijf.telefoon}`} class="font-semibold text-primary-dark hover:underline">{bedrijf.telefoonDisplay}</a>
+          om een afspraak te maken.
         </p>
       </div>
     </div>

@@ -10,7 +10,7 @@ stad: "Harderwijk"
 postcode: "3846 BG"
 vereisten:
   - "Motivatie om het vak te leren"
-  - "Praktijkopleiding (BBL) of de bereidheid daartoe — wij denken mee"
+  - "Praktijkopleiding (BBL) of de bereidheid daartoe, wij denken mee"
   - "Nederlandstalig"
   - "Rijbewijs B is een pre"
 aanbod:
@@ -26,7 +26,7 @@ highlights:
 
 Als aankomend stukadoor leer je het vak bij Van Bijsteren in Harderwijk. Je
 werkt mee op projecten in de regio en wordt begeleid door ervaren vakmensen.
-We bouwen samen aan jouw vakmanschap — van de basis tot bijzondere afwerkingen.
+We bouwen samen aan jouw vakmanschap, van de basis tot bijzondere afwerkingen.
 
 Geen ervaring, wel motivatie? Stuur ons gerust een bericht. Wij kijken liever
 naar wie je bent dan naar wat je al kunt.

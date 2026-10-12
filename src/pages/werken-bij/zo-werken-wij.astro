@@ -10,14 +10,14 @@ import { bedrijf } from '@data/bedrijf';
 
 const body = `
   <p>Bij Van Bijsteren werk je in een klein, hecht familieteam. Korte lijnen, directe
-  communicatie en een werkgever die je bij naam kent — geen grote organisatie met
+  communicatie en een werkgever die je bij naam kent, geen grote organisatie met
   nummers en formulieren.</p>
 
   <h2>Een werkdag bij ons</h2>
   <p>Je rijdt 's ochtends naar de klus in de regio. We werken altijd met goed materiaal
   en degelijk gereedschap. Tijdens de uitvoering ben je verantwoordelijk voor jouw deel
   van het werk, maar er is altijd een ervaren collega beschikbaar voor overleg of
-  begeleiding. Eind van de dag lever je netjes op en rij je naar huis — in de regio,
+  begeleiding. Eind van de dag lever je netjes op en rij je naar huis, in de regio,
   niet twee uur verderop.</p>
 
   <h2>Vakmanschap voorop</h2>
@@ -27,7 +27,7 @@ const body = `
 
   <h2>Dichtbij huis</h2>
   <p>Wij werken in Harderwijk en directe omgeving op de Noord-Veluwe. Geen vroege files
-  richting de Randstad — 's avonds gewoon thuis.</p>
+  richting de Randstad, 's avonds gewoon thuis.</p>
 `;
 
 const kruimels = [
@@ -59,6 +59,6 @@ const kruimels = [
     heading="Lijkt je dit wat?"
     subheading="Bekijk onze vacatures of stuur een open sollicitatie."
     primaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

@@ -11,14 +11,14 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import plafondAfgewerkt from '@assets/images/resultaten/plafond-afgewerkt.png';
 
-const intro = 'Een strak gestuct plafond maakt een ruimte direct af. Van Bijsteren stuct plafonds in Harderwijk en omgeving tot een egaal oppervlak zonder zichtbare naden of oneffenheden — klaar voor de schilder.';
+const intro = 'Een strak gestuct plafond maakt een ruimte direct af. Van Bijsteren stuct plafonds in Harderwijk en omgeving tot een egaal oppervlak zonder zichtbare naden of oneffenheden, klaar voor de schilder.';
 
 const body = `
   <p>Plafonds vragen om vakmanschap: oneffenheden en naden vallen door de lichtval
   sneller op dan bij wanden. Wij beoordelen de ondergrond en kiezen de juiste
   voorbereiding en afwerking voor een strak, egaal resultaat.</p>
   <p>Of het nu gaat om een nieuwbouwplafond, het wegwerken van stucplaatnaden of het
-  herstellen van een bestaand plafond — wij adviseren u graag over de mogelijkheden.
+  herstellen van een bestaand plafond, wij adviseren u graag over de mogelijkheden.
   Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
 `;
 
@@ -31,7 +31,7 @@ const kruimels = [
 ---
 
 <BaseLayout
-  title="Plafond stucen Harderwijk — strakke plafonds | Van Bijsteren"
+  title="Plafond stucen Harderwijk - strakke plafonds | Van Bijsteren"
   description="Plafond laten stucen in Harderwijk en omgeving. Strakke, egale plafonds zonder naden of oneffenheden. Vraag een vrijblijvende offerte aan."
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
@@ -41,7 +41,7 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Plafond stucen — strakke plafonds zonder oneffenheden"
+    heading="Plafond stucen - strakke plafonds zonder oneffenheden"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: plafondAfgewerkt, alt: 'Strak afgewerkt gestuct plafond', width: 1200, height: 900 }}
@@ -62,6 +62,6 @@ const kruimels = [
     heading="Uw plafond laten stucen?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

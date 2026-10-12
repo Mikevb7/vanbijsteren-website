@@ -32,8 +32,8 @@ const trust = [
     variant="simple"
     badge="Vrijblijvend en kosteloos"
     heading="Vrijblijvende offerte aanvragen"
-    subheading="Vertel ons wat u wilt laten doen en waar. Wij nemen zo snel mogelijk contact op — meestal binnen één werkdag."
-    primaryCta={{ label: 'Direct bellen', href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    subheading="Vertel ons wat u wilt laten doen en waar. Wij nemen zo snel mogelijk contact op, meestal binnen één werkdag."
+    primaryCta={{ label: 'Direct bellen', href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 
   <div class="container py-10 sm:py-16 lg:py-20">
@@ -66,17 +66,17 @@ const trust = [
       <!-- Zijkant: bellen + NAP -->
       <aside class="flex flex-col gap-6">
         <div class="rounded-2xl bg-gradient-to-br from-primary-10 via-surface-soft to-primary-10 p-7 ring-1 ring-primary/15 lg:p-8">
-          <h2 class="text-xl font-semibold text-ink tracking-tight">Liever bellen of langskomen?</h2>
+          <h2 class="text-xl font-semibold text-ink tracking-tight">Liever bellen?</h2>
           <p class="mt-3 text-base leading-relaxed text-ink-light">
-            Dat kan altijd. Bel ons op {bedrijf.telefoonDisplay} of kom langs in onze
-            showroom op {bedrijf.showroom.omschrijving}.
+            Dat kan altijd. Bel ons op {bedrijf.telefoonDisplay}. Wilt u afwerkingen in het
+            echt zien? Onze showroom op {bedrijf.showroom.omschrijving} kunt u op afspraak bezoeken.
           </p>
           <div class="mt-6">
             <Button
               href={`tel:${bedrijf.telefoon}`}
               size="lg"
               variant="primary"
-              ariaLabel={`Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naamKort}`}
+              ariaLabel={`Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naamKort}`}
               class="w-full justify-center"
             >
               <Phone size={18} aria-hidden="true" />Bel {bedrijf.telefoonDisplay}

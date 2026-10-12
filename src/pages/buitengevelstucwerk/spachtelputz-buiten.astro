@@ -11,15 +11,15 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import spachtelputzDetail from '@assets/images/resultaten/spachtelputz-detail.png';
 
-const intro = 'Spachtelputz voor buiten combineert een decoratieve uitstraling met weersbestendigheid. Van Bijsteren brengt buitenspachtelputz aan op gevels in Harderwijk en omgeving — een onderhoudsvriendelijke, langdurige afwerking.';
+const intro = 'Spachtelputz voor buiten combineert een decoratieve uitstraling met weersbestendigheid. Van Bijsteren brengt buitenspachtelputz aan op gevels in Harderwijk en omgeving, een onderhoudsvriendelijke, langdurige afwerking.';
 
 const body = `
   <p>Spachtelputz voor buiten is geformuleerd om de Nederlandse weersomstandigheden
   te weerstaan. De karakteristieke fijne structuur geeft uw gevel een verzorgde,
   levende uitstraling die jarenlang meegaat.</p>
   <p>Wij stemmen materiaal en kleur af op uw gevel en adviseren u graag over de
-  mogelijkheden. Twijfelt u over kleur of structuur? Bezoek onze showroom op
-  ${bedrijf.showroom.omschrijving}. Voor een exacte prijs maken wij vrijblijvend een
+  mogelijkheden. Twijfelt u over kleur of structuur? Maak een afspraak voor onze
+  showroom op ${bedrijf.showroom.omschrijving}. Voor een exacte prijs maken wij vrijblijvend een
   offerte op maat.</p>
 `;
 
@@ -32,7 +32,7 @@ const kruimels = [
 ---
 
 <BaseLayout
-  title="Spachtelputz buiten Harderwijk — weersbestendige gevel | Van Bijsteren"
+  title="Spachtelputz buiten Harderwijk - weersbestendige gevel | Van Bijsteren"
   description="Spachtelputz voor buiten in Harderwijk en omgeving: een decoratieve en weersbestendige gevelafwerking. Onderhoudsvriendelijk. Vraag een offerte aan."
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
@@ -42,10 +42,10 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Spachtelputz buiten — decoratieve, weersbestendige gevelafwerking"
+    heading="Spachtelputz buiten - decoratieve, weersbestendige gevelafwerking"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    image={{ src: spachtelputzDetail, alt: 'Spachtelputz gevelafwerking — detail', width: 1200, height: 900 }}
+    image={{ src: spachtelputzDetail, alt: 'Spachtelputz gevelafwerking - detail', width: 1200, height: 900 }}
   />
 
   <ContentBlok body={body} />
@@ -63,6 +63,6 @@ const kruimels = [
     heading="Uw gevel laten afwerken met spachtelputz?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

@@ -29,7 +29,7 @@ const body = `
   <h2>Wat ga je doen?</h2>
   <p>Als ${v.titel.toLowerCase()} bij Van Bijsteren ben je dagelijks bezig met het
   afwerken van wanden en plafonds in de Noord-Veluwe. Je werkt aan uiteenlopende
-  projecten — van nieuwbouwwoningen tot renovaties, van strak gladpleisterwerk tot
+  projecten, van nieuwbouwwoningen tot renovaties, van strak gladpleisterwerk tot
   decoratieve afwerkingen.</p>
   <ul>
     <li>Uitvoeren van gladpleisterwerk, schuurwerk en spackspuitwerk</li>
@@ -77,7 +77,7 @@ const faqItems = [
   },
   {
     vraag: 'Hoe snel hoor ik iets na mijn sollicitatie?',
-    antwoord: 'Wij reageren altijd binnen 2 werkdagen. We houden het laagdrempelig — bellen mag ook.',
+    antwoord: 'Wij reageren altijd binnen 2 werkdagen. We houden het laagdrempelig, bellen mag ook.',
   },
 ];
 
@@ -99,7 +99,7 @@ const kruimels = [
 
   <section class="container py-10 lg:py-14">
     <span class="inline-flex items-center rounded-full bg-primary-10 px-3 py-1 text-sm font-semibold text-primary-dark">Vacature open</span>
-    <h1 class="mt-4 text-ink">Vacature: {v.titel} — Harderwijk e.o.</h1>
+    <h1 class="mt-4 text-ink">Vacature: {v.titel} - Harderwijk e.o.</h1>
     <p class="mt-3 max-w-content text-lg text-ink-light">{v.samenvatting}</p>
   </section>
 
@@ -122,8 +122,8 @@ const kruimels = [
 
   <CTASection
     heading="Heb je een vraag?"
-    subheading="Bel ons gerust of kom langs in de showroom."
-    primaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    subheading="Bel ons gerust, dan maken we een afspraak om kennis te maken."
+    primaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
     secondaryCta={{ label: 'Bekijk alle vacatures', href: '/werken-bij' }}
   />
 </BaseLayout>

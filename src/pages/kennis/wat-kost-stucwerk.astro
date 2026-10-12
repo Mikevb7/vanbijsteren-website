@@ -36,7 +36,7 @@ const body = `
   ondergrond verschillen te veel per klus. Wel geven we u een idee hoe ze zich
   verhouden tot standaard stucwerk op wanden:</p>
   <ul>
-    ${prijsniveaus.map((n) => `<li><a href="${n.href}"><strong>${n.naam}</strong></a> — <em>${n.niveau.toLowerCase()}</em>. ${n.uitleg}</li>`).join('\n    ')}
+    ${prijsniveaus.map((n) => `<li><a href="${n.href}"><strong>${n.naam}</strong></a> - <em>${n.niveau.toLowerCase()}</em>. ${n.uitleg}</li>`).join('\n    ')}
   </ul>
   <p>Voor al deze afwerkingen maken wij na een vrijblijvend bezoek een offerte op maat.</p>
   <p>Dit zijn indicaties. De exacte prijs bepalen wij na het opnemen van het werk,
@@ -45,7 +45,7 @@ const body = `
   <h2>Niet de goedkoopste, wel de beste</h2>
   <p>U vindt vast een stukadoor die het voor minder doet. Maar goedkoop stucwerk ziet
   u later terug in scheuren, oneffenheden en loszittende pleister. Wij werken al
-  ${bedrijf.generaties} generaties voor een resultaat waar u jaren plezier van heeft —
+  ${bedrijf.generaties} generaties voor een resultaat waar u jaren plezier van heeft,
   NOA-erkend en netjes opgeleverd.</p>
 
   <h2>Welke factoren bepalen de prijs?</h2>
@@ -154,6 +154,6 @@ const kruimels = [
     heading="Benieuwd naar de prijs voor uw project?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

@@ -20,7 +20,7 @@ export const prijzen = {
 export type Prijsniveau = 'Voordeliger' | 'Standaard' | 'Iets hoger' | 'Hoger' | 'Premium' | 'Wisselend';
 
 export const prijsniveaus: { naam: string; href: string; niveau: Prijsniveau; uitleg: string }[] = [
-  { naam: 'Spackspuitwerk',        href: '/binnen-stucwerk/spackspuitwerk',       niveau: 'Voordeliger', uitleg: 'Wordt gespoten in plaats van met de hand opgezet, dus snel klaar — vooral bij grote oppervlakten.' },
+  { naam: 'Spackspuitwerk',        href: '/binnen-stucwerk/spackspuitwerk',       niveau: 'Voordeliger', uitleg: 'Wordt gespoten in plaats van met de hand opgezet, dus snel klaar, vooral bij grote oppervlakten.' },
   { naam: 'Schuurwerk',            href: '/binnen-stucwerk/schuurwerk',           niveau: 'Voordeliger', uitleg: 'Een minder strakke afwerking dan glad stucwerk, en daardoor minder bewerkelijk.' },
   { naam: 'Behangklaar stucwerk',  href: '/binnen-stucwerk/behangklaar-sausklaar', niveau: 'Standaard',   uitleg: 'Een vlakke wand die klaar is voor behang. Dit valt onder onze prijsindicatie voor wanden.' },
   { naam: 'Gladpleisterwerk',      href: '/binnen-stucwerk/gladpleisterwerk',     niveau: 'Standaard',   uitleg: 'Strakke, gladde wanden. Dit is de basis van onze prijsindicatie voor wanden.' },

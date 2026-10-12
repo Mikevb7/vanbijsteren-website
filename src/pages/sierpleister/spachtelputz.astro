@@ -20,8 +20,8 @@ const body = `
   duurzaam, onderhoudsvriendelijk en beschikbaar in veel kleuren.</p>
   <p>Spachtelputz voor buiten is geformuleerd om weersomstandigheden te weerstaan en
   geeft uw gevel een onderhoudsvriendelijke, langdurige afwerking.</p>
-  <p>Twijfelt u over de kleur of het effect? Bezoek onze showroom op
-  ${bedrijf.showroom.omschrijving} voor een live demonstratie.</p>
+  <p>Twijfelt u over de kleur of het effect? Maak een afspraak voor onze
+  showroom op ${bedrijf.showroom.omschrijving} voor een live demonstratie.</p>
 `;
 
 const faqItems = [
@@ -40,7 +40,7 @@ const kruimels = [
 ---
 
 <BaseLayout
-  title="Spachtelputz Harderwijk — sierpleister binnen & buiten | Van Bijsteren"
+  title="Spachtelputz Harderwijk - sierpleister binnen & buiten | Van Bijsteren"
   description="Spachtelputz in Harderwijk en omgeving: decoratieve, onderhoudsvriendelijke sierpleister voor binnen en buiten. Vraag een vrijblijvende offerte aan."
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
@@ -50,10 +50,10 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Spachtelputz — decoratieve wandafwerking voor binnen en buiten"
+    heading="Spachtelputz - decoratieve wandafwerking voor binnen en buiten"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    image={{ src: spachtelputzOvz, alt: 'Spachtelputz afwerking — decoratieve wandstructuur', width: 1200, height: 900 }}
+    image={{ src: spachtelputzOvz, alt: 'Spachtelputz afwerking - decoratieve wandstructuur', width: 1200, height: 900 }}
   />
 
   <ContentBlok body={body} />
@@ -76,8 +76,8 @@ const kruimels = [
 
   <CTASection
     heading="Spachtelputz laten aanbrengen?"
-    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    subheading="Vraag vrijblijvend een offerte aan of maak een afspraak voor de showroom."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

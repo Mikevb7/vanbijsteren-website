@@ -16,7 +16,7 @@ const kruimels = [
 ];
 
 const trust = [
-  { icon: 'Clock', titel: 'Reactie binnen 2 werkdagen', tekst: 'Altijd een persoonlijk antwoord — geen radiostilte.' },
+  { icon: 'Clock', titel: 'Reactie binnen 2 werkdagen', tekst: 'Altijd een persoonlijk antwoord, geen radiostilte.' },
   { icon: 'Users', titel: 'Persoonlijk contact', tekst: 'Je spreekt direct met de eigenaar of teamleider.' },
   { icon: 'Award', titel: 'Ook zonder ervaring', tekst: 'Motivatie weegt zwaarder dan wat je al kunt.' },
 ];
@@ -35,7 +35,7 @@ const trust = [
     badge="Altijd welkom"
     heading="Open sollicitatie"
     subheading="Staat er geen passende vacature open, maar denk je dat je bij ons past? Stuur ons gerust een open sollicitatie. Wij kijken liever naar wie je bent dan naar wat je al kunt."
-    primaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    primaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 
   <section class="container py-10 sm:py-16 lg:py-24">
@@ -47,7 +47,7 @@ const trust = [
           Solliciteer
         </span>
         <h2 class="mt-3 text-ink tracking-tight">Stuur je sollicitatie</h2>
-        <p class="mt-2 text-ink-light">Laat wat over jezelf horen — cv is optioneel.</p>
+        <p class="mt-2 text-ink-light">Laat wat over jezelf horen, cv is optioneel.</p>
         <div class="mt-8">
           <FormComponent variant="sollicitatie" />
         </div>
@@ -74,7 +74,7 @@ const trust = [
 
         <div class="rounded-2xl border border-border-light bg-surface p-7 lg:p-8">
           <h3 class="text-xl font-semibold text-ink tracking-tight">Liever direct contact?</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-light">Prima. Bel of mail — je krijgt altijd een persoon aan de lijn.</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-light">Prima. Bel of mail, je krijgt altijd een persoon aan de lijn.</p>
           <div class="mt-5 flex flex-col gap-3">
             <a
               href={`tel:${bedrijf.telefoon}`}

@@ -73,7 +73,7 @@ const websiteSchema = {
 const stats = [
   { waarde: String(bedrijf.generaties), label: 'Generaties vakmanschap', icon: 'Users' },
   { waarde: `${bedrijf.werkgebiedRadius} km`, label: 'Werkgebied', icon: 'MapPin' },
-  { waarde: 'NOA', label: 'Erkend keurmerk', logoSrc: '/images/noa-logo.svg', logoAlt: 'NOA — Nederlandse Ondernemersvereniging Afbouwbedrijven' },
+  { waarde: 'NOA', label: 'Erkend keurmerk', logoSrc: '/images/noa-logo.svg', logoAlt: 'NOA, Nederlandse Ondernemersvereniging Afbouwbedrijven' },
   { waarde: String(bedrijf.oprichtingsjaar), label: 'Opgericht', icon: 'Calendar' },
 ];
 
@@ -81,8 +81,8 @@ const stats = [
 const familieBody = `
   <p>Van Bijsteren Stukadoorsbedrijf is opgericht in ${bedrijf.oprichtingsjaar} door
   Herman van Bijsteren en staat inmiddels voor drie generaties vakmanschap in Harderwijk.</p>
-  <p>Wij zijn geen groot anoniem bedrijf. U krijgt altijd te maken met dezelfde mensen
-  — vakmensen die trots zijn op hun werk en het op prijs stellen om dat te laten zien.
+  <p>Wij zijn geen groot anoniem bedrijf. U krijgt altijd te maken met dezelfde mensen,
+  vakmensen die trots zijn op hun werk en het op prijs stellen om dat te laten zien.
   Dat is wat een familiebedrijf anders maakt.</p>
   <p>Ons NOA-keurmerk geeft u de zekerheid van erkend vakmanschap en duidelijke afspraken.</p>
 `;
@@ -120,7 +120,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
 ---
 
 <BaseLayout
-  title="Stukadoorsbedrijf Harderwijk | Van Bijsteren — 3 generaties vakmanschap"
+  title="Stukadoorsbedrijf Harderwijk | Van Bijsteren - 3 generaties vakmanschap"
   description="Van Bijsteren Stukadoorsbedrijf verzorgt stucwerk in Harderwijk en omgeving. Erkend NOA-lid. Ook op zoek naar stukadoors? Bekijk onze vacatures."
   schema={websiteSchema}
 >
@@ -129,10 +129,10 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
     variant="home"
     badge="NOA erkend stukadoorsbedrijf"
     heading="Erkend stukadoorsbedrijf in de Noord-Veluwe"
-    subheading="Stucwerk laten doen of werken als stukadoor? Van Bijsteren is een hecht familiebedrijf in Harderwijk — en wij zijn op zoek naar goede vakmensen."
+    subheading="Stucwerk laten doen of werken als stukadoor? Van Bijsteren is een hecht familiebedrijf in Harderwijk, en wij zijn op zoek naar goede vakmensen."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{ label: 'Bekijk vacatures', href: '/werken-bij' }}
-    image={{ src: pandExterieur, alt: 'Van Bijsteren Stukadoorsbedrijf — showroom en bus in Harderwijk', width: 1600, height: 1067 }}
+    image={{ src: pandExterieur, alt: 'Van Bijsteren Stukadoorsbedrijf - showroom en bus in Harderwijk', width: 1600, height: 1067 }}
     overlayDark={true}
   />
 
@@ -200,7 +200,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
         </span>
         <h2 class="mt-3 text-ink tracking-tight">Wat wij doen</h2>
         <p class="mt-4 text-lg leading-relaxed text-ink-light">
-          Van gladpleisterwerk tot decoratief stucwerk — wij doen het allemaal.
+          Van gladpleisterwerk tot decoratief stucwerk, wij doen het allemaal.
         </p>
       </div>
       <div class="mt-8 grid gap-4 sm:mt-12 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -242,7 +242,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
         </span>
         <h2 class="mt-3 text-white tracking-tight">Onze bussen zie je door heel de Noord-Veluwe</h2>
         <p class="mt-5 text-lg leading-relaxed text-white/95">
-          Van Harderwijk tot Zeewolde — al drie generaties dagelijks in de buurt aan
+          Van Harderwijk tot Zeewolde, al drie generaties dagelijks in de buurt aan
           het werk. Een lokaal familiebedrijf dat u bij naam kent.
         </p>
       </div>
@@ -344,7 +344,7 @@ const totaalRatingCount = google.userRatingsTotal ?? uitgelichteReviews.length;
     secondaryCta={{
       label: `Bel ${bedrijf.telefoonDisplay}`,
       href: `tel:${bedrijf.telefoon}`,
-      ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}`,
+      ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}`,
     }}
   />
 </BaseLayout>

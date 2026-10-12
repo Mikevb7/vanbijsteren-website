@@ -11,7 +11,7 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import frescoloriItaliaans from '@assets/images/resultaten/frescolori-italiaans.png';
 
-const intro = 'Italiaans stucwerk en Frescolori zijn de meest luxe wandafwerkingen die Van Bijsteren verzorgt. Kalk- en mineraalgebaseerde technieken die een uniek, diep en elegant resultaat geven — met de hand aangebracht door ervaren vakmensen.';
+const intro = 'Italiaans stucwerk en Frescolori zijn de meest luxe wandafwerkingen die Van Bijsteren verzorgt. Kalk- en mineraalgebaseerde technieken die een uniek, diep en elegant resultaat geven, met de hand aangebracht door ervaren vakmensen.';
 
 const body = `
   <p>Frescolori is een kalkpleister op basis van traditionele Italiaanse technieken.
@@ -27,8 +27,8 @@ const body = `
     <li>hotels, kantoren en winkels</li>
     <li>restauratie van historische interieurs</li>
   </ul>
-  <p>Bezoek onze showroom op ${bedrijf.showroom.omschrijving} om de effecten live te
-  ervaren — op foto's komen deze afwerkingen niet volledig tot hun recht.</p>
+  <p>Op foto's komen deze afwerkingen niet volledig tot hun recht. Maak daarom een
+  afspraak voor onze showroom op ${bedrijf.showroom.omschrijving} en ervaar de effecten live.</p>
 `;
 
 const kruimels = [
@@ -50,10 +50,10 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Italiaans stucwerk en Frescolori — premium wandafwerking"
+    heading="Italiaans stucwerk en Frescolori - premium wandafwerking"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    image={{ src: frescoloriItaliaans, alt: 'Italiaans stucwerk en Frescolori kalkpleister — luxe wandafwerking', width: 1200, height: 900 }}
+    image={{ src: frescoloriItaliaans, alt: 'Italiaans stucwerk en Frescolori kalkpleister - luxe wandafwerking', width: 1200, height: 900 }}
   />
 
   <ContentBlok body={body} />
@@ -63,14 +63,14 @@ const kruimels = [
     links={[
       { label: 'Decoratief stucwerk', href: '/decoratief-stucwerk', omschrijving: 'Alle premium afwerkingen.' },
       { label: 'Sierpleister', href: '/sierpleister', omschrijving: 'Decoratieve wandafwerkingen met structuur.' },
-      { label: 'Neem contact op', href: '/contact', omschrijving: 'Kom langs in onze showroom.' },
+      { label: 'Neem contact op', href: '/contact', omschrijving: 'Showroom bezoeken op afspraak.' },
     ]}
   />
 
   <CTASection
     heading="Een luxe wandafwerking laten maken?"
-    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    subheading="Vraag vrijblijvend een offerte aan of maak een afspraak voor de showroom."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

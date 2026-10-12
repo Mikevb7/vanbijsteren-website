@@ -19,7 +19,7 @@ const body = `
   Noord-Veluwe en directe omgeving. Vanuit onze vestiging zijn de meeste plaatsen binnen
   een half uur bereikbaar, zodat we snel bij u kunnen zijn voor een vrijblijvende opname.</p>
   <p>Wij werken onder meer in ${alleWerkplaatsen.join(', ')}. Staat uw plaats er niet bij,
-  maar ligt u in de buurt? Neem gerust contact op — voor grotere projecten rijden wij ook
+  maar ligt u in de buurt? Neem gerust contact op, voor grotere projecten rijden wij ook
   wat verder.</p>
 `;
 ---
@@ -30,10 +30,10 @@ const body = `
 >
   <HeroSection
     variant="simple"
-    heading="Ons werkgebied — Noord-Veluwe en omgeving"
+    heading="Ons werkgebied - Noord-Veluwe en omgeving"
     subheading="Gevestigd in Harderwijk, werkzaam in de hele regio. Bekijk waar wij werken."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 
   <RegioLinkBlok heading="Waar wij werken" places={places} />
@@ -44,6 +44,6 @@ const body = `
     heading="Stukwerk nodig in uw omgeving?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

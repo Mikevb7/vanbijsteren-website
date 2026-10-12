@@ -20,9 +20,9 @@ const intro = `
   altijd een vrijblijvende offerte vooraf.</p>
   <p>Als Harderwijks bedrijf kennen wij de regio op onze duimen. Of het nu gaat om
   renovaties in wijken als Stadsweiden en Drielanden, stucwerk in nieuwbouwprojecten of
-  decoratieve afwerkingen in de binnenstad — wij werken er dagelijks. Onze showroom
-  vindt u op ${bedrijf.showroom.omschrijving}, waar u verschillende stucafwerkingen
-  live kunt bekijken.</p>
+  decoratieve afwerkingen in de binnenstad, wij werken er dagelijks. Onze showroom
+  vindt u op ${bedrijf.showroom.omschrijving}, waar u op afspraak verschillende
+  stucafwerkingen live kunt bekijken.</p>
 `;
 
 const faqItems = [
@@ -32,7 +32,7 @@ const faqItems = [
   },
   {
     vraag: 'Werken jullie ook buiten Harderwijk?',
-    antwoord: 'Ja. Wij werken in de hele Noord-Veluwe — onder andere in Ermelo, Putten, Nunspeet en Zeewolde. Neem contact op om te overleggen.',
+    antwoord: 'Ja. Wij werken in de hele Noord-Veluwe, onder andere in Ermelo, Putten, Nunspeet en Zeewolde. Neem contact op om te overleggen.',
   },
 ];
 
@@ -42,17 +42,17 @@ const andereplaatsen = regio
 ---
 
 <BaseLayout
-  title="Stukadoor Harderwijk | Van Bijsteren — erkend stukadoorsbedrijf"
+  title="Stukadoor Harderwijk | Van Bijsteren - erkend stukadoorsbedrijf"
   description="Op zoek naar een stukadoor in Harderwijk? Van Bijsteren is gevestigd in Harderwijk en werkt in de hele regio. Vraag een vrijblijvende offerte aan."
   noindex={true}
 >
   <HeroSection
     variant="local"
-    heading="Stukadoor in Harderwijk — Van Bijsteren"
+    heading="Stukadoor in Harderwijk - Van Bijsteren"
     subheading="Gevestigd in Harderwijk, dagelijks aan het werk in de hele regio. Erkend NOA-stukadoorsbedrijf."
     badge="Gevestigd in Harderwijk"
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
     image={{ src: pandExterieur, alt: 'Pand en showroom Van Bijsteren Stukadoorsbedrijf in Harderwijk', width: 1600, height: 1200 }}
   />
 
@@ -73,6 +73,6 @@ const andereplaatsen = regio
     heading="Stukwerk nodig in Harderwijk?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

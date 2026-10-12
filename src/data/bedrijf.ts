@@ -38,6 +38,8 @@ export const bedrijf = {
   showroom: {
     naam:         "Showroom Van Bijsteren",
     omschrijving: "Industrieterrein Lorentz, Harderwijk",
+    // Alleen op afspraak: overdag is er niemand aanwezig (bevestigd door Mike, 12-10-2026)
+    opAfspraak:   true,
   },
 
   // Google Places — gecachet Place ID (build-time reviews fetch via scripts/fetch-google-reviews.mjs).

@@ -12,14 +12,14 @@ import CTASection from '@components/sections/CTASection.astro';
 import { spokesVoor } from '@data/diensten';
 import { bedrijf } from '@data/bedrijf';
 
-const intro = 'Sierpleister geeft uw wanden een decoratieve, levende uitstraling. Van Bijsteren verzorgt sierpleister-afwerkingen zoals spachtelputz en granolputz in Harderwijk en omgeving — voor binnen en buiten.';
+const intro = 'Sierpleister geeft uw wanden een decoratieve, levende uitstraling. Van Bijsteren verzorgt sierpleister-afwerkingen zoals spachtelputz en granolputz in Harderwijk en omgeving, voor binnen en buiten.';
 
 const seoBody = `
   <p>Sierpleister is een verzamelnaam voor decoratieve wandafwerkingen met structuur.
   De afwerking is duurzaam, onderhoudsvriendelijk en in veel kleuren leverbaar. Welke
   sierpleister het beste past, hangt af van de locatie en het gewenste effect.</p>
-  <p>Twijfelt u over kleur of structuur? Bezoek onze showroom op ${bedrijf.showroom.omschrijving}
-  voor een live demonstratie.</p>
+  <p>Twijfelt u over kleur of structuur? Maak een afspraak voor onze showroom op
+  ${bedrijf.showroom.omschrijving} voor een live demonstratie.</p>
 `;
 
 const kruimels = [
@@ -40,7 +40,7 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Sierpleister — decoratieve wandafwerking"
+    heading="Sierpleister - decoratieve wandafwerking"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
   />
@@ -62,6 +62,6 @@ const kruimels = [
     heading="Sierpleister laten aanbrengen?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

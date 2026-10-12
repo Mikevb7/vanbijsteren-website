@@ -18,13 +18,13 @@ const vacatures = (await getCollection('vacatures', (v) => v.data.isActief))
 const redenen = [
   { icon: 'Users', titel: 'Je bent geen nummer', body: 'Bij Van Bijsteren werk je in een klein, hecht team. Korte lijnen, directe communicatie en een werkgever die je bij naam kent. Geen grote organisatie met nummers en formulieren.' },
   { icon: 'Award', titel: 'Mooi en afwisselend werk', body: 'De ene dag werk je aan strak gladpleisterwerk in een nieuwbouwhuis, de andere dag breng je Frescolori aan in een luxe renovatieproject. Werk om trots op te zijn.' },
-  { icon: 'MapPin', titel: 'Noord-Veluwe — geen uren reizen', body: 'Wij werken in Harderwijk en directe omgeving. Geen vroege files richting de Randstad. ’s Avonds gewoon thuis.' },
+  { icon: 'MapPin', titel: 'Noord-Veluwe - geen uren reizen', body: 'Wij werken in Harderwijk en directe omgeving. Geen vroege files richting de Randstad. ’s Avonds gewoon thuis.' },
   { icon: 'Shield', titel: 'Vast contract en nette voorwaarden', body: 'Bij Van Bijsteren krijg je een vast dienstverband conform de cao Afbouw. Goede materialen en een werkgever die zijn afspraken nakomt.' },
 ];
 
 const stappen = [
   { nummer: 1, titel: 'Solliciteer of bel', beschrijving: `Stuur een korte motivatie via het formulier (cv mag per mail). Of bel gewoon: ${bedrijf.telefoonDisplay}. Wij houden het laagdrempelig.` },
-  { nummer: 2, titel: 'Eerste contact (binnen 2 werkdagen)', beschrijving: 'Je hoort snel van ons — altijd binnen 2 werkdagen. We bespreken telefonisch kort je achtergrond en je verwachtingen.' },
+  { nummer: 2, titel: 'Eerste contact (binnen 2 werkdagen)', beschrijving: 'Je hoort snel van ons, altijd binnen 2 werkdagen. We bespreken telefonisch kort je achtergrond en je verwachtingen.' },
   { nummer: 3, titel: 'Kennismakingsgesprek', beschrijving: 'We nodigen je uit voor een gesprek. Informeel en eerlijk. Wij vertellen wat wij zoeken, jij vertelt wie je bent.' },
   { nummer: 4, titel: 'Meelopen (optioneel)', beschrijving: 'Wil je eerst een dag meekijken hoe het er bij ons aan toe gaat? Dat kan. Beter goed kennismaken dan teleurstellingen achteraf.' },
   { nummer: 5, titel: 'Aanbod', beschrijving: 'Als het klikt, doen we je een eerlijk aanbod. Gewoon een gesprek, geen druk.' },
@@ -38,7 +38,7 @@ const stappen = [
   <HeroSection
     variant="recruitment"
     badge={`${vacatures.length > 0 ? 'Vacatures open' : 'Wij zoeken vakmensen'}`}
-    heading="Werken bij Van Bijsteren — waar vakmanschap telt"
+    heading="Werken bij Van Bijsteren - waar vakmanschap telt"
     subheading="Een hecht familiebedrijf in Harderwijk, dicht bij huis, aan mooi en afwisselend werk. Met nette voorwaarden en ruimte om je te ontwikkelen."
     primaryCta={{ label: 'Bekijk vacatures', href: '#vacatures' }}
     secondaryCta={{ label: 'Open sollicitatie', href: '/werken-bij/open-sollicitatie' }}
@@ -89,7 +89,7 @@ const stappen = [
           materiaal en degelijk gereedschap. Tijdens de uitvoering ben je verantwoordelijk
           voor jouw deel van het werk, maar er is altijd een ervaren collega beschikbaar
           voor overleg of begeleiding.</p>
-          <p>Eind van de dag lever je netjes op en rij je naar huis — in de regio, niet
+          <p>Eind van de dag lever je netjes op en rij je naar huis, in de regio, niet
           twee uur verderop.</p>
         </div>
       </div>
@@ -98,7 +98,7 @@ const stappen = [
         <div class="pointer-events-none absolute -top-4 -left-4 hidden h-20 w-20 rounded-2xl border-2 border-primary/30 sm:block" aria-hidden="true"></div>
         <Image
           src={stucwerkInUitvoering}
-          alt="Stucwerk in uitvoering — kleurrijke onderlaag klaar voor afwerking"
+          alt="Stucwerk in uitvoering - kleurrijke onderlaag klaar voor afwerking"
           widths={[400, 600, 800, 1000, 1200]}
           sizes="(max-width: 1024px) 100vw, 50vw"
           formats={['webp']}
@@ -178,8 +178,8 @@ const stappen = [
 
   <CTASection
     heading="Interesse? Neem de eerste stap."
-    subheading="Solliciteer direct of kom een keer langs in de showroom."
+    subheading="Solliciteer direct of bel ons voor een kennismaking op afspraak."
     primaryCta={{ label: 'Bekijk vacatures', href: '#vacatures' }}
-    secondaryCta={{ label: 'Kom langs', href: '/contact' }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}` }}
   />
 </BaseLayout>

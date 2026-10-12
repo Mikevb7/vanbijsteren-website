@@ -13,14 +13,14 @@ import { spokesVoor } from '@data/diensten';
 import { bedrijf } from '@data/bedrijf';
 import frescoloriItaliaans from '@assets/images/resultaten/frescolori-italiaans.png';
 
-const intro = 'Decoratief stucwerk maakt van een wand een blikvanger. Van Bijsteren is gespecialiseerd in premium afwerkingen zoals Italiaans stucwerk en Frescolori — met de hand aangebracht door ervaren vakmensen.';
+const intro = 'Decoratief stucwerk maakt van een wand een blikvanger. Van Bijsteren is gespecialiseerd in premium afwerkingen zoals Italiaans stucwerk en Frescolori, met de hand aangebracht door ervaren vakmensen.';
 
 const seoBody = `
   <p>Decoratieve afwerkingen vragen om vakmanschap, ervaring en gevoel voor detail.
   Het resultaat is een uniek, diep en elegant wandbeeld dat in iedere lichtval anders
   overkomt.</p>
-  <p>Op foto's komen deze afwerkingen niet volledig tot hun recht. Bezoek daarom onze
-  showroom op ${bedrijf.showroom.omschrijving} om de effecten live te ervaren.</p>
+  <p>Op foto's komen deze afwerkingen niet volledig tot hun recht. Maak daarom een
+  afspraak voor onze showroom op ${bedrijf.showroom.omschrijving} en ervaar de effecten live.</p>
 `;
 
 const kruimels = [
@@ -41,10 +41,10 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Decoratief stucwerk — premium wandafwerking"
+    heading="Decoratief stucwerk - premium wandafwerking"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    image={{ src: frescoloriItaliaans, alt: 'Decoratief stucwerk — Italiaans stucwerk en Frescolori', width: 1200, height: 900 }}
+    image={{ src: frescoloriItaliaans, alt: 'Decoratief stucwerk - Italiaans stucwerk en Frescolori', width: 1200, height: 900 }}
   />
 
   <DienstGrid heading="Onze decoratieve afwerkingen" diensten={spokesVoor('decoratief-stucwerk')} columns={2} />
@@ -62,8 +62,8 @@ const kruimels = [
 
   <CTASection
     heading="Een bijzondere wandafwerking laten maken?"
-    subheading="Vraag vrijblijvend een offerte aan of kom langs in de showroom."
+    subheading="Vraag vrijblijvend een offerte aan of maak een afspraak voor de showroom."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

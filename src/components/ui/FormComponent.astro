@@ -22,9 +22,9 @@ type Props = {
 const { variant, functies = [], class: extra = '' } = Astro.props;
 
 const onderwerp =
-  variant === 'offerte'       ? 'Offerteaanvraag — Van Bijsteren Stukadoorsbedrijf' :
-  variant === 'sollicitatie'  ? 'Sollicitatie — Van Bijsteren Stukadoorsbedrijf' :
-                                'Contactformulier — Van Bijsteren Stukadoorsbedrijf';
+  variant === 'offerte'       ? 'Offerteaanvraag - Van Bijsteren Stukadoorsbedrijf' :
+  variant === 'sollicitatie'  ? 'Sollicitatie - Van Bijsteren Stukadoorsbedrijf' :
+                                'Contactformulier - Van Bijsteren Stukadoorsbedrijf';
 
 // Formspree form-ID's worden ingesteld als PUBLIC_-env vars in Vercel dashboard.
 // Zolang ze niet zijn ingesteld, is de action leeg en zal de browser niets submitten.
@@ -120,7 +120,7 @@ const dienstOpties = diensten.filter((d) => d.isPillar).map((d) => d.naam);
       <p class="rounded-lg bg-primary-10 px-4 py-3 text-sm text-ink-light ring-1 ring-primary/15">
         Heb je een cv? Mail die gerust naar
         <a href={`mailto:${bedrijf.email}?subject=CV%20sollicitatie`} class="font-semibold text-primary-dark underline">{bedrijf.email}</a>.
-        Niet verplicht — een korte motivatie is genoeg.
+        Niet verplicht, een korte motivatie is genoeg.
       </p>
     </>
   )}

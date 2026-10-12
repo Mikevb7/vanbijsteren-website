@@ -11,7 +11,7 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import gereedschap from '@assets/images/werkfoto/gereedschap.png';
 
-const intro = 'Spackspuitwerk is een snelle en kostenefficiënte manier om grote oppervlakten af te werken. Van Bijsteren brengt spackspuitwerk aan op wanden en plafonds in Harderwijk en omgeving — strak gespoten en gelijkmatig van structuur.';
+const intro = 'Spackspuitwerk is een snelle en kostenefficiënte manier om grote oppervlakten af te werken. Van Bijsteren brengt spackspuitwerk aan op wanden en plafonds in Harderwijk en omgeving, strak gespoten en gelijkmatig van structuur.';
 
 const body = `
   <p>Bij spackspuitwerk wordt de afwerking machinaal opgespoten, waardoor grote
@@ -30,7 +30,7 @@ const kruimels = [
 ---
 
 <BaseLayout
-  title="Spackspuitwerk Harderwijk — snel en efficiënt | Van Bijsteren"
+  title="Spackspuitwerk Harderwijk - snel en efficiënt | Van Bijsteren"
   description="Spackspuitwerk in Harderwijk en omgeving: snel en kostenefficiënt afwerken van wanden en plafonds. Vraag een vrijblijvende offerte aan."
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
@@ -40,7 +40,7 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Spackspuitwerk — snel en kostenefficiënt afwerken"
+    heading="Spackspuitwerk - snel en kostenefficiënt afwerken"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: gereedschap, alt: 'Gereedschap voor spackspuitwerk', width: 1200, height: 900 }}
@@ -61,6 +61,6 @@ const kruimels = [
     heading="Spackspuitwerk laten aanbrengen?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>

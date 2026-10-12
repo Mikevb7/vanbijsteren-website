@@ -12,7 +12,7 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import gladpleisterwanden from '@assets/images/resultaten/gladpleisterwanden.png';
 
-const intro = 'Behangklaar en sausklaar zijn afwerkingen die uw wanden perfect voorbereiden op behang of verf. Van Bijsteren verzorgt beide in Harderwijk en omgeving — zodat de schilder of behanger zonder extra werk aan de slag kan.';
+const intro = 'Behangklaar en sausklaar zijn afwerkingen die uw wanden perfect voorbereiden op behang of verf. Van Bijsteren verzorgt beide in Harderwijk en omgeving, zodat de schilder of behanger zonder extra werk aan de slag kan.';
 
 const body = `
   <p>Sausklaar betekent dat de wand egaal genoeg is om direct te schilderen.
@@ -48,7 +48,7 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Behang- en sausklaar — wanden perfect voorbereid"
+    heading="Behang- en sausklaar - wanden perfect voorbereid"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: gladpleisterwanden, alt: 'Wanden strak voorbereid voor behang of verf', width: 1200, height: 900 }}
@@ -76,6 +76,6 @@ const kruimels = [
     heading="Wanden laten voorbereiden?"
     subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
-    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} — ${bedrijf.naam}` }}
+    secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />
 </BaseLayout>
