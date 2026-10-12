@@ -1,9 +1,9 @@
 User-agent: *
 Allow: /
 
-# Blokkeer admin en tijdelijke/onafgemaakte pagina's
+# Blokkeer alleen het CMS. /_astro/ NIET blokkeren: daar staan CSS, JS en
+# afbeeldingen die Google nodig heeft om de pagina's te renderen en foto's te indexeren.
 Disallow: /admin/
-Disallow: /_astro/
 
 # Sitemap
 Sitemap: https://www.vanbijsterenstukadoors.nl/sitemap-index.xml
