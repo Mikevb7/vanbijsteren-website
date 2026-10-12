@@ -37,49 +37,49 @@
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?stukadoorharderwijk\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/stukadoor-harderwijk",
+      "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-harderwijk",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?stucadoorharderwijk\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/stukadoor-harderwijk",
+      "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-harderwijk",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?stukadoorermelo\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/stukadoor-ermelo",
+      "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-ermelo",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?stukadoornunspeet\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/stukadoor-nunspeet",
+      "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-nunspeet",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?stukadoorzeewolde\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/stukadoor-zeewolde",
+      "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-zeewolde",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?stukadoorhierden\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/werkgebied",
+      "destination": "https://www.vanbijsterenstukadoors.nl/werkgebied",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?gladstucen\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/binnen-stucwerk/gladpleisterwerk",
+      "destination": "https://www.vanbijsterenstukadoors.nl/binnen-stucwerk/gladpleisterwerk",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(www\\.)?gladstuken\\.nl" }],
-      "destination": "https://vanbijsterenstukadoors.nl/binnen-stucwerk/gladpleisterwerk",
+      "destination": "https://www.vanbijsterenstukadoors.nl/binnen-stucwerk/gladpleisterwerk",
       "permanent": true
     }
   ],

@@ -6,11 +6,18 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://www.vanbijsterenstukadoors.nl',
 
+  // URL's zonder slash aan het eind, gelijk aan Vercel (trailingSlash: false).
+  // Zo wijzen canonical, sitemap en interne links naar exact dezelfde URL
+  // en verwijst de canonical nooit naar een redirect.
+  trailingSlash: 'never',
+  build: { format: 'file' },
+
   integrations: [
     sitemap({
       filter: (page) =>
         !page.includes('/admin') &&
-        !page.includes('/_astro'),
+        !page.includes('/_astro') &&
+        !/\/(bedankt|demo|404)$/.test(page),
       i18n: {
         defaultLocale: 'nl',
         locales: { nl: 'nl-NL' },

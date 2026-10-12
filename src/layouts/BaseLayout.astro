@@ -25,9 +25,11 @@ const {
   schema,
 } = Astro.props;
 
+// build.format 'file' → pathname kan eindigen op .html of /index.html; canonical altijd zonder.
+const schonePad = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '').replace(/(.)\/$/, '$1') || '/';
 const canonicalURL = canonical
   ? new URL(canonical, bedrijf.website).toString()
-  : new URL(Astro.url.pathname, bedrijf.website).toString();
+  : new URL(schonePad, bedrijf.website).toString().replace(/(\.nl)\/$/, '$1/');
 
 const ogImageURL = new URL(ogImage, bedrijf.website).toString();
 ---
