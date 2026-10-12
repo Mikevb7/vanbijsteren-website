@@ -1,38 +1,87 @@
 ---
-// src/pages/stukadoor-harderwijk.astro — lokaal hoofd (Fase 3) — PAGE_SPECS §lokaal
-// CONTENT-GATE: noindex tot er ≥2 Harderwijk-projecten met foto zijn (PAGE_SPECS: "niet live zonder").
+// src/pages/stukadoor-harderwijk.astro — lokale hoofdpagina, GEÏNDEXEERD (13-10-2026).
+// Alleen verifieerbare inhoud: bedrijfsgegevens, werkwijze, prijzen uit prijzen.ts,
+// algemene kennis over Harderwijk en echte Google-reviews. Geen verzonnen projecten.
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
 import SEOContentSection from '@components/sections/SEOContentSection.astro';
 import DienstGrid from '@components/sections/DienstGrid.astro';
 import FAQAccordion from '@components/ui/FAQAccordion.astro';
+import FAQPageSchema from '@components/schema/FAQPageSchema.astro';
+import BreadcrumbSchema from '@components/schema/BreadcrumbSchema.astro';
 import RegioLinkBlok from '@components/sections/RegioLinkBlok.astro';
 import CTASection from '@components/sections/CTASection.astro';
+import TestimonialCard from '@components/cards/TestimonialCard.astro';
+import Icon from '@components/ui/Icon.astro';
 import { pillarDiensten } from '@data/diensten';
 import { regio } from '@data/regio';
 import { bedrijf } from '@data/bedrijf';
+import { prijzen, prijsFaqAntwoord } from '@data/prijzen';
 import pandExterieur from '@assets/images/showroom/pand-exterieur.jpg';
-import { prijsFaqAntwoord } from '@data/prijzen';
+import googlePayload from '@data/google-reviews.json';
+import type { GoogleReviewsPayload } from '@/types';
+
+const google = googlePayload as GoogleReviewsPayload;
+// Alleen reviews die Harderwijk zelf noemen (echte Google-reviews, ongewijzigd).
+const harderwijkReviews = (google.reviews ?? [])
+  .filter((r) => /harderwijk/i.test(r.tekst))
+  .map((r) => ({
+    quote: r.tekst, auteur: r.auteur, rating: r.rating, bron: 'google',
+    tijdRelatief: r.tijdRelatief, auteurUrl: r.auteurUrl, profielFoto: r.profielFoto,
+  }));
 
 const intro = `
-  <p>Op zoek naar een stukadoor in Harderwijk? Van Bijsteren Stukadoorsbedrijf is in
-  Harderwijk gevestigd en werkt dagelijks in de hele stad en omgeving. Erkend NOA-lid,
-  altijd een vrijblijvende offerte vooraf.</p>
-  <p>Als Harderwijks bedrijf kennen wij de regio op onze duimen. Of het nu gaat om
-  renovaties in wijken als Stadsweiden en Drielanden, stucwerk in nieuwbouwprojecten of
-  decoratieve afwerkingen in de binnenstad, wij werken er dagelijks. Onze showroom
-  vindt u op ${bedrijf.showroom.omschrijving}, waar u op afspraak verschillende
-  stucafwerkingen live kunt bekijken.</p>
+  <p>Op zoek naar een stukadoor in Harderwijk? Van Bijsteren Stukadoorsbedrijf is een
+  Harderwijks familiebedrijf. Herman van Bijsteren begon in ${bedrijf.oprichtingsjaar},
+  daarna nam zijn zoon Gert het over en nu staat Marcel aan het roer. Drie generaties
+  stukadoors uit dezelfde stad.</p>
+  <p>Ons bedrijf zit aan de ${bedrijf.adres.straat} op industrieterrein Lorentz. Vanuit
+  daar zijn wij in een paar minuten in elke wijk van Harderwijk en Hierden. Dat merkt
+  u: een opname plannen we snel in, en moet er tijdens een klus iets extra gebeuren,
+  dan zijn we er zo.</p>
+  <p>Wij zijn erkend lid van de NOA, de branchevereniging voor afbouwbedrijven. U krijgt
+  altijd eerst een vrijblijvende opname bij u thuis en daarna een heldere offerte.</p>
 `;
 
-const faqItems = [
+const woningen = [
   {
-    vraag: 'Wat kost stucwerk per m²?',
-    antwoord: prijsFaqAntwoord,
+    icon: 'Landmark',
+    titel: 'Binnenstad en oudere panden',
+    tekst: 'In de historische binnenstad van Harderwijk staan veel oude panden. Muren zijn daar zelden kaarsrecht en de ondergrond is vaak oud pleisterwerk of steen. Wij beoordelen eerst wat er hersteld moet worden en kiezen een afwerking die bij het pand past.',
   },
   {
-    vraag: 'Werken jullie ook buiten Harderwijk?',
-    antwoord: 'Ja. Wij werken in de hele Noord-Veluwe, onder andere in Ermelo, Putten, Nunspeet en Zeewolde. Neem contact op om te overleggen.',
+    icon: 'Home',
+    titel: 'Woningen uit de jaren 60 tot 90',
+    tekst: 'In wijken zoals Stadsweiden en Frankrijk gaat het vaak om renovatie: oud behang of structuurwerk eraf, scheuren dichten en de wanden weer strak maken. Dat doen we met gladpleisterwerk, of behang- of sausklaar.',
+  },
+  {
+    icon: 'Building2',
+    titel: 'Nieuwbouw',
+    tekst: 'In nieuwere wijken zoals Drielanden en het Waterfront zijn de wanden vaak al vlak opgeleverd. Daar gaat het meestal om strak sausklaar stucwerk, plafonds en eventueel een decoratieve afwerking.',
+  },
+];
+
+const faqItems = [
+  { vraag: 'Wat kost een stukadoor in Harderwijk per m²?', antwoord: prijsFaqAntwoord },
+  {
+    vraag: 'Geldt het lage btw-tarief voor mijn woning?',
+    antwoord: `Is uw woning ouder dan twee jaar, dan geldt het verlaagde btw-tarief van ${prijzen.btwLaag}%. Voor nieuwbouw en overige projecten geldt ${prijzen.btwHoog}%. In de offerte staat precies welk tarief voor u geldt.`,
+  },
+  {
+    vraag: 'Hoe snel kunnen jullie langskomen in Harderwijk?',
+    antwoord: 'Wij reageren binnen één werkdag op uw aanvraag. Omdat ons bedrijf in Harderwijk zit, kunnen we een opname bij u thuis meestal snel inplannen. Wanneer de klus zelf kan beginnen, hangt af van onze planning en die bespreken we bij de opname.',
+  },
+  {
+    vraag: 'Werken jullie ook in Hierden?',
+    antwoord: 'Ja. Hierden hoort bij de gemeente Harderwijk en ligt op een paar minuten van ons bedrijf. Voor Hierden gelden dezelfde prijzen en voorwaarden als voor Harderwijk.',
+  },
+  {
+    vraag: 'Kan ik afwerkingen bekijken voordat ik kies?',
+    antwoord: `Ja, in onze showroom op ${bedrijf.showroom.omschrijving}. Langskomen kan alleen op afspraak, want overdag zijn wij aan het werk en is er niemand aanwezig. Bel ${bedrijf.telefoonDisplay} om een afspraak te maken.`,
+  },
+  {
+    vraag: 'Werken jullie ook voor aannemers en bij nieuwbouw?',
+    antwoord: 'Ja. Wij werken zowel voor particulieren als voor aannemers, van één kamer tot complete woningen.',
   },
 ];
 
@@ -42,27 +91,97 @@ const andereplaatsen = regio
 ---
 
 <BaseLayout
-  title="Stukadoor Harderwijk | Van Bijsteren - erkend stukadoorsbedrijf"
-  description="Op zoek naar een stukadoor in Harderwijk? Van Bijsteren is gevestigd in Harderwijk en werkt in de hele regio. Vraag een vrijblijvende offerte aan."
-  noindex={true}
+  title="Stukadoor Harderwijk | Van Bijsteren, sinds 1967 in Harderwijk"
+  description={`Stukadoor in Harderwijk nodig? Van Bijsteren is een Harderwijks familiebedrijf sinds ${bedrijf.oprichtingsjaar}, NOA-erkend. Prijsindicatie: wanden €${prijzen.wandPerM2}/m², plafonds €${prijzen.plafondPerM2}/m². Vrijblijvende opname.`}
 >
+  <BreadcrumbSchema items={[{ naam: 'Home', href: '/' }, { naam: 'Stukadoor Harderwijk' }]} />
+  <FAQPageSchema items={faqItems} />
+
   <HeroSection
     variant="local"
-    heading="Stukadoor in Harderwijk - Van Bijsteren"
-    subheading="Gevestigd in Harderwijk, dagelijks aan het werk in de hele regio. Erkend NOA-stukadoorsbedrijf."
+    heading="Stukadoor in Harderwijk, al sinds 1967"
+    subheading="Een Harderwijks familiebedrijf in de derde generatie. Erkend door de NOA, gevestigd op industrieterrein Lorentz en in een paar minuten bij u thuis."
     badge="Gevestigd in Harderwijk"
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
-    image={{ src: pandExterieur, alt: 'Pand en showroom Van Bijsteren Stukadoorsbedrijf in Harderwijk', width: 1600, height: 1200 }}
+    image={{ src: pandExterieur, alt: 'Bedrijfspand van Van Bijsteren Stukadoorsbedrijf op industrieterrein Lorentz in Harderwijk', width: 1600, height: 1200 }}
   />
 
-  <SEOContentSection heading="Uw stukadoor in Harderwijk" body={intro} />
+  <SEOContentSection heading="Uw stukadoor uit Harderwijk" body={intro} />
+
+  <!-- Type woning -->
+  <section class="border-t border-border-light bg-surface-soft py-12 sm:py-16 lg:py-20" aria-labelledby="woningen-titel">
+    <div class="container">
+      <div class="max-w-content">
+        <h2 id="woningen-titel" class="text-ink tracking-tight">Stucwerk voor elk type woning in Harderwijk</h2>
+        <p class="mt-4 text-lg leading-relaxed text-ink-light">
+          Harderwijk heeft alles: een oude Hanzestad-kern, wijken uit de jaren 60 tot 90 en
+          flinke nieuwbouw. Elk type woning vraagt om een andere aanpak.
+        </p>
+      </div>
+      <div class="mt-8 grid gap-5 sm:mt-10 md:grid-cols-3">
+        {woningen.map((w) => (
+          <article class="rounded-2xl border border-border-light bg-surface p-6 shadow-sm">
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary-10 text-primary-dark ring-1 ring-primary/15">
+              <Icon name={w.icon} size={22} />
+            </span>
+            <h3 class="mt-4 text-lg font-semibold text-ink">{w.titel}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-light sm:text-base">{w.tekst}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Prijs in het kort -->
+  <section class="container py-12 sm:py-16" aria-labelledby="prijs-titel">
+    <div class="grid gap-6 rounded-2xl border border-border-light bg-surface p-6 shadow-sm sm:p-8 md:grid-cols-[1.4fr_1fr] md:items-center">
+      <div>
+        <h2 id="prijs-titel" class="text-2xl font-semibold text-ink tracking-tight">Wat kost een stukadoor in Harderwijk?</h2>
+        <p class="mt-3 leading-relaxed text-ink-light">
+          Als prijsindicatie rekenen wij €{prijzen.wandPerM2} per m² voor wanden en €{prijzen.plafondPerM2} per m²
+          voor plafonds, exclusief btw, bij een minimale opdracht van {prijzen.minimumM2} m². De exacte prijs hoort
+          u na een vrijblijvende opname bij u thuis.
+        </p>
+        <a href="/kennis/wat-kost-stucwerk" class="mt-4 inline-flex items-center gap-1.5 font-semibold text-primary-dark underline underline-offset-4">
+          Reken uw prijsindicatie uit
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl bg-primary-10 p-4 text-center ring-1 ring-primary/15">
+          <p class="text-sm font-semibold text-ink-light">Wanden</p>
+          <p class="text-2xl font-bold text-ink">€{prijzen.wandPerM2}<span class="text-sm font-normal text-ink-light">/m²</span></p>
+        </div>
+        <div class="rounded-xl bg-primary-10 p-4 text-center ring-1 ring-primary/15">
+          <p class="text-sm font-semibold text-ink-light">Plafonds</p>
+          <p class="text-2xl font-bold text-ink">€{prijzen.plafondPerM2}<span class="text-sm font-normal text-ink-light">/m²</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {harderwijkReviews.length > 0 && (
+    <section class="border-t border-border-light bg-surface-soft py-12 sm:py-16" aria-labelledby="reviews-titel">
+      <div class="container">
+        <h2 id="reviews-titel" class="text-ink tracking-tight">Wat klanten uit Harderwijk zeggen</h2>
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          {harderwijkReviews.map((r) => <TestimonialCard {...r} />)}
+        </div>
+        {google.rating && (
+          <p class="mt-6 text-sm text-ink-light">
+            <strong class="text-ink">{google.rating.toFixed(1).replace('.', ',')}/5</strong> gemiddeld op basis van {google.userRatingsTotal} Google-reviews.
+            {' '}<a href="/reviews" class="font-semibold text-primary-dark underline">Lees alle reviews</a>
+          </p>
+        )}
+      </div>
+    </section>
+  )}
 
   <DienstGrid heading="Onze diensten in Harderwijk" diensten={pillarDiensten} columns={3} />
 
-  <section class="container py-12 lg:py-16">
+  <section class="container py-12 lg:py-16" aria-labelledby="faq-titel">
     <div class="max-w-prose">
-      <h2 class="mb-5 text-ink">Veelgestelde vragen</h2>
+      <h2 id="faq-titel" class="mb-5 text-ink">Veelgestelde vragen over stucwerk in Harderwijk</h2>
       <FAQAccordion items={faqItems} />
     </div>
   </section>
@@ -70,8 +189,8 @@ const andereplaatsen = regio
   <RegioLinkBlok heading="Ook werkzaam in" places={andereplaatsen} />
 
   <CTASection
-    heading="Stukwerk nodig in Harderwijk?"
-    subheading="Vraag vrijblijvend een offerte aan of bel ons direct."
+    heading="Stucwerk nodig in Harderwijk?"
+    subheading="Vraag vrijblijvend een offerte aan of bel ons direct. Wij komen graag bij u kijken."
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     secondaryCta={{ label: `Bel ${bedrijf.telefoonDisplay}`, href: `tel:${bedrijf.telefoon}`, ariaLabel: `Bel ${bedrijf.telefoonDisplay} - ${bedrijf.naam}` }}
   />

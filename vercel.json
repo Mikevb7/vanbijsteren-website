@@ -67,7 +67,7 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "(www\\.)?stukadoorhierden\\.nl" }],
-      "destination": "https://www.vanbijsterenstukadoors.nl/werkgebied",
+      "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-harderwijk",
       "permanent": true
     },
     {
