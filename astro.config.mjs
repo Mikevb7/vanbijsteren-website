@@ -17,7 +17,10 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/admin') &&
         !page.includes('/_astro') &&
-        !/\/(bedankt|demo|404)$/.test(page),
+        !/\/(bedankt|demo|404)$/.test(page) &&
+        // Plaatspagina's staan op noindex (content-gate: eerst ≥2 projecten met foto per plaats).
+        // Haal een plaats hier weg zodra je noindex op die pagina uitzet.
+        !/\/stukadoor-(harderwijk|ermelo|putten|nunspeet|zeewolde)$/.test(page),
       i18n: {
         defaultLocale: 'nl',
         locales: { nl: 'nl-NL' },
