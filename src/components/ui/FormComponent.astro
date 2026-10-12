@@ -1,10 +1,12 @@
 ---
 // src/components/ui/FormComponent.astro — COMPONENT_SPEC §21
-// Formulierverwerking via Formspree (Vercel-hosting). Native HTML POST — werkt
-// zonder JavaScript. Stel per variant een Formspree form-ID in als env var in
-// Vercel dashboard: PUBLIC_FORMSPREE_OFFERTE / PUBLIC_FORMSPREE_SOLLICITATIE /
-// PUBLIC_FORMSPREE_CONTACT. Whitelist ook het succesdomein in Formspree
-// (Settings → Redirect URL) voor de _next-redirect naar /bedankt.
+// Formulierverwerking via Formspree (Vercel-hosting), gratis plan.
+// Verzending via fetch (Accept: application/json) zodat de site zelf naar
+// /bedankt doorstuurt — de Formspree-redirect is een betaalde functie.
+// Zonder JavaScript valt het formulier terug op een gewone POST naar Formspree.
+// Form-ID's per variant als env var in Vercel (Production + Preview):
+// PUBLIC_FORMSPREE_OFFERTE / PUBLIC_FORMSPREE_SOLLICITATIE / PUBLIC_FORMSPREE_CONTACT.
+// Let op: PUBLIC_-vars worden bij de build ingebakken → na wijzigen redeployen.
 import Button from '@components/ui/Button.astro';
 import { diensten } from '@data/diensten';
 import { bedrijf } from '@data/bedrijf';
@@ -35,22 +37,19 @@ const action = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
 
 const dienstOpties = diensten.filter((d) => d.isPillar).map((d) => d.naam);
 
-// Sollicitatie-variant heeft bestandsupload (cv). Formspree ondersteunt
-// bestandsbijlagen alleen op betaalde plannen (Gold+).
-const enctype = variant === 'sollicitatie' ? 'multipart/form-data' : undefined;
+// Geen bestandsupload: bijlagen zijn op het gratis Formspree-plan niet
+// toegestaan en laten de hele inzending mislukken. CV gaat per mail.
 ---
 
 <form
   method="POST"
   action={action || undefined}
-  enctype={enctype}
+  data-formspree
+  data-bedankt="/bedankt"
   class:list={['flex flex-col gap-5', extra]}
 >
   {/* Formspree hidden-velden */}
   <input type="hidden" name="_subject" value={onderwerp} />
-  {/* _next: redirect naar /bedankt na succesvolle verzending.
-      Vereist whitelist in Formspree dashboard → Settings → Redirect URL. */}
-  <input type="hidden" name="_next" value={`${bedrijf.website}/bedankt`} />
   {/* Honeypot — Formspree herkent _gotcha als spamveld */}
   <p class="hidden" aria-hidden="true">
     <label>Niet invullen: <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
@@ -118,11 +117,11 @@ const enctype = variant === 'sollicitatie' ? 'multipart/form-data' : undefined;
         <textarea id="f-motivatie" name="motivatie" rows="5" required
                   class="rounded-lg border border-border bg-surface px-3.5 py-3 text-ink shadow-sm transition-[border-color,box-shadow] focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15"></textarea>
       </div>
-      <div class="flex flex-col gap-1.5">
-        <label for="f-cv" class="text-sm font-semibold text-ink">CV (optioneel)</label>
-        <input id="f-cv" name="cv" type="file" accept=".pdf,.doc,.docx"
-               class="text-sm text-ink-light file:mr-3 file:rounded-md file:border-0 file:bg-primary-10 file:px-4 file:py-2 file:font-semibold file:text-primary-dark" />
-      </div>
+      <p class="rounded-lg bg-primary-10 px-4 py-3 text-sm text-ink-light ring-1 ring-primary/15">
+        Heb je een cv? Mail die gerust naar
+        <a href={`mailto:${bedrijf.email}?subject=CV%20sollicitatie`} class="font-semibold text-primary-dark underline">{bedrijf.email}</a>.
+        Niet verplicht — een korte motivatie is genoeg.
+      </p>
     </>
   )}
 
@@ -142,7 +141,55 @@ const enctype = variant === 'sollicitatie' ? 'multipart/form-data' : undefined;
     </label>
   </div>
 
+  <p data-form-fout role="alert" class="hidden rounded-lg border border-warning/40 bg-warning/10 px-4 py-3 text-sm text-ink"></p>
+
   <Button type="submit" size="lg" variant="primary" class="w-full sm:w-auto">
     {variant === 'sollicitatie' ? 'Verstuur sollicitatie' : variant === 'offerte' ? 'Vraag offerte aan' : 'Verstuur bericht'}
   </Button>
 </form>
+
+<script define:vars={{ telefoon: bedrijf.telefoonDisplay, email: bedrijf.email }}>
+  // Verstuur via fetch naar Formspree en stuur zelf door naar /bedankt.
+  document.querySelectorAll('form[data-formspree]').forEach((form) => {
+    if (form.dataset.bound) return;
+    form.dataset.bound = '1';
+
+    const fout = form.querySelector('[data-form-fout]');
+    const knop = form.querySelector('button[type="submit"]');
+    const knopTekst = knop ? knop.innerHTML : '';
+    const toonFout = (tekst) => {
+      if (!fout) return;
+      fout.textContent = tekst;
+      fout.classList.remove('hidden');
+    };
+    const algemeneFout =
+      `Het versturen is helaas niet gelukt. Bel ons op ${telefoon} of mail naar ${email}, dan helpen wij u direct verder.`;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (fout) fout.classList.add('hidden');
+
+      // Geen Formspree-ID ingesteld → nooit stil falen.
+      const action = form.getAttribute('action');
+      if (!action) { toonFout(algemeneFout); return; }
+
+      if (knop) { knop.disabled = true; knop.textContent = 'Bezig met versturen…'; }
+
+      try {
+        const res = await fetch(action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          window.location.href = form.dataset.bedankt || '/bedankt';
+          return;
+        }
+        toonFout(algemeneFout);
+      } catch {
+        toonFout(algemeneFout);
+      }
+      if (knop) { knop.disabled = false; knop.innerHTML = knopTekst; }
+    });
+  });
+</script>
