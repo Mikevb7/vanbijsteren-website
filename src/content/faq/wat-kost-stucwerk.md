@@ -12,4 +12,4 @@ Als **prijsindicatie** rekenen wij:
 
 Alle prijzen zijn exclusief btw. Voor woningen ouder dan twee jaar geldt het verlaagde tarief van 9%, voor nieuwbouw en overige projecten 21%.
 
-Wij zijn niet de goedkoopste, wel de beste in ons vak: u betaalt voor stucwerk waar u jaren plezier van heeft. De definitieve prijs hangt af van de ondergrond, de gewenste afwerking en de bereikbaarheid. Daarom komen wij altijd eerst vrijblijvend langs om het werk op te nemen.
+U betaalt voor stucwerk waar u jaren plezier van heeft. De definitieve prijs hangt af van de ondergrond, de gewenste afwerking en de bereikbaarheid. Daarom komen wij altijd eerst vrijblijvend langs om het werk op te nemen.

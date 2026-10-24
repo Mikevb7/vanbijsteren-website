@@ -11,20 +11,19 @@ import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
 import gereedschap from '@assets/images/werkfoto/gereedschap.png';
 
-const intro = 'Spackspuitwerk is een snelle en kostenefficiënte manier om grote oppervlakten af te werken. Van Bijsteren brengt spackspuitwerk aan op wanden en plafonds in Harderwijk en omgeving, strak gespoten en gelijkmatig van structuur.';
+const intro = 'Spackspuitwerk is de snelle manier om wanden en plafonds strak af te werken. De afwerking wordt gespoten, met een fijne, gelijkmatige structuur. Ideaal voor grote oppervlakken, nieuwbouw en plafonds. Van Bijsteren doet dit in Harderwijk en omgeving.';
 
 const body = `
-  <p>Bij spackspuitwerk wordt de afwerking machinaal opgespoten, waardoor grote
-  wanden en plafonds snel en gelijkmatig van een structuur worden voorzien. Het is
-  daardoor een aantrekkelijke keuze voor grotere oppervlakten en projecten.</p>
-  <p>Wij adviseren u graag of spackspuitwerk past bij uw ruimte en gewenste
-  uitstraling. Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
+  <p>Omdat spackspuitwerk machinaal wordt gespoten, zijn grote oppervlakken snel klaar.
+  Daardoor is het per m² vaak voordeliger dan glad stucwerk. Het resultaat is egaal,
+  met een lichte structuur waar u direct overheen kunt schilderen.</p>
+  <p>Twijfelt u tussen spackspuitwerk en glad stucwerk? Bij de opname laten we u zien
+  wat het verschil is en wat het beste past.</p>
 `;
 
 const kruimels = [
   { label: 'Home', href: '/' },
   { label: 'Stucwerk', href: '/stucwerk' },
-  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
   { label: 'Spackspuitwerk' },
 ];
 ---
@@ -40,7 +39,7 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Spackspuitwerk - snel en kostenefficiënt afwerken"
+    heading="Spackspuitwerk, snel en strak gespoten"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: gereedschap, alt: 'Gereedschap voor spackspuitwerk', width: 1200, height: 900 }}
@@ -49,10 +48,10 @@ const kruimels = [
   <ContentBlok body={body} />
 
   <InterneLinkBlok
-    heading="Meer over binnenstucwerk"
+    heading="Lees ook"
     links={[
-      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
-      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Al onze diensten', href: '/stucwerk', omschrijving: 'Glad, behangklaar, plafonds en spackspuitwerk.' },
+      { label: 'Glad stucwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Klaar voor de schilder.' },
       { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
     ]}
   />

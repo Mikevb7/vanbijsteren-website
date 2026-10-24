@@ -10,45 +10,48 @@ import FAQAccordion from '@components/ui/FAQAccordion.astro';
 import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
 import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
+import { prijzen } from '@data/prijzen';
 import gladpleisterwanden from '@assets/images/resultaten/gladpleisterwanden.png';
 
-const intro = 'Behangklaar en sausklaar zijn afwerkingen die uw wanden perfect voorbereiden op behang of verf. Van Bijsteren verzorgt beide in Harderwijk en omgeving, zodat de schilder of behanger zonder extra werk aan de slag kan.';
+const intro = 'Gaat er behang op uw wanden? Dan is behangklaar stucwerk de juiste keuze: vlak en strak genoeg om op te behangen. Van Bijsteren maakt uw wanden behangklaar in Harderwijk en omgeving.';
 
 const body = `
-  <p>Sausklaar betekent dat de wand egaal genoeg is om direct te schilderen.
-  Behangklaar is een iets ruwere afwerking die de ondergrond optimaal voorbereidt
-  op behang. Welke afwerking u nodig heeft, hangt af van uw vervolgstap.</p>
-  <p>Twijfelt u tussen sausklaar en behangklaar? Wij adviseren u graag op basis van
-  uw wensen. Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
+  <p>Behangklaar betekent dat de wand vlak is en geen oneffenheden heeft die door het
+  behang heen te zien zijn. De afwerking is net iets minder glad dan sausklaar, en
+  dat hoeft ook niet: het behang komt eroverheen.</p>
+  <p>Twijfelt u of u later toch wilt schilderen? Kies dan
+  <a href="/binnen-stucwerk/gladpleisterwerk">glad stucwerk (sausklaar)</a>. Dan kunt u
+  allebei.</p>
+  <p>Als prijsindicatie rekenen wij €${prijzen.wandPerM2} per m² voor wanden, exclusief btw, bij
+  minimaal ${prijzen.minimumM2} m². De exacte prijs hoort u na een vrijblijvende opname.</p>
 `;
 
 const faqItems = [
   {
     vraag: 'Wat is het verschil tussen sausklaar en behangklaar?',
-    antwoord: 'Sausklaar betekent dat de wand egaal genoeg is voor schilderwerk. Behangklaar is een iets ruwere afwerking die de ondergrond voor behang voorbereidt. Zie ook ons artikel "Sausklaar of behangklaar?"',
+    antwoord: 'Sausklaar (glad) is zo strak dat u direct kunt schilderen. Behangklaar is vlak genoeg voor behang, maar niet zo glad afgewerkt. Zie ook ons artikel "Sausklaar of behangklaar?"',
   },
 ];
 
 const kruimels = [
   { label: 'Home', href: '/' },
   { label: 'Stucwerk', href: '/stucwerk' },
-  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
-  { label: 'Behang- en sausklaar' },
+  { label: 'Behangklaar stucwerk' },
 ];
 ---
 
 <BaseLayout
-  title="Behangklaar & sausklaar stucwerk Harderwijk | Van Bijsteren"
-  description="Wanden behangklaar of sausklaar laten maken in Harderwijk en omgeving. Perfect voorbereid voor verf of behang. Vraag een vrijblijvende offerte aan."
+  title="Behangklaar stucwerk Harderwijk | Van Bijsteren"
+  description="Wanden behangklaar laten stucen in Harderwijk en omgeving. Vlak en strak, klaar om te behangen. Vraag een vrijblijvende offerte aan."
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
-  <ServiceSchema naam="Behangklaar en sausklaar stucwerk" serviceType="Stucwerk" description={intro} />
+  <ServiceSchema naam="Behangklaar stucwerk" serviceType="Stucwerk" description={intro} />
 
   <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
 
   <HeroSection
     variant="service"
-    heading="Behang- en sausklaar - wanden perfect voorbereid"
+    heading="Behangklaar stucwerk, klaar om te behangen"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: gladpleisterwanden, alt: 'Wanden strak voorbereid voor behang of verf', width: 1200, height: 900 }}
@@ -64,11 +67,11 @@ const kruimels = [
   </section>
 
   <InterneLinkBlok
-    heading="Meer over binnenstucwerk"
+    heading="Lees ook"
     links={[
-      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Al onze diensten', href: '/stucwerk', omschrijving: 'Glad, behangklaar, plafonds en spackspuitwerk.' },
       { label: 'Sausklaar of behangklaar?', href: '/kennis/sausklaar-of-behangklaar', omschrijving: 'Welke afwerking past bij u?' },
-      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Glad stucwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Klaar voor de schilder.' },
     ]}
   />
 

@@ -6,12 +6,30 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options",           "value": "DENY" },
-        { "key": "X-XSS-Protection",          "value": "1; mode=block" },
-        { "key": "X-Content-Type-Options",    "value": "nosniff" },
-        { "key": "Referrer-Policy",           "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy",        "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://plausible.io https://formspree.io;"
@@ -21,64 +39,168 @@
     {
       "source": "/_astro/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/fonts/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/index.php", "destination": "/", "permanent": true },
-
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/binnen-stucwerk",
+      "destination": "/stucwerk",
+      "permanent": true
+    },
+    {
+      "source": "/binnen-stucwerk/schuurwerk",
+      "destination": "/binnen-stucwerk/behangklaar-sausklaar",
+      "permanent": true
+    },
+    {
+      "source": "/sierpleister",
+      "destination": "/stucwerk",
+      "permanent": true
+    },
+    {
+      "source": "/sierpleister/(.*)",
+      "destination": "/stucwerk",
+      "permanent": true
+    },
+    {
+      "source": "/buitengevelstucwerk",
+      "destination": "/stucwerk",
+      "permanent": true
+    },
+    {
+      "source": "/buitengevelstucwerk/(.*)",
+      "destination": "/stucwerk",
+      "permanent": true
+    },
+    {
+      "source": "/decoratief-stucwerk",
+      "destination": "/binnen-stucwerk/gladpleisterwerk",
+      "permanent": true
+    },
+    {
+      "source": "/decoratief-stucwerk/(.*)",
+      "destination": "/binnen-stucwerk/gladpleisterwerk",
+      "permanent": true
+    },
+    {
+      "source": "/stucwerk-reparatie-renovatie",
+      "destination": "/stucwerk",
+      "permanent": true
+    },
+    {
+      "source": "/kennis/spachtelputz-binnen-of-buiten",
+      "destination": "/kennis/sausklaar-of-behangklaar",
+      "permanent": true
+    },
+    {
+      "source": "/kennis/doorlooptijd-stucwerk",
+      "destination": "/kennis/wat-kost-stucwerk",
+      "permanent": true
+    },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?stukadoorharderwijk\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?stukadoorharderwijk\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-harderwijk",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?stucadoorharderwijk\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?stucadoorharderwijk\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-harderwijk",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?stukadoorermelo\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?stukadoorermelo\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-ermelo",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?stukadoornunspeet\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?stukadoornunspeet\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-nunspeet",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?stukadoorzeewolde\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?stukadoorzeewolde\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-zeewolde",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?stukadoorhierden\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?stukadoorhierden\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/stukadoor-harderwijk",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?gladstucen\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?gladstucen\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/binnen-stucwerk/gladpleisterwerk",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?gladstuken\\.nl" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?gladstuken\\.nl"
+        }
+      ],
       "destination": "https://www.vanbijsterenstukadoors.nl/binnen-stucwerk/gladpleisterwerk",
       "permanent": true
     }

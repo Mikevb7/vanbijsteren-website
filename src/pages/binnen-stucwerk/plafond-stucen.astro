@@ -9,23 +9,24 @@ import ContentBlok from '@components/sections/ContentBlok.astro';
 import InterneLinkBlok from '@components/sections/InterneLinkBlok.astro';
 import CTASection from '@components/sections/CTASection.astro';
 import { bedrijf } from '@data/bedrijf';
+import { prijzen } from '@data/prijzen';
 import plafondAfgewerkt from '@assets/images/resultaten/plafond-afgewerkt.png';
 
-const intro = 'Een strak gestuct plafond maakt een ruimte direct af. Van Bijsteren stuct plafonds in Harderwijk en omgeving tot een egaal oppervlak zonder zichtbare naden of oneffenheden, klaar voor de schilder.';
+const intro = 'Een strak plafond maakt een ruimte af. Van Bijsteren stuct plafonds glad of brengt spackspuitwerk aan, in Harderwijk en omgeving. Zonder zichtbare naden of oneffenheden, klaar voor de schilder.';
 
 const body = `
   <p>Plafonds vragen om vakmanschap: oneffenheden en naden vallen door de lichtval
   sneller op dan bij wanden. Wij beoordelen de ondergrond en kiezen de juiste
   voorbereiding en afwerking voor een strak, egaal resultaat.</p>
-  <p>Of het nu gaat om een nieuwbouwplafond, het wegwerken van stucplaatnaden of het
-  herstellen van een bestaand plafond, wij adviseren u graag over de mogelijkheden.
-  Voor een exacte prijs maken wij vrijblijvend een offerte op maat.</p>
+  <p>Glad gestuct of gespoten? Glad geeft het strakste resultaat. Spackspuitwerk is
+  sneller klaar, met een fijne structuur. Bij de opname adviseren we wat het beste past.</p>
+  <p>Als prijsindicatie rekenen wij €${prijzen.plafondPerM2} per m² voor plafonds, exclusief btw, bij
+  minimaal ${prijzen.minimumM2} m² in totaal.</p>
 `;
 
 const kruimels = [
   { label: 'Home', href: '/' },
   { label: 'Stucwerk', href: '/stucwerk' },
-  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
   { label: 'Plafond stucen' },
 ];
 ---
@@ -41,7 +42,7 @@ const kruimels = [
 
   <HeroSection
     variant="service"
-    heading="Plafond stucen - strakke plafonds zonder oneffenheden"
+    heading="Plafond stucen, strak en zonder naden"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: plafondAfgewerkt, alt: 'Strak afgewerkt gestuct plafond', width: 1200, height: 900 }}
@@ -50,10 +51,10 @@ const kruimels = [
   <ContentBlok body={body} />
 
   <InterneLinkBlok
-    heading="Meer over binnenstucwerk"
+    heading="Lees ook"
     links={[
-      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
-      { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
+      { label: 'Al onze diensten', href: '/stucwerk', omschrijving: 'Glad, behangklaar, plafonds en spackspuitwerk.' },
+      { label: 'Spackspuitwerk', href: '/binnen-stucwerk/spackspuitwerk', omschrijving: 'Snel en strak gespoten.' },
       { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
     ]}
   />

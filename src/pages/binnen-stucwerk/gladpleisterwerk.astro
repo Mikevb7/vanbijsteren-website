@@ -13,71 +13,57 @@ import { bedrijf } from '@data/bedrijf';
 import gladpleisterwanden from '@assets/images/resultaten/gladpleisterwanden.png';
 import { prijzen, prijsFaqAntwoord } from '@data/prijzen';
 
-const intro = 'Gladpleisterwerk is de meest toegepaste wandafwerking voor een strak, egaal resultaat. Hiermee krijgt u gladde wanden die klaar zijn voor schilderwerk of behang, en die door hun vlakke oppervlak eenvoudig schoon te houden zijn. Van Bijsteren verzorgt gladpleisterwerk in Harderwijk en omgeving.';
+const intro = 'Glad stucwerk is waar wij om bekend staan: strakke, egale wanden en plafonds die direct klaar zijn voor de schilder. Ook wel sausklaar stucwerk genoemd. Van Bijsteren doet dit al drie generaties in Harderwijk en omgeving.';
 
 const body = `
-  <h2>Wanneer kiezen voor gladpleisterwerk?</h2>
-  <p>Gladpleisterwerk is geschikt voor bijna alle binnenwanden en plafonds. U kiest
-  hiervoor als u:</p>
+  <h2>Wanneer kiest u voor glad stucwerk?</h2>
   <ul>
-    <li>een strak, modern interieur wilt</li>
-    <li>wanden heeft die niet egaal zijn en egalisatie nodig hebben</li>
-    <li>wanden wilt die direct schilderklaar of behangklaar zijn</li>
-    <li>renovatie uitvoert en de oude afwerking wilt vervangen</li>
+    <li>U wilt uw wanden of plafonds schilderen en het moet strak zijn</li>
+    <li>Er zit oud behang, structuurwerk of een oneffen muur onder</li>
+    <li>Nieuwbouw of verbouwing: de wanden moeten in één keer goed</li>
   </ul>
 
-  <h2>Hoe gaat het in zijn werk?</h2>
-  <p>Onze stukadoors beginnen altijd met een grondige inspectie van de ondergrond.
-  Afhankelijk van de staat van de muur bepalen wij welke voorbereiding nodig is.
-  Daarna brengen wij een hechtpleister aan, gevolgd door de gladpleisterlaag die
-  met zorg tot een strak, egaal oppervlak wordt afgewerkt.</p>
-  <p>Het droogproces duurt afhankelijk van de omstandigheden enkele dagen. Daarna
-  zijn uw wanden klaar voor de schilder of behanger.</p>
+  <h2>Hoe wij werken</h2>
+  <p>We komen eerst kijken en beoordelen de ondergrond. Waar nodig herstellen we die
+  eerst. Daarna zetten we de wanden strak en glad. Na een paar dagen drogen kan de
+  schilder aan de slag.</p>
 
-  <h2>Prijs en doorlooptijd</h2>
-  <p>De kosten voor gladpleisterwerk zijn afhankelijk van de oppervlakte, de staat
-  van de ondergrond en de gewenste afwerking. Als prijsindicatie rekenen wij
-  €${prijzen.wandPerM2} per m² voor wanden en €${prijzen.plafondPerM2} per m² voor plafonds,
-  exclusief btw, bij een minimale opdracht van ${prijzen.minimumM2} m². Voor een exacte
-  prijs maakt een vrijblijvende offerte het meeste duidelijk.</p>
-
-  <h2>Onderhoud</h2>
-  <p>Gladgepleisterde wanden zijn eenvoudig te onderhouden. Reinigen met een vochtige
-  doek is meestal voldoende. Bij een normale schilderbeurt of herbehang is geen
-  speciale voorbereiding nodig.</p>
+  <h2>Wat kost het?</h2>
+  <p>Als prijsindicatie: €${prijzen.wandPerM2} per m² voor wanden en €${prijzen.plafondPerM2} per m² voor
+  plafonds, exclusief btw, bij minimaal ${prijzen.minimumM2} m². De exacte prijs hoort u na een
+  vrijblijvende opname.</p>
 `;
 
 const faqItems = [
   {
-    vraag: 'Wat kost gladpleisterwerk per m²?',
+    vraag: 'Wat kost glad stucwerk per m²?',
     antwoord: prijsFaqAntwoord,
   },
   {
     vraag: 'Wat is het verschil tussen sausklaar en behangklaar?',
-    antwoord: 'Sausklaar betekent dat de wand egaal genoeg is voor schilderwerk. Behangklaar is een iets ruwere afwerking die de ondergrond voor behang voorbereidt.',
+    antwoord: 'Sausklaar (glad) is zo strak dat u direct kunt schilderen. Behangklaar is vlak genoeg voor behang, maar niet zo glad afgewerkt. Gaat u schilderen, kies dan glad stucwerk.',
   },
 ];
 
 const kruimels = [
   { label: 'Home', href: '/' },
   { label: 'Stucwerk', href: '/stucwerk' },
-  { label: 'Binnen stucwerk', href: '/binnen-stucwerk' },
-  { label: 'Gladpleisterwerk' },
+  { label: 'Glad stucwerk' },
 ];
 ---
 
 <BaseLayout
-  title="Gladpleisterwerk Harderwijk - strakke wanden | Van Bijsteren"
-  description="Professioneel gladpleisterwerk in Harderwijk en omgeving. Perfect afgewerkte wanden voor schilderwerk of behang. Vraag een vrijblijvende offerte aan."
+  title="Glad stucwerk (sausklaar) Harderwijk | Van Bijsteren"
+  description={`Glad, sausklaar stucwerk in Harderwijk en omgeving. Strakke wanden en plafonds, klaar voor de schilder. Prijsindicatie €${prijzen.wandPerM2}/m². Vraag een vrijblijvende offerte aan.`}
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
-  <ServiceSchema naam="Gladpleisterwerk" serviceType="Gladpleisterwerk" description={intro} />
+  <ServiceSchema naam="Glad stucwerk (sausklaar)" serviceType="Gladpleisterwerk" description={intro} />
 
   <div class="container pt-6"><Breadcrumbs items={kruimels} /></div>
 
   <HeroSection
     variant="service"
-    heading="Gladpleisterwerk - strakke, gladde wanden"
+    heading="Glad stucwerk, klaar voor de schilder"
     subheading={intro}
     primaryCta={{ label: 'Vraag offerte aan', href: '/offerte' }}
     image={{ src: gladpleisterwanden, alt: 'Strak gladgepleisterde wanden in een woning', width: 1200, height: 900 }}
@@ -93,9 +79,9 @@ const kruimels = [
   </section>
 
   <InterneLinkBlok
-    heading="Meer over binnenstucwerk"
+    heading="Lees ook"
     links={[
-      { label: 'Binnen stucwerk', href: '/binnen-stucwerk', omschrijving: 'Alle vormen van binnenstucwerk.' },
+      { label: 'Al onze diensten', href: '/stucwerk', omschrijving: 'Glad, behangklaar, plafonds en spackspuitwerk.' },
       { label: 'Sausklaar of behangklaar?', href: '/kennis/sausklaar-of-behangklaar', omschrijving: 'Welke afwerking past bij u?' },
       { label: 'Wat kost stucwerk?', href: '/kennis/wat-kost-stucwerk', omschrijving: 'Transparante prijsindicatie.' },
     ]}

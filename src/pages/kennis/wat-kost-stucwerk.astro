@@ -32,19 +32,16 @@ const body = `
   ${prijzen.btwLaag}%. Voor nieuwbouw en overige projecten geldt ${prijzen.btwHoog}%.</p>
 
   <h2 id="prijsniveaus">Prijsniveau per afwerking</h2>
-  <p>Voor andere afwerkingen noemen wij bewust geen bedragen. Kleur, structuur en
-  ondergrond verschillen te veel per klus. Wel geven we u een idee hoe ze zich
-  verhouden tot standaard stucwerk op wanden:</p>
+  <p>Zo verhouden onze afwerkingen zich tot elkaar:</p>
   <ul>
     ${prijsniveaus.map((n) => `<li><a href="${n.href}"><strong>${n.naam}</strong></a> - <em>${n.niveau.toLowerCase()}</em>. ${n.uitleg}</li>`).join('\n    ')}
   </ul>
-  <p>Voor al deze afwerkingen maken wij na een vrijblijvend bezoek een offerte op maat.</p>
   <p>Dit zijn indicaties. De exacte prijs bepalen wij na het opnemen van het werk,
   zodat u niet voor verrassingen komt te staan.</p>
 
-  <h2>Niet de goedkoopste, wel de beste</h2>
-  <p>U vindt vast een stukadoor die het voor minder doet. Maar goedkoop stucwerk ziet
-  u later terug in scheuren, oneffenheden en loszittende pleister. Wij werken al
+  <h2>Waarom kwaliteit loont</h2>
+  <p>Strak stucwerk ziet u elke dag. Goedkoop stucwerk ook, maar dan in scheuren,
+  oneffenheden en loszittende pleister. Wij werken al
   ${bedrijf.generaties} generaties voor een resultaat waar u jaren plezier van heeft,
   NOA-erkend en netjes opgeleverd.</p>
 
@@ -71,8 +68,8 @@ const faqItems = [
     antwoord: prijsFaqAntwoord,
   },
   {
-    vraag: 'Wat kost spachtelputz?',
-    antwoord: 'Spachtelputz ligt in prijs hoger dan standaard stucwerk op wanden: sierpleister vraagt meer materiaal en handwerk. Buiten is het weer iets duurder dan binnen, door steigerwerk en weerbestendig materiaal. Een exact bedrag noemen wij pas na een vrijblijvend bezoek, omdat oppervlakte, ondergrond en kleur sterk verschillen.',
+    vraag: 'Is spackspuitwerk goedkoper dan glad stucwerk?',
+    antwoord: 'Meestal wel, per m². Spackspuitwerk wordt machinaal gespoten en is daardoor sneller klaar, zeker bij grote oppervlakken en plafonds. Glad stucwerk geeft het strakste resultaat. Bij de opname adviseren wij wat het beste past.',
   },
   {
     vraag: 'Hoe lang duurt het stucken van een kamer?',
@@ -145,7 +142,7 @@ const kruimels = [
     heading="Lees ook"
     links={[
       { label: 'Gladpleisterwerk', href: '/binnen-stucwerk/gladpleisterwerk', omschrijving: 'Strakke, gladde wanden.' },
-      { label: 'Spachtelputz', href: '/sierpleister/spachtelputz', omschrijving: 'Populaire sierpleister.' },
+      { label: 'Spackspuitwerk', href: '/binnen-stucwerk/spackspuitwerk', omschrijving: 'Snel en strak gespoten.' },
       { label: 'Vraag een offerte aan', href: '/offerte', omschrijving: 'Een exacte prijs op maat.' },
     ]}
   />

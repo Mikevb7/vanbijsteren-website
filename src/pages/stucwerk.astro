@@ -13,15 +13,14 @@ import { pillarDiensten } from '@data/diensten';
 import { bedrijf } from '@data/bedrijf';
 import totaaloverzichtKamer from '@assets/images/resultaten/totaaloverzicht-kamer.png';
 
-const intro = 'Stucwerk laten doen? Van Bijsteren Stukadoorsbedrijf verzorgt alle vormen van stucwerk in Harderwijk en omgeving: van strak gladpleisterwerk tot decoratief Italiaans stucwerk. Al drie generaties lang, NOA-erkend en altijd netjes afgewerkt.';
+const intro = 'Van Bijsteren is gespecialiseerd in strak binnenstucwerk: glad stucwerk dat klaar is voor de schilder, behangklaar stucwerk en spackspuitwerk. Op wanden en plafonds, in Harderwijk en omgeving. Al drie generaties, NOA-erkend en netjes afgewerkt.';
 
 const seoBody = `
-  <p>Of het nu gaat om nieuwe wanden in uw woning, een gerenoveerde gevel of een
-  bijzondere decoratieve afwerking, stucwerk vereist vakmanschap en aandacht voor
-  detail. Bij Van Bijsteren combineren wij generaties ervaring met moderne technieken
-  en materialen.</p>
+  <p>Wij doen een paar dingen, en die doen we goed. Of het nu gaat om een kamer, een
+  complete woning of een nieuwbouwproject: wij zorgen voor wanden en plafonds die strak
+  zijn en klaar voor de schilder of behanger.</p>
   <p>Wij werken voor particulieren en aannemers in Harderwijk, Ermelo, Putten,
-  Nunspeet en de omliggende regio.</p>
+  Nunspeet, Zeewolde en de rest van de regio, tot ongeveer 40 km rond Harderwijk.</p>
 `;
 
 const kruimels = [
@@ -32,7 +31,7 @@ const kruimels = [
 
 <BaseLayout
   title="Stucwerk laten doen in Harderwijk? | Van Bijsteren Stukadoorsbedrijf"
-  description="Van Bijsteren Stukadoorsbedrijf verzorgt alle vormen van stucwerk in Harderwijk en omgeving. Binnen, buiten, decoratief en reparatie."
+  description="Glad stucwerk, behangklaar en spackspuitwerk voor wanden en plafonds in Harderwijk en omgeving. Van Bijsteren, NOA-erkend sinds 1967."
 >
   <BreadcrumbSchema items={kruimels.map((k) => ({ naam: k.label, href: k.href }))} />
   <ServiceSchema naam="Stucwerk" serviceType="Stukadoorswerk" description={intro} />
@@ -47,7 +46,7 @@ const kruimels = [
     image={{ src: totaaloverzichtKamer, alt: 'Volledig gestuct en afgewerkte kamer', width: 1200, height: 900 }}
   />
 
-  <DienstGrid heading="Wat wij doen" diensten={pillarDiensten} columns={3} />
+  <DienstGrid heading="Wat wij doen" diensten={pillarDiensten} columns={2} />
 
   <SEOContentSection heading="Vakwerk voor particulier en aannemer" body={seoBody} />
 

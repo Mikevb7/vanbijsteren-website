@@ -1,7 +1,7 @@
 ---
 // src/components/sections/PrijsIndicatieSection.astro
 // Prijsindicatie + rekenvakje. Prijzen komen uit src/data/prijzen.ts (enige bron).
-// Positionering: niet de goedkoopste, wel de beste — kwaliteit boven prijs.
+// Positionering: kwaliteit boven prijs (niet openen met "niet de goedkoopste").
 import Button from '@components/ui/Button.astro';
 import Icon from '@components/ui/Icon.astro';
 import { bedrijf } from '@data/bedrijf';
@@ -37,12 +37,13 @@ const kwaliteit = [
         <h2 id="prijsindicatie-titel" class="mt-3 text-ink tracking-tight">{heading}</h2>
 
         <p class="mt-5 text-xl font-semibold leading-snug text-ink">
-          Wij zijn niet de goedkoopste.<br class="hidden sm:block" />
-          <span class="text-primary-dark"> Wel de beste in ons vak.</span>
+          Stucwerk dat jaren strak blijft.<br class="hidden sm:block" />
+          <span class="text-primary-dark"> Daar staan wij voor.</span>
         </p>
         <p class="mt-3 text-base leading-relaxed text-ink-light">
-          Goedkoop stucwerk ziet u terug in scheuren en oneffenheden. Wij werken voor een
-          resultaat waar u jaren plezier van heeft, en daar staan wij met onze naam voor.
+          Wij gaan niet voor de snelste of goedkoopste klus, maar voor wanden waar u jaren
+          plezier van heeft. Goedkoop stucwerk ziet u later terug in scheuren en
+          oneffenheden. Daar zetten wij onze naam niet onder.
         </p>
 
         <ul class="mt-6 flex flex-col gap-2.5">
@@ -74,7 +75,7 @@ const kwaliteit = [
           </div>
         </div>
         <p class="mt-4 text-sm text-ink-light">
-          Sierpleister, gevel of decoratief stucwerk?{' '}
+          Spackspuitwerk, behangklaar of glad?{' '}
           <a href="/kennis/wat-kost-stucwerk#prijsniveaus" class="font-semibold text-primary-dark underline">Bekijk het prijsniveau per afwerking</a>.
         </p>
       </div>

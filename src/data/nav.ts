@@ -12,50 +12,19 @@ export const mainNav: NavItem[] = [
     label: "Diensten",
     href: "/stucwerk",
     children: [
-      {
-        label: "Binnen stucwerk",
-        href: "/binnen-stucwerk",
-        children: [
-          { label: "Gladpleisterwerk",      href: "/binnen-stucwerk/gladpleisterwerk" },
-          { label: "Plafond stucen",        href: "/binnen-stucwerk/plafond-stucen" },
-          { label: "Schuurwerk",            href: "/binnen-stucwerk/schuurwerk" },
-          { label: "Spackspuitwerk",        href: "/binnen-stucwerk/spackspuitwerk" },
-          { label: "Behang-/sausklaar",     href: "/binnen-stucwerk/behangklaar-sausklaar" },
-        ],
-      },
-      {
-        label: "Sierpleister",
-        href: "/sierpleister",
-        children: [
-          { label: "Spachtelputz",          href: "/sierpleister/spachtelputz" },
-          { label: "Granolputz",            href: "/sierpleister/granolputz" },
-        ],
-      },
-      {
-        label: "Buitengevelstucwerk",
-        href: "/buitengevelstucwerk",
-        children: [
-          { label: "Spachtelputz buiten",   href: "/buitengevelstucwerk/spachtelputz-buiten" },
-        ],
-      },
-      {
-        label: "Decoratief stucwerk",
-        href: "/decoratief-stucwerk",
-        children: [
-          { label: "Italiaans stucwerk & Frescolori", href: "/decoratief-stucwerk/italiaans-stucwerk-frescolori" },
-        ],
-      },
-      { label: "Reparatie & renovatie",    href: "/stucwerk-reparatie-renovatie" },
+      { label: "Glad stucwerk (sausklaar)", href: "/binnen-stucwerk/gladpleisterwerk" },
+      { label: "Behangklaar stucwerk",      href: "/binnen-stucwerk/behangklaar-sausklaar" },
+      { label: "Plafonds",                  href: "/binnen-stucwerk/plafond-stucen" },
+      { label: "Spackspuitwerk",            href: "/binnen-stucwerk/spackspuitwerk" },
+      { label: "Alle diensten",             href: "/stucwerk" },
     ],
   },
   {
     label: "Kennis",
     href: "/kennis/wat-kost-stucwerk",
     children: [
-      { label: "Wat kost stucwerk?",                    href: "/kennis/wat-kost-stucwerk" },
-      { label: "Sausklaar of behangklaar?",             href: "/kennis/sausklaar-of-behangklaar" },
-      { label: "Spachtelputz binnen of buiten?",        href: "/kennis/spachtelputz-binnen-of-buiten" },
-      { label: "Doorlooptijd stucwerk",                 href: "/kennis/doorlooptijd-stucwerk" },
+      { label: "Wat kost stucwerk?",        href: "/kennis/wat-kost-stucwerk" },
+      { label: "Sausklaar of behangklaar?", href: "/kennis/sausklaar-of-behangklaar" },
     ],
   },
   {
@@ -88,11 +57,11 @@ export const mainNav: NavItem[] = [
 
 export const footerNav = {
   diensten: [
-    { label: "Binnen stucwerk",    href: "/binnen-stucwerk" },
-    { label: "Sierpleister",       href: "/sierpleister" },
-    { label: "Buitengevelstucwerk",href: "/buitengevelstucwerk" },
-    { label: "Decoratief stucwerk",href: "/decoratief-stucwerk" },
-    { label: "Reparatie & renovatie", href: "/stucwerk-reparatie-renovatie" },
+    { label: "Glad stucwerk",        href: "/binnen-stucwerk/gladpleisterwerk" },
+    { label: "Behangklaar stucwerk", href: "/binnen-stucwerk/behangklaar-sausklaar" },
+    { label: "Plafonds",             href: "/binnen-stucwerk/plafond-stucen" },
+    { label: "Spackspuitwerk",       href: "/binnen-stucwerk/spackspuitwerk" },
+    { label: "Prijsindicatie",       href: "/kennis/wat-kost-stucwerk" },
   ],
   werkgebied: [
     { label: "Stukadoor Harderwijk", href: "/stukadoor-harderwijk" },
