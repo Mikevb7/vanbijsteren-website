@@ -5,6 +5,7 @@ import NavBar from '@components/layout/NavBar.astro';
 import Footer from '@components/layout/Footer.astro';
 import StickyMobileCTA from '@components/layout/StickyMobileCTA.astro';
 import LocalBusinessSchema from '@components/schema/LocalBusinessSchema.astro';
+import Meten from '@components/layout/Meten.astro';
 import '@styles/global.css';
 
 interface Props {
@@ -70,9 +71,6 @@ const ogImageURL = new URL(ogImage, bedrijf.website).toString();
   <link rel="manifest"         href="/site.webmanifest" />
   <meta name="theme-color"     content="#028188" />
 
-  <!-- Plausible analytics — privacy-vriendelijk, geen cookie-consent nodig -->
-  <script defer data-domain="vanbijsterenstukadoors.nl" src="https://plausible.io/js/script.js"></script>
-
   <!-- Schema.org: LocalBusiness op elke pagina -->
   <LocalBusinessSchema />
 
@@ -96,5 +94,6 @@ const ogImageURL = new URL(ogImage, bedrijf.website).toString();
   <Footer />
   <div aria-hidden="true" class="bg-ink lg:hidden" style="height: calc(64px + env(safe-area-inset-bottom))"></div>
   <StickyMobileCTA />
+  <Meten />
 </body>
 </html>

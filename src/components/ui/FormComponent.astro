@@ -46,6 +46,7 @@ const dienstOpties = diensten.filter((d) => d.isPillar).map((d) => d.naam);
   action={action || undefined}
   data-formspree
   data-bedankt="/bedankt"
+  data-type={variant}
   class:list={['flex flex-col gap-5', extra]}
 >
   {/* Formspree hidden-velden */}
@@ -192,6 +193,8 @@ const dienstOpties = diensten.filter((d) => d.isPillar).map((d) => d.naam);
           headers: { Accept: 'application/json' },
         });
         if (res.ok) {
+          // Voor de meting op /bedankt (zie Meten.astro).
+          try { sessionStorage.setItem('vb-aanvraag-type', form.dataset.type || 'onbekend'); } catch {}
           window.location.href = form.dataset.bedankt || '/bedankt';
           return;
         }

@@ -1,22 +1,43 @@
 ---
 // src/pages/cookies.astro — cookieverklaring (Fase 3) — PAGE_SPECS §JURIDISCH
-// Indexeerbaar. Site gebruikt cookieloze Plausible analytics → geen tracking-cookies.
+// Indexeerbaar. Vercel Web Analytics (cookieloos, altijd) + Google Analytics 4 (alleen na toestemming).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
 import ContentBlok from '@components/sections/ContentBlok.astro';
 import { bedrijf } from '@data/bedrijf';
+import { GA_ID } from '@data/analytics';
+
+const gaTekst = GA_ID ? `
+  <h2>Google Analytics (alleen met uw toestemming)</h2>
+  <p>Gaat u akkoord in de cookiemelding, dan gebruiken wij ook Google Analytics. Daarmee
+  zien wij bijvoorbeeld via welke zoekwoorden of websites bezoekers bij ons komen en welke
+  pagina's goed werken. Google Analytics plaatst daarvoor deze cookies:</p>
+  <ul>
+    <li><strong>_ga</strong>: onderscheidt bezoekers, bewaartermijn 2 jaar</li>
+    <li><strong>_ga_*</strong>: onthoudt de sessie, bewaartermijn 2 jaar</li>
+  </ul>
+  <p>Wij hebben Google Analytics zo ingesteld dat gegevens niet met Google worden gedeeld
+  voor eigen doeleinden en niet worden gebruikt voor advertenties. Google Analytics slaat
+  geen IP-adressen op. Gegevens kunnen worden verwerkt op servers in de Verenigde Staten;
+  Google valt daarvoor onder het EU-VS Data Privacy Framework.</p>
+  <p>Weigert u, dan wordt Google Analytics niet geladen en worden er geen cookies geplaatst.
+  Uw keuze onthouden wij in uw eigen browser (localStorage), zodat u de melding niet bij elke
+  pagina opnieuw ziet.</p>
+  <p><button type="button" onclick="window.vbCookieOpnieuw && window.vbCookieOpnieuw()"
+  style="font-weight:600;text-decoration:underline">Cookiekeuze wijzigen</button></p>
+` : '';
 
 const body = `
   <h2>Gebruiken wij cookies?</h2>
-  <p>Deze website plaatst geen tracking- of advertentiecookies. Wij hoeven u daarom
-  ook geen cookiebanner of toestemmingsvraag voor te leggen.</p>
+  <p>Wij plaatsen geen advertentiecookies. ${GA_ID ? 'Analytische cookies van Google Analytics plaatsen wij alleen als u daar in de cookiemelding toestemming voor geeft.' : 'Ook plaatsen wij geen tracking-cookies.'}</p>
 
-  <h2>Website-statistieken</h2>
-  <p>Voor het bijhouden van bezoekersaantallen gebruiken wij Plausible Analytics, een
-  privacyvriendelijk systeem. Plausible verzamelt uitsluitend geanonimiseerde,
-  geaggregeerde statistieken, plaatst geen cookies en bewaart geen persoonsgegevens.
-  Daardoor is uw bezoek niet tot u te herleiden.</p>
-
+  <h2>Bezoekersstatistieken zonder cookies</h2>
+  <p>Om te tellen hoeveel bezoekers de website heeft en welke pagina's zij bekijken, gebruiken
+  wij Vercel Web Analytics. Dit werkt zonder cookies en zonder dat u als bezoeker te herkennen
+  bent: bezoeken worden alleen per dag geteld en niet aan u gekoppeld. Ook tellen wij op
+  dezelfde manier hoe vaak iemand op ons telefoonnummer klikt, de rekenhulp gebruikt of een
+  aanvraag verstuurt. Hiervoor is geen toestemming nodig.</p>
+${gaTekst}
   <h2>Functionele gegevens</h2>
   <p>Wanneer u een formulier op deze website invult, worden de door u ingevulde
   gegevens verwerkt om uw aanvraag te behandelen. Lees daarover meer in onze
@@ -30,12 +51,12 @@ const body = `
 
 <BaseLayout
   title="Cookieverklaring | Van Bijsteren Stukadoorsbedrijf"
-  description="Deze website gebruikt geen tracking-cookies. Lees hoe Van Bijsteren omgaat met cookies en statistieken."
+  description="Lees hoe Van Bijsteren Stukadoorsbedrijf omgaat met cookies en bezoekersstatistieken."
 >
   <HeroSection
     variant="simple"
     heading="Cookieverklaring"
-    subheading="Wij gebruiken geen tracking-cookies. Zo zit het."
+    subheading="Welke cookies en statistieken wij gebruiken, en wat u zelf kiest."
     primaryCta={{ label: 'Neem contact op', href: '/contact' }}
   />
 

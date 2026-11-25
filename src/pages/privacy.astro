@@ -1,13 +1,14 @@
 ---
 // src/pages/privacy.astro — privacyverklaring (Fase 3) — PAGE_SPECS §JURIDISCH
 // Indexeerbaar (noindex: false). Beschrijft daadwerkelijke gegevensverwerking:
-// Netlify Forms (contact/offerte/sollicitatie) + cookieloze Plausible analytics.
+// Formspree (formulieren) + Vercel Web Analytics (cookieloos) + Google Analytics (na toestemming).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
 import ContentBlok from '@components/sections/ContentBlok.astro';
 import { bedrijf } from '@data/bedrijf';
+import { GA_ID } from '@data/analytics';
 
-const bijgewerkt = '30 juni 2026';
+const bijgewerkt = '25 november 2026';
 
 const body = `
   <p><em>Laatst bijgewerkt: ${bijgewerkt}</em></p>
@@ -37,11 +38,19 @@ const body = `
   verzameld. Gegevens van een afgeronde aanvraag of een afgewezen sollicitatie
   verwijderen wij wanneer ze niet meer nodig zijn.</p>
 
+  <h2>Wie uw gegevens nog meer verwerken</h2>
+  <p>Voor het versturen van de formulieren op deze website gebruiken wij Formspree. Formspree
+  ontvangt uw formulier en stuurt het per e-mail naar ons door. De website zelf draait bij
+  Vercel. Met deze partijen delen wij alleen wat nodig is om de website en de formulieren te
+  laten werken. Zij kunnen gegevens verwerken op servers in de Verenigde Staten; zij vallen
+  daarvoor onder het EU-VS Data Privacy Framework of werken met de standaardcontractbepalingen
+  van de Europese Commissie.</p>
+
   <h2>Website-statistieken</h2>
-  <p>Wij gebruiken Plausible Analytics om geanonimiseerd bij te houden hoe onze
-  website wordt gebruikt. Plausible is privacyvriendelijk: het plaatst geen cookies
-  en verzamelt geen persoonsgegevens. Daarom vragen wij geen cookietoestemming.
-  Lees meer op onze <a href="/cookies">cookieverklaring</a>.</p>
+  <p>Wij gebruiken Vercel Web Analytics om te tellen hoeveel bezoekers de website heeft. Dat
+  gebeurt zonder cookies en zonder dat u als bezoeker herkenbaar bent.${GA_ID ? ` Alleen als u
+  daar in de cookiemelding toestemming voor geeft, gebruiken wij daarnaast Google Analytics.
+  Dat plaatst wel cookies.` : ''} Lees meer in onze <a href="/cookies">cookieverklaring</a>.</p>
 
   <h2>Uw rechten</h2>
   <p>U heeft het recht om uw persoonsgegevens in te zien, te corrigeren of te laten

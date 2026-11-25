@@ -1,0 +1,136 @@
+---
+// src/components/layout/Meten.astro — statistieken en meetpunten.
+//
+// 1. Vercel Web Analytics: altijd aan. Cookieloos, geen persoonsgegevens → geen toestemming nodig.
+// 2. Google Analytics 4: pas geladen NA "Akkoord" in de cookiebanner (basis-toestemmingsmodus:
+//    zonder akkoord wordt er niets naar Google gestuurd, ook geen cookieloze pings).
+// 3. Meetpunten (naar beide): aanvraag verstuurd (/bedankt), klik op telefoonnummer, rekenhulp gebruikt.
+//
+// De banner verschijnt alleen als GA_ID is ingevuld in src/data/analytics.ts.
+import { GA_ID, COOKIE_KEUZE_SLEUTEL } from '@data/analytics';
+---
+
+{GA_ID && (
+  <div
+    data-cookiebanner
+    hidden
+    role="region"
+    aria-label="Cookiekeuze"
+    class="fixed inset-x-0 z-50 px-3 pb-3 bottom-[calc(64px+env(safe-area-inset-bottom))] lg:bottom-0 lg:px-6 lg:pb-6"
+  >
+    <div class="mx-auto flex max-w-3xl flex-col gap-3 rounded-xl border border-border bg-surface p-4 shadow-lg sm:flex-row sm:items-center sm:gap-5">
+      <p class="text-sm leading-snug text-ink-light">
+        Mogen wij met Google Analytics cookies meten hoe u deze site gebruikt? Dat helpt ons de site te verbeteren.{' '}
+        <a href="/cookies" class="font-semibold text-primary-dark underline">Meer info</a>
+      </p>
+      <div class="flex shrink-0 gap-2">
+        <button type="button" data-cookie="nee" class="flex-1 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-ink hover:bg-surface-soft sm:flex-none">
+          Weigeren
+        </button>
+        <button type="button" data-cookie="ja" class="flex-1 rounded-lg bg-primary-dark px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary sm:flex-none">
+          Akkoord
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+<script is:inline define:vars={{ gaId: GA_ID, sleutel: COOKIE_KEUZE_SLEUTEL }}>
+  // Globale meet-functie, zodat losse componenten (formulier, rekenhulp) iets kunnen melden.
+  window.vbMeet = window.vbMeet || { wachtrij: [] };
+  const lees = () => { try { return localStorage.getItem(sleutel); } catch { return null; } };
+  const schrijf = (v) => { try { v ? localStorage.setItem(sleutel, v) : localStorage.removeItem(sleutel); } catch {} };
+
+  function laadGA() {
+    if (!gaId || window.vbGaGeladen) return;
+    window.vbGaGeladen = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', gaId);
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+    document.head.appendChild(s);
+  }
+
+  function regelBanner() {
+    const banner = document.querySelector('[data-cookiebanner]');
+    if (!gaId) return;
+    const keuze = lees();
+    if (keuze === 'ja') laadGA();
+    if (!banner) return;
+    banner.hidden = keuze === 'ja' || keuze === 'nee';
+    banner.querySelectorAll('[data-cookie]').forEach((knop) => {
+      knop.onclick = () => {
+        const v = knop.getAttribute('data-cookie');
+        schrijf(v);
+        banner.hidden = true;
+        if (v === 'ja') laadGA();
+        // Na weigeren een eerder gezette GA-cookie niet laten hangen.
+        if (v === 'nee' && window.vbGaGeladen) location.reload();
+      };
+    });
+  }
+
+  // Wijzig-knop op /cookies.
+  window.vbCookieOpnieuw = () => {
+    schrijf(null);
+    document.cookie.split(';').forEach((c) => {
+      const naam = c.split('=')[0].trim();
+      if (naam.startsWith('_ga')) {
+        const domein = location.hostname.replace(/^www\./, '');
+        document.cookie = naam + '=; Max-Age=0; path=/; domain=.' + domein;
+        document.cookie = naam + '=; Max-Age=0; path=/';
+      }
+    });
+    const banner = document.querySelector('[data-cookiebanner]');
+    if (banner) { banner.hidden = false; banner.scrollIntoView({ block: 'end' }); }
+  };
+
+  regelBanner();
+</script>
+
+<script>
+  import { inject, track } from '@vercel/analytics';
+
+  inject({ framework: 'astro' });
+
+  type Data = Record<string, string | number>;
+  // Eén plek die naar beide systemen meldt. GA alleen als de bezoeker akkoord gaf (gtag bestaat dan).
+  function meet(vercelNaam: string, gaNaam: string, data: Data = {}) {
+    try { track(vercelNaam, data); } catch { /* meten mag de site nooit breken */ }
+    try {
+      const w = window as unknown as { gtag?: (...a: unknown[]) => void };
+      if (w.gtag) w.gtag('event', gaNaam, data);
+    } catch { /* idem */ }
+  }
+
+  // Klik op een telefoonnummer (navigatie, sticky balk, knoppen, footer): één listener voor alles.
+  document.addEventListener('click', (e) => {
+    const link = (e.target as Element | null)?.closest?.('a[href^="tel:"]');
+    if (!link) return;
+    meet('Telefoon klik', 'telefoon_klik', { pagina: location.pathname });
+  }, { capture: true });
+
+  // Rekenhulp: één keer per pagina melden zodra iemand een getal invult.
+  let rekenhulpGemeld = false;
+  document.addEventListener('change', (e) => {
+    const veld = e.target as HTMLInputElement | null;
+    if (rekenhulpGemeld || !veld?.matches?.('[data-prijscalc] [data-input]')) return;
+    if (!(parseFloat(veld.value) > 0)) return;
+    rekenhulpGemeld = true;
+    meet('Rekenhulp gebruikt', 'rekenhulp_gebruikt', { pagina: location.pathname });
+  });
+
+  // Aanvraag verstuurd: het formulier zet het type in sessionStorage vlak voor de doorverwijzing.
+  if (/^\/bedankt(\.html)?$/.test(location.pathname)) {
+    // Alleen tellen als er echt net een formulier is verstuurd (niet bij herladen of direct bezoek).
+    let type: string | null = null;
+    try {
+      type = sessionStorage.getItem('vb-aanvraag-type');
+      sessionStorage.removeItem('vb-aanvraag-type');
+    } catch { /* geen opslag beschikbaar */ }
+    if (type) meet('Aanvraag verstuurd', 'generate_lead', { type });
+  }
+</script>
